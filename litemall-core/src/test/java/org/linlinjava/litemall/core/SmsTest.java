@@ -68,7 +68,7 @@ public class SmsTest {
     }
 
     @Configuration
-    @Import(Application.class)
+    @Import(CoreApplication.class)
     static class ContextConfiguration {
         @Bean
         @Primary

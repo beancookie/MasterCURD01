@@ -39,7 +39,7 @@ public class MailTest {
     }
 
     @Configuration
-    @Import(Application.class)
+    @Import(CoreApplication.class)
     static class ContextConfiguration {
         @Bean
         @Primary
