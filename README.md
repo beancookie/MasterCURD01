@@ -30,8 +30,7 @@ litemall = Spring Boot后端 + Vue管理员前端 + 微信小程序用户前端
 
 ## 项目代码
 
-* [码云](https://gitee.com/linlinjava/litemall)
-* [GitHub](https://github.com/linlinjava/litemall)
+* [GitHub](https://github.com/loveluzhong/MasterCURD01)
 
 ## 项目架构
 ![](./doc/pic/1.png)    
@@ -121,6 +120,9 @@ litemall = Spring Boot后端 + Vue管理员前端 + 微信小程序用户前端
    注意：
    > 这里只是最简启动方式，而小商场的微信登录、微信支付等功能需开发者设置才能运行，
    > 更详细方案请参考[文档](https://linlinjava.gitbook.io/litemall/project)。
+
+## 开发人员
+- 鲁众
 
 ## 开发计划
 
