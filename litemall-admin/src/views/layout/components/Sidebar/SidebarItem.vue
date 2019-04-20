@@ -65,6 +65,10 @@ export default {
       onlyOneChild: null
     }
   },
+  mounted() {
+    console.log('********************')
+    console.log(this.item)
+  },
   methods: {
     hasOneShowingChild(children, parent) {
       const showingChildren = children.filter(item => {

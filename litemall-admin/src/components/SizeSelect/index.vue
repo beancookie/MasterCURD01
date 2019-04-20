@@ -47,9 +47,9 @@ export default {
 
 <style scoped>
 .size-icon {
-  font-size: 20px;
+  font-size: 28px;
   cursor: pointer;
-  vertical-align: -4px!important;
+  vertical-align: -10px!important;
 }
 </style>
 
