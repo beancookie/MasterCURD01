@@ -100,36 +100,6 @@ export const asyncRouterMap = [
         }
       },
       {
-        path: 'collect',
-        component: () => import('@/views/user/collect'),
-        name: 'collect',
-        meta: {
-          perms: ['GET /admin/collect/list'],
-          title: '会员收藏',
-          noCache: true
-        }
-      },
-      {
-        path: 'footprint',
-        component: () => import('@/views/user/footprint'),
-        name: 'footprint',
-        meta: {
-          perms: ['GET /admin/footprint/list'],
-          title: '会员足迹',
-          noCache: true
-        }
-      },
-      {
-        path: 'history',
-        component: () => import('@/views/user/history'),
-        name: 'history',
-        meta: {
-          perms: ['GET /admin/history/list'],
-          title: '搜索历史',
-          noCache: true
-        }
-      },
-      {
         path: 'feedback',
         component: () => import('@/views/user/feedback'),
         name: 'feedback',
@@ -196,6 +166,16 @@ export const asyncRouterMap = [
           noCache: true
         },
         hidden: true
+      },
+      {
+        path: 'club',
+        component: () => import('@/views/promotion/coupon'),
+        name: 'club',
+        meta: {
+          perms: ['GET /admin/coupon/list', 'POST /admin/coupon/create', 'POST /admin/coupon/update', 'POST /admin/coupon/delete'],
+          title: '会员卡管理',
+          noCache: true
+        }
       }
     ]
   },
@@ -230,16 +210,6 @@ export const asyncRouterMap = [
           title: '角色管理',
           noCache: true
         }
-      },
-      {
-        path: 'os',
-        component: () => import('@/views/sys/os'),
-        name: 'os',
-        meta: {
-          perms: ['GET /admin/os/list', 'POST /admin/os/create', 'POST /admin/os/update', 'POST /admin/os/delete'],
-          title: '对象存储',
-          noCache: true
-        }
       }
     ]
   },
@@ -262,26 +232,6 @@ export const asyncRouterMap = [
         meta: {
           perms: ['GET /admin/config/mall', 'POST /admin/config/mall'],
           title: '商场配置',
-          noCache: true
-        }
-      },
-      {
-        path: 'express',
-        component: () => import('@/views/config/express'),
-        name: 'configExpress',
-        meta: {
-          perms: ['GET /admin/config/express', 'POST /admin/config/express'],
-          title: '运费配置',
-          noCache: true
-        }
-      },
-      {
-        path: 'order',
-        component: () => import('@/views/config/order'),
-        name: 'configOrder',
-        meta: {
-          perms: ['GET /admin/config/order', 'POST /admin/config/order'],
-          title: '订单配置',
           noCache: true
         }
       },

@@ -122,7 +122,13 @@ litemall = Spring Boot后端 + Vue管理员前端 + 微信小程序用户前端
    > 更详细方案请参考[文档](https://linlinjava.gitbook.io/litemall/project)。
 
 ## 开发人员
-- 鲁众 赵龙
+- 鲁众 
+- 王宇
+- 赵龙
+- 钱荣
+
+## 产品经理暨运维
+- 金子杰
 
 ## 开发计划
 
