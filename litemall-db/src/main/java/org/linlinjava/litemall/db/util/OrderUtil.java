@@ -139,8 +139,11 @@ public class OrderUtil {
         } else if (showType.equals(4)) {
             // 待评价订单
             status.add((short) 401);
-//            系统超时自动取消，此时应该不支持评价
-//            status.add((short)402);
+            // 系统超时自动取消，此时应该不支持评价
+            // status.add((short)402);
+        } else if (showType.equals(5)) {
+            // 线下订单
+            status.add((short) 100);
         } else {
             return null;
         }
