@@ -1,6 +1,6 @@
 <view class="container">
   <view class="orders-switch">
-    <view class="item {{ showType == 1 ? 'active' : ''}}" bindtap="switchTab" data-index='0'>
+    <view class="item {{ showType == 0 ? 'active' : ''}}" bindtap="switchTab" data-index='0'>
       <view class="txt">全部</view>
     </view>
   </view>
