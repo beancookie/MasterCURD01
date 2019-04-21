@@ -8,6 +8,7 @@ import java.util.List;
 /*
  * 订单流程：下单成功－》支付订单－》发货－》收货
  * 订单状态：
+ * 100 线下订单
  * 101 订单生成，未支付；102，下单未支付用户取消；103，下单未支付超期系统自动取消
  * 201 支付完成，商家未发货；202，订单生产，已付款未发货，用户申请退款；203，管理员执行退款操作，确认退款成功；
  * 301 商家发货，用户未确认；
@@ -21,6 +22,7 @@ import java.util.List;
  */
 public class OrderUtil {
 
+    public static final Short STATUS_OFFLINE = 100;
     public static final Short STATUS_CREATE = 101;
     public static final Short STATUS_PAY = 201;
     public static final Short STATUS_SHIP = 301;
@@ -34,6 +36,10 @@ public class OrderUtil {
 
     public static String orderStatusText(LitemallOrder order) {
         int status = order.getOrderStatus().intValue();
+
+        if (status == 100) {
+            return "线下订单";
+        }
 
         if (status == 101) {
             return "未付款";
@@ -78,8 +84,11 @@ public class OrderUtil {
     public static OrderHandleOption build(LitemallOrder order) {
         int status = order.getOrderStatus().intValue();
         OrderHandleOption handleOption = new OrderHandleOption();
-
-        if (status == 101) {
+        if (status == 100) {
+            handleOption.setDelete(true);
+            handleOption.setComment(true);
+            handleOption.setRebuy(true);
+        } else if (status == 101) {
             // 如果订单没有被取消，且没有支付，则可支付，可取消
             handleOption.setCancel(true);
             handleOption.setPay(true);
@@ -139,6 +148,9 @@ public class OrderUtil {
         return status;
     }
 
+    public static boolean isOfflineStatus(LitemallOrder litemallOrder) {
+        return OrderUtil.STATUS_OFFLINE == litemallOrder.getOrderStatus().shortValue();
+    }
 
     public static boolean isCreateStatus(LitemallOrder litemallOrder) {
         return OrderUtil.STATUS_CREATE == litemallOrder.getOrderStatus().shortValue();
