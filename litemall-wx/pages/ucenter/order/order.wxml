@@ -3,6 +3,9 @@
     <view class="item {{ showType == 0 ? 'active' : ''}}" bindtap="switchTab" data-index='0'>
       <view class="txt">全部</view>
     </view>
+    <view class="item {{ showType == 5 ? 'active' : ''}}" bindtap="switchTab" data-index='5'>
+      <view class="txt">线下订单</view>
+    </view>
   </view>
   <view class="no-order" wx:if="{{orderList.length <= 0}}">
     <view class="c">
