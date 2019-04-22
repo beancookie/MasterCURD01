@@ -28,7 +28,7 @@
       <image class='user_column_item_image' src='/static/images/coupon.png'></image>
       <view class='user_column_item_text'>优惠卷</view>
     </view>
-    <view class='user_column_item' bindtap='goCoupon'>
+    <view class='user_column_item' bindtap='goSignin'>
       <image class='user_column_item_image' src='/static/images/signin.png'></image>
       <view class='user_column_item_text'>每日签到</view>
     </view>

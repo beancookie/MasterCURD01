@@ -2,9 +2,9 @@
 <view class="container">
   <swiper class="banner" indicator-dots="true" autoplay="true" interval="3000" duration="1000">
     <swiper-item wx:for="{{banner}}" wx:key="id">
-      <!-- <navigator url="{{item.link}}"> -->
-      <image src="{{item.url}}" background-size="cover"></image>
-      <!-- </navigator> -->
+      <navigator url="{{item.link}}">
+        <image src="{{item.url}}" background-size="cover"></image>
+      </navigator>
     </swiper-item>
   </swiper>
   <view class="a-section a-coupon" wx:if="{{coupon.length > 0}}">
