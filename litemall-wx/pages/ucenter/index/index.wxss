@@ -93,7 +93,7 @@ page {
   /* border: 1px solid black; */
   height: 140rpx;
   display: flex;
-  justify-content: center;
+  justify-content: left;
   align-items: center;
 }
 

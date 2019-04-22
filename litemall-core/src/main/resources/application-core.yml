@@ -2,7 +2,7 @@ litemall:
   # 开发者应该设置成自己的wx相关信息
   wx:
     app-id: wxb8f6f86648dffb9f
-    app-secret: e04004829d4c383b4db7769d88dfbca1
+    app-secret: 54ccf8e67d3539e49d4d1c9d50d17ac8
     mch-id: 111111
     mch-key: xxxxxx
     notify-url: http://www.example.com/wx/order/pay-notify

@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 
+
 Vue.use(Router)
 
 /* Layout */
@@ -56,6 +57,12 @@ export const constantRouterMap = [
     component: () => import('@/views/errorPage/401'),
     hidden: true
   },
+  {
+    path: '/addOrder',
+    component: () => import('@/views/mall/addGood.vue'),
+    hidden: true
+  },
+
   {
     path: '',
     component: Layout,
@@ -146,6 +153,16 @@ export const asyncRouterMap = [
       icon: '推广'
     },
     children: [
+      {
+        path: 'ad',
+        component: () => import('@/views/promotion/ad'),
+        name: 'ad',
+        meta: {
+          perms: ['GET /admin/ad/list', 'POST /admin/ad/create', 'GET /admin/ad/read', 'POST /admin/ad/update', 'POST /admin/ad/delete'],
+          title: '活动管理',
+          noCache: true
+        }
+      },
       {
         path: 'coupon',
         component: () => import('@/views/promotion/coupon'),

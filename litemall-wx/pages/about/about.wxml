@@ -46,12 +46,4 @@
        <text>1.0.0</text> 
     </view>
   </view>
-
-  <view class="about-item">
-    <view class="item-left">
-      <label>开源协议: </label>
-       <text>MIT</text> 
-    </view>
-  </view>
-
 </view>

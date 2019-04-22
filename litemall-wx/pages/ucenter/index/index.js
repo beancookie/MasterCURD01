@@ -90,6 +90,17 @@ Page({
       });
     };
   },
+  goSignin() {
+    if (this.data.hasLogin) {
+      wx.navigateTo({
+        url: "/pages/ucenter/signin/signin"
+      });
+    } else {
+      wx.navigateTo({
+        url: "/pages/auth/login/login"
+      });
+    };
+  },
   goCoupon() {
     if (this.data.hasLogin) {
       wx.navigateTo({

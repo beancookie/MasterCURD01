@@ -12,12 +12,12 @@ Page({
   data: {
     load_statue: true,
     shopInfo: {
-      name: 'litemall',
-      address: 'https://github.com/linlinjava/litemall',
+      name: 'xxx眼镜店',
+      address: 'xxx眼镜店',
       latitude: 31.201900,
       longitude: 121.587839,
-      linkPhone: '021-xxxx-xxxx',
-      qqNumber: '738696120'
+      linkPhone: 'xxx-xxxx-xxxx',
+      qqNumber: '724821454'
     },
   },
 
