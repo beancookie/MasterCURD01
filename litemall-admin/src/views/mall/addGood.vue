@@ -5,10 +5,10 @@
         <el-col :span="24" :offset="8">
           <div class="step">
             <el-steps :space="200" :active="active" finish-status="success">
-              <el-step title="填写订单基本参数"></el-step>
-              <el-step title="请填写左眼规格参数"></el-step>
+              <el-step title="填写订单基本参数1"></el-step>
+              <el-step title="请填写左眼1规格参数"></el-step>
               <el-step title="请填写右眼规格参数 "></el-step>
-              <el-step title="请输入其他信息"></el-step>
+              <el-step title="请输入其他信息1"></el-step>
             </el-steps>
           </div>
         </el-col>
@@ -16,7 +16,7 @@
       <div class="contents" v-if="active==1">
         <el-row>
           <el-col :span="10" :offset="8">
-            <el-form :model="ruleForm" ref="ruleForm" label-width="100px" class="demo-ruleForm">
+            <el-form :model="ruleForm" ref="ruleForm" label-width="100px" class="demo-ruleForm" :rules="rules">
               <el-form-item label="眼镜名称" prop="glassName" required>
                 <el-input v-model="ruleForm.glassName"></el-input>
               </el-form-item>
@@ -190,12 +190,15 @@ export default {
       active: 1,
       ruleForm: {
         glassName: "",
-        glassPrice: "",
-        glassNum: 1,
+        glassPrice:"",
+        glassNum: "",
         glassDate: "",
         buyName: "",
         buyPhone: "",
-        buyAddress: ""
+        buyAddress: "",
+        LeftEyeparameter:{},
+        RightEyeparameter:{},
+        allEyeparameter:{}
       },
       ruleForm1: {
         glassMirror: "",
@@ -281,24 +284,24 @@ export default {
           { required: true, message: "请输入眼镜名称", trigger: "blur" }
         ],
         glassPrice: [
-          { required: true, message: "请输入眼镜价格", trigger: "change" }
+          { required: true, message: "请输入眼镜价格", trigger: "blur" }
         ],
         glassNum: [
-          { required: true, message: "请输入眼镜数量", trigger: "change" }
+          { required: true, message: "请输入眼镜数量", trigger: "blur" }
         ],
         glassDate: [
           {
             type: "date",
             required: true,
             message: "请输入购买眼镜时间",
-            trigger: "change"
+            trigger: "blur"
           }
         ],
         buyName: [
-          { required: true, message: "请输入购买人姓名", trigger: "change" }
+          { required: true, message: "请输入购买人姓名", trigger: "blur" }
         ],
         buyPhone: [
-          { required: true, message: "请输入购买人手机号", trigger: "change" }
+          { required: true, message: "请输入购买人手机号", trigger: "blur" }
         ],
         buyAddress: [
           { required: true, message: "请输入购买人地址", trigger: "blur" }
