@@ -47,4 +47,25 @@ export function listHistory(query) {
     params: query
   })
 }
+export function addById(query) {
+  return request({
+    url: '/user/addByIntegral',
+    method: 'get',
+    params: query
+  })
+}
 
+export function getType() {
+  return request({
+    url: '/user/getSignalAndType',
+    method: 'get'
+  })
+}
+
+export function chanSign(query) {
+  return request({
+    url: '/user/updateSignIntegral',
+    method: 'get',
+    params: query
+  })
+}

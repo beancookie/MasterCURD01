@@ -10,6 +10,7 @@ import org.linlinjava.litemall.core.util.ResponseUtil;
 import org.linlinjava.litemall.core.util.bcrypt.BCryptPasswordEncoder;
 import org.linlinjava.litemall.core.validator.Order;
 import org.linlinjava.litemall.core.validator.Sort;
+import org.linlinjava.litemall.db.domain.LitemallSign;
 import org.linlinjava.litemall.db.domain.LitemallUser;
 import org.linlinjava.litemall.db.service.LitemallUserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,6 +43,7 @@ public class AdminUserController {
                        @Sort @RequestParam(defaultValue = "add_time") String sort,
                        @Order @RequestParam(defaultValue = "desc") String order) {
         List<LitemallUser> userList = userService.querySelective(username, mobile, page, limit, sort, order);
+        //List<UserIntegral> userList=userService.selectAllUserAndIntegral(username, mobile, page, limit, sort, order);
         long total = PageInfo.of(userList).getTotal();
         Map<String, Object> data = new HashMap<>();
         data.put("total", total);
@@ -49,4 +51,45 @@ public class AdminUserController {
 
         return ResponseUtil.ok(data);
     }
+
+    @GetMapping("/addByIntegral")
+    public Object add(@RequestParam("id") int id,@RequestParam("integral") int integral){
+        LitemallUser litemallUser=new LitemallUser();
+        litemallUser.setId(id);
+        litemallUser.setIntegral(integral);
+        int i = userService.updateById(litemallUser);
+        if(i>0){
+            return ResponseUtil.ok();
+        }else {
+            return ResponseUtil.fail();
+        }
+    }
+
+    @GetMapping("/SignIntegral")
+    public Object SignIntegral(@RequestParam(value = "id",required = false,defaultValue = "-1") Integer id){
+
+            int i = userService.updateIntegralById(id);
+            if(i>0){
+                return ResponseUtil.ok("0","签到成功");
+            }else {
+                return ResponseUtil.fail(-1,"签到失败");
+            }
+    }
+
+    @GetMapping("updateSignIntegral")
+    public  Object updateSignIntegral(@RequestParam("type") Integer type,@RequestParam(value = "signIntegral",required = false) Integer signIntegral){
+
+             int i = userService.updateIntegral(type, signIntegral);
+             if(i>0){
+                 return ResponseUtil.ok();
+             }else{
+                 return ResponseUtil.fail();
+             }
+    }
+
+    @GetMapping("getSignalAndType")
+    public Object getSignalAndType(){
+           return userService.getTypeAndSign();
+    }
+
 }
