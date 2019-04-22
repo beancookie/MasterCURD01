@@ -154,6 +154,16 @@ export const asyncRouterMap = [
     },
     children: [
       {
+        path: 'ad',
+        component: () => import('@/views/promotion/ad'),
+        name: 'ad',
+        meta: {
+          perms: ['GET /admin/ad/list', 'POST /admin/ad/create', 'GET /admin/ad/read', 'POST /admin/ad/update', 'POST /admin/ad/delete'],
+          title: '活动管理',
+          noCache: true
+        }
+      },
+      {
         path: 'coupon',
         component: () => import('@/views/promotion/coupon'),
         name: 'coupon',
