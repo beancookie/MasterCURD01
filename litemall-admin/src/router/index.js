@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 
+
 Vue.use(Router)
 
 /* Layout */
@@ -56,6 +57,12 @@ export const constantRouterMap = [
     component: () => import('@/views/errorPage/401'),
     hidden: true
   },
+  {
+    path: '/addOrder',
+    component: () => import('@/views/mall/addGood.vue'),
+    hidden: true
+  },
+
   {
     path: '',
     component: Layout,

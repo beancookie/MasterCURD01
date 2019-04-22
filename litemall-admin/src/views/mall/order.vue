@@ -8,6 +8,8 @@
       <el-select v-model="listQuery.orderStatusArray" multiple style="width: 200px" class="filter-item" placeholder="请选择订单状态">
         <el-option v-for="(key, value) in statusMap" :key="key" :label="key" :value="value"/>
       </el-select>
+
+       <el-button type="primary" icon="el-icon-search" @click="addOrder">添加订单</el-button>
       <el-button v-permission="['GET /admin/order/list']" class="filter-item" type="primary" icon="el-icon-search" @click="handleFilter">查找</el-button>
       <el-button :loading="downloadLoading" class="filter-item" type="primary" icon="el-icon-download" @click="handleDownload">导出</el-button>
     </div>
@@ -258,6 +260,9 @@ export default {
           })
         }
       })
+    },
+    addOrder(){
+      this.$router.push("/addOrder")
     },
     handleRefund(row) {
       this.refundForm.orderId = row.id
