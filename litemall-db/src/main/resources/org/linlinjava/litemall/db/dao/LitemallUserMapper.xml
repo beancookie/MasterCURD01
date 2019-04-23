@@ -600,31 +600,31 @@
     where id = #{id,jdbcType=INTEGER}
   </update>
 
-  <resultMap id="userVoResultmap" type="org.linlinjava.litemall.db.domain.UserIntegral">
-    <id column="id" jdbcType="INTEGER" property="id" />
-    <result column="username" jdbcType="VARCHAR" property="username" />
-    <result column="password" jdbcType="VARCHAR" property="password" />
-    <result column="gender" jdbcType="TINYINT" property="gender" />
-    <result column="birthday" jdbcType="DATE" property="birthday" />
-    <result column="last_login_time" jdbcType="TIMESTAMP" property="lastLoginTime" />
-    <result column="last_login_ip" jdbcType="VARCHAR" property="lastLoginIp" />
-    <result column="user_level" jdbcType="TINYINT" property="userLevel" />
-    <result column="nickname" jdbcType="VARCHAR" property="nickname" />
-    <result column="mobile" jdbcType="VARCHAR" property="mobile" />
-    <result column="avatar" jdbcType="VARCHAR" property="avatar" />
-    <result column="weixin_openid" jdbcType="VARCHAR" property="weixinOpenid" />
-    <result column="status" jdbcType="TINYINT" property="status" />
-    <result column="add_time" jdbcType="TIMESTAMP" property="addTime" />
-    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
-    <result column="deleted" jdbcType="BIT" property="deleted" />
-    <association column="id" property="litemallIntegral" select="org.linlinjava.litemall.db.dao.LitemallIntegralMapper.selectByPrimaryKey" />
-  </resultMap>
+  <!--<resultMap id="userVoResultmap" type="org.linlinjava.litemall.db.domain.UserIntegral">-->
+    <!--<id column="id" jdbcType="INTEGER" property="id" />-->
+    <!--<result column="username" jdbcType="VARCHAR" property="username" />-->
+    <!--<result column="password" jdbcType="VARCHAR" property="password" />-->
+    <!--<result column="gender" jdbcType="TINYINT" property="gender" />-->
+    <!--<result column="birthday" jdbcType="DATE" property="birthday" />-->
+    <!--<result column="last_login_time" jdbcType="TIMESTAMP" property="lastLoginTime" />-->
+    <!--<result column="last_login_ip" jdbcType="VARCHAR" property="lastLoginIp" />-->
+    <!--<result column="user_level" jdbcType="TINYINT" property="userLevel" />-->
+    <!--<result column="nickname" jdbcType="VARCHAR" property="nickname" />-->
+    <!--<result column="mobile" jdbcType="VARCHAR" property="mobile" />-->
+    <!--<result column="avatar" jdbcType="VARCHAR" property="avatar" />-->
+    <!--<result column="weixin_openid" jdbcType="VARCHAR" property="weixinOpenid" />-->
+    <!--<result column="status" jdbcType="TINYINT" property="status" />-->
+    <!--<result column="add_time" jdbcType="TIMESTAMP" property="addTime" />-->
+    <!--<result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />-->
+    <!--<result column="deleted" jdbcType="BIT" property="deleted" />-->
+    <!--<association column="id" property="litemallIntegral" select="org.linlinjava.litemall.db.dao.LitemallIntegralMapper.selectByPrimaryKey" />-->
+  <!--</resultMap>-->
 
-  <select id="selectAllUserAndIntegral" resultMap="userVoResultmap">
+  <!--<select id="selectAllUserAndIntegral" resultMap="userVoResultmap">-->
 
-    select <include refid="Base_Column_List" />,b.integral as integral from litemall_user a left join litemall_integral b on a.id=b.id
+    <!--select <include refid="Base_Column_List" />,b.integral as integral from litemall_user a left join litemall_integral b on a.id=b.id-->
 
-  </select>
+  <!--</select>-->
 
 
 </mapper>
