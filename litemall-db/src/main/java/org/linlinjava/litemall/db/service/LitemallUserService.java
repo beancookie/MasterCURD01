@@ -2,6 +2,7 @@ package org.linlinjava.litemall.db.service;
 
 import com.github.pagehelper.PageHelper;
 import org.linlinjava.litemall.db.dao.LitemallSignMapper;
+import org.linlinjava.litemall.db.dao.LitemallSystemMapper;
 import org.linlinjava.litemall.db.dao.LitemallUserMapper;
 import org.linlinjava.litemall.db.domain.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,8 +19,8 @@ public class LitemallUserService {
     @Resource
     private LitemallUserMapper userMapper;
 
-//    @Resource
-//    private LitemallIntegralMapper integralMapper;
+    @Resource
+    private LitemallSystemMapper systemMapper;
 
     @Autowired
     private LitemallSignMapper litemallSignMapper;
@@ -133,19 +134,21 @@ public class LitemallUserService {
 
 
     public int updateIntegralById(Integer id){
-        //type 0表示随机  1表示订制
+        //litemall_sign_type 0表示随机  1表示订制
         LitemallUser litemallUser1 = userMapper.selectByPrimaryKey(id);
-        LitemallSign litemallSign = litemallSignMapper.selectByPrimaryKey(2);
+        LitemallSystem litemall_sign_type = systemMapper.selectByKeyName("litemall_sign_type");
+       // LitemallSign litemallSign = litemallSignMapper.selectByPrimaryKey(2);
         LitemallUser litemallUser=new LitemallUser();
-        if(litemallSign.getType()==0){
+        if(litemall_sign_type.getKeyValue().equals("0")){
             int sign=litemallUser1.getIntegral()+(int)(Math.random()*3+1);
             litemallUser.setIntegral(sign);
             litemallUser.setId(id);
             int i = userMapper.updateByPrimaryKeySelective(litemallUser);
             return i;
         }
-        if(litemallSign.getType()==1){
-            int sign=litemallSign.getSignIntegral()+litemallUser1.getIntegral();
+        if(litemall_sign_type.getKeyValue().equals("1")){
+            LitemallSystem litemall_sign_type1 = systemMapper.selectByKeyName("litemall_sign_integral");
+            int sign=Integer.parseInt(litemall_sign_type1.getKeyValue())+litemallUser1.getIntegral();
             litemallUser.setIntegral(sign);
             litemallUser.setId(id);
             int i=userMapper.updateByPrimaryKeySelective(litemallUser);
@@ -155,18 +158,26 @@ public class LitemallUserService {
     }
 
 
-    public int updateIntegral(Integer type,Integer siginIntegral ){
-        //type 0表示随机  1表示订制
-        LitemallSign litemallSign=new LitemallSign();
-        litemallSign.setId(2);
-        if(type==1){
-            litemallSign.setSignIntegral(siginIntegral);
-            litemallSign.setType(type);
-            return litemallSignMapper.updateByPrimaryKeySelective(litemallSign);
+    public int updateIntegral(String type,String siginIntegral ){
+        //litemall_sign_type 0表示随机  1表示订制
+        //LitemallSign litemallSign=new LitemallSign();
+        //litemallSign.setId(2);
+        LitemallSystem litemallSystem =new LitemallSystem();
+        if(type.equals("1")){
+            litemallSystem.setKeyName("litemall_sign_type");
+            litemallSystem.setKeyValue(type);
+            int i = systemMapper.updateByKeyName(litemallSystem);
+            litemallSystem.setKeyName("litemall_sign_integral");
+            litemallSystem.setKeyValue(siginIntegral);
+            int j = systemMapper.updateByKeyName(litemallSystem);
+//            litemallSign.setSignIntegral(siginIntegral);
+//            litemallSign.setType(Integer.parseInt(type));
+            return i>0&&j>0?1:0;
         }
-        if(type==0){
-            litemallSign.setType(type);
-            return litemallSignMapper.updateByPrimaryKeySelective(litemallSign);
+        if(type.equals("0")){
+            litemallSystem.setKeyName("litemall_sign_type");
+            litemallSystem.setKeyValue(type);
+            return systemMapper.updateByKeyName(litemallSystem);
         }
            return -1;
     }

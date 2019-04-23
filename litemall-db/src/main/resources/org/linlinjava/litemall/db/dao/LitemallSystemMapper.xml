@@ -418,4 +418,31 @@
     update litemall_system set deleted = 1
     where id = #{id,jdbcType=INTEGER}
   </update>
+  
+  <select id="selectByKeyName" parameterType="map" resultMap="BaseResultMap">
+    select <include refid="Base_Column_List"/> from  litemall_system where  key_name=#{keyName}
+  </select>
+  
+  <select id="updateByKeyName" resultMap="BaseResultMap">
+    update litemall_system
+     <set>
+       <if test="id!=null">
+         id=#{id},
+       </if>
+       <if test="key_value!=null">
+         key_value=#{key_value},
+       </if>
+       <if test="add_time!=null">
+         add_time=#{addTime},
+       </if>
+       <if test="update_time!=null">
+         update_time=#{updateTime},
+       </if>
+       <if test="deleted!=null">
+         deleted=#{deleted},
+       </if>
+     </set>
+     where key_name =#{keyName}
+  </select>
+  
 </mapper>

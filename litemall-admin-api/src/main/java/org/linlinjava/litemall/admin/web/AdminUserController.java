@@ -75,7 +75,7 @@ public class AdminUserController {
     }
 
     @GetMapping("updateSignIntegral")
-    public Object updateSignIntegral(@RequestParam("type") Integer type, @RequestParam(value = "signIntegral", required = false) Integer signIntegral) {
+    public Object updateSignIntegral(@RequestParam("type") String type, @RequestParam(value = "signIntegral", required = false) String signIntegral) {
         int result = userService.updateIntegral(type, signIntegral);
         if (result > 0) {
             return ResponseUtil.ok();
