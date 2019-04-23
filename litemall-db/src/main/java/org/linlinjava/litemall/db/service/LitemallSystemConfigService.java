@@ -73,6 +73,17 @@ public class LitemallSystemConfigService {
         return data;
     }
 
+    public Map<String, String> listSignin() {
+        LitemallSystemExample example = new LitemallSystemExample();
+        example.or().andKeyNameLike("litemall_signin_%").andDeletedEqualTo(false);
+        List<LitemallSystem> systemList = systemMapper.selectByExample(example);
+        Map<String, String> data = new HashMap<>();
+        for(LitemallSystem system : systemList){
+            data.put(system.getKeyName(), system.getKeyValue());
+        }
+        return data;
+    }
+
     public void updateConfig(Map<String, String> data) {
         for (Map.Entry<String, String> entry : data.entrySet()) {
             LitemallSystemExample example = new LitemallSystemExample();

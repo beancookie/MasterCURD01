@@ -9,8 +9,8 @@ server:
 
 logging:
   level:
-    root:  ERROR
+    root:  DEBUG
     org.springframework:  ERROR
-    org.mybatis:  ERROR
+    org.mybatis:  DEBUG
     org.linlinjava.litemall.wx:  DEBUG
     org.linlinjava.litemall:  ERROR

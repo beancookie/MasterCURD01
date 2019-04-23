@@ -12,7 +12,9 @@ import org.linlinjava.litemall.core.validator.Order;
 import org.linlinjava.litemall.core.validator.Sort;
 import org.linlinjava.litemall.db.domain.LitemallSign;
 import org.linlinjava.litemall.db.domain.LitemallUser;
+import org.linlinjava.litemall.db.service.LitemallSystemConfigService;
 import org.linlinjava.litemall.db.service.LitemallUserService;
+import org.linlinjava.litemall.db.util.IntegralConstant;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
 import org.springframework.validation.annotation.Validated;
@@ -34,6 +36,9 @@ public class AdminUserController {
     @Autowired
     private LitemallUserService userService;
 
+    @Autowired
+    private LitemallSystemConfigService systemConfigService;
+
     @RequiresPermissions("admin:user:list")
     @RequiresPermissionsDesc(menu = {"用户管理", "会员管理"}, button = "查询")
     @GetMapping("/list")
@@ -51,8 +56,8 @@ public class AdminUserController {
         return ResponseUtil.ok(data);
     }
 
-    @GetMapping("/addByIntegral")
-    public Object add(@RequestParam("id") int id, @RequestParam("integral") int integral) {
+    @PutMapping("/integral")
+    public Object add(@RequestParam("id") int id, @RequestParam("integral") long integral) {
         LitemallUser litemallUser = new LitemallUser();
         litemallUser.setId(id);
         litemallUser.setIntegral(integral);
@@ -64,29 +69,22 @@ public class AdminUserController {
         }
     }
 
-    @GetMapping("/SignIntegral")
-    public Object SignIntegral(@RequestParam(value = "id", required = false, defaultValue = "-1") Integer id) {
-        int result = userService.updateIntegralById(id);
-        if (result > 0) {
-            return ResponseUtil.ok();
-        } else {
-            return ResponseUtil.fail(-1, "签到失败");
-        }
+    @PutMapping("/integralConfig")
+    public Object updateIntegralConfig(@RequestParam("signinType") Integer type, @RequestParam(value = "signinIntegral") Integer signIntegral) {
+        Map<String, String> signinConfig = new HashMap<>();
+        signinConfig.put(IntegralConstant.SIGNIN_TYPE_KEY, type.toString());
+        signinConfig.put(IntegralConstant.SIGNIN_INTEGRAL_KEY, signIntegral.toString());
+        systemConfigService.updateConfig(signinConfig);
+        return ResponseUtil.ok();
     }
 
-    @GetMapping("updateSignIntegral")
-    public Object updateSignIntegral(@RequestParam("type") Integer type, @RequestParam(value = "signIntegral", required = false) Integer signIntegral) {
-        int result = userService.updateIntegral(type, signIntegral);
-        if (result > 0) {
-            return ResponseUtil.ok();
-        } else {
-            return ResponseUtil.fail();
-        }
-    }
-
-    @GetMapping("getSignalAndType")
+    @GetMapping("/integralAndType")
     public Object getSignalAndType() {
-        return userService.getTypeAndSign();
+        Map<String, String> signinConfig = systemConfigService.listSignin();
+        Map<String, Object> data = new HashMap<>(signinConfig.size());
+        data.put("signinType", signinConfig.get(IntegralConstant.SIGNIN_TYPE_KEY));
+        data.put("signinIntegral", signinConfig.get(IntegralConstant.SIGNIN_INTEGRAL_KEY));
+        return ResponseUtil.ok(data);
     }
 
 }

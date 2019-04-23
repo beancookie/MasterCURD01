@@ -28,36 +28,44 @@
       </div>
       <div>
         <el-switch
-          v-model="value3[this.update.type]"
+          v-model="isRandom"
           style="margin-right: 20px;"
           active-color="#13ce66"
-          inactive-color="#ff4949"
-          active-text="固定积分"
-          inactive-text="随机签到积分"
+          inactive-color="#f56c6c"
+          active-text="随机签到积分"
+          inactive-text="固定积分"
           @change="switchChange"
         />
-        <el-input
-          v-show="value3"
-          :disabled="true"
-          v-model="this.update.signIntegral"
-          style="width: 50px; margin-right: 10px;"
-        />
         <el-button
-          v-show="value3"
-          :disabled="this.update.type==0?true:false"
+          :disabled="update.signinType == 0 ? true : false"
           @click="editSign"
-        >修改固定积分</el-button>
+          type="primary"
+          size="small" 
+          round
+          >修改固定积分
+        </el-button>
       </div>
     </div>
-    <el-dialog :visible.sync="dialogVisible1" title="编辑签到积分" width="30%">
+    <el-dialog :visible.sync="enitSigninIntrgral" title="编辑签到积分" width="30%">
       <el-form ref="update">
         <el-form-item label="输入签到积分" prop="signIntegral">
-          <el-input-number v-model="update.signIntegral" :min="1" :max="10" :step="1"></el-input-number>
+          <el-input-number v-model="update.signinIntegral" :min="1" :max="10" :step="1"></el-input-number>
         </el-form-item>
       </el-form>
       <span slot="footer" class="dialog-footer">
-        <el-button @click="dialogVisible = false">取 消</el-button>
+        <el-button @click="enitUserIntrgral = false">取 消</el-button>
         <el-button type="primary" @click="editSignIntegral">确 定</el-button>
+      </span>
+    </el-dialog>
+    <el-dialog :visible.sync="enitUserIntrgral" title="编辑用户积分" width="30%">
+      <el-form ref="dataForm">
+        <el-form-item label="输入积分" prop="integral">
+          <el-input-number v-model="dataForm.integral" :step="1"></el-input-number>
+        </el-form-item>
+      </el-form>
+      <span slot="footer" class="dialog-footer">
+        <el-button @click="enitUserIntrgral = false">取 消</el-button>
+        <el-button type="primary" @click="sure">确 定</el-button>
       </span>
     </el-dialog>
     <!-- 查询结果 -->
@@ -102,17 +110,6 @@
       :limit.sync="listQuery.limit"
       @pagination="getList"
     />
-    <el-dialog :visible.sync="dialogVisible" title="编辑用户积分" width="30%">
-      <el-form ref="dataForm">
-        <el-form-item label="输入积分" prop="integral">
-          <el-input-number v-model="dataForm.integral" :step="1"></el-input-number>
-        </el-form-item>
-      </el-form>
-      <span slot="footer" class="dialog-footer">
-        <el-button @click="dialogVisible = false">取 消</el-button>
-        <el-button type="primary" @click="sure">确 定</el-button>
-      </span>
-    </el-dialog>
   </div>
 </template>
 
@@ -148,19 +145,16 @@ export default {
       genderDic: ["未知", "男", "女"],
       levelDic: ["普通用户", "VIP用户", "高级VIP用户"],
       statusDic: ["可用", "禁用", "注销"],
-      dialogVisible: false,
-      dialogVisible1: false,
+      enitUserIntrgral: false,
+      enitSigninIntrgral: false,
       dataForm: {
         id: undefined,
         integral: undefined
       },
-
-      value3: [false, true],
-      // type:-1,
-      signIntegral: -1,
+      isRandom: true,
       update: {
-        type: undefined,
-        signIntegral: undefined
+        signinType: undefined,
+        signinIntegral: undefined
       }
     };
   },
@@ -173,7 +167,6 @@ export default {
       this.listLoading = true;
       fetchList(this.listQuery)
         .then(response => {
-          // console.log(response.data.data.items)
           this.list = response.data.data.items;
           this.total = response.data.data.total;
           this.listLoading = false;
@@ -188,13 +181,11 @@ export default {
       this.listLoading = true;
       getType()
         .then(response => {
-          console.log(response.data.data);
-          this.typeList = response.data.data.items;
+          this.update = response.data.data;
+          this.isRandom = this.update.signinType == 0
+          this.listLoading = false;
         })
         .catch(err => {
-          console.log(err.data.type);
-          this.update.type = err.data.type;
-          this.update.signIntegral = err.data.signIntegral;
           this.listLoading = false;
         });
     },
@@ -219,13 +210,13 @@ export default {
       });
     },
     handleEdit(index, row) {
-      this.dialogVisible = true;
+      this.enitUserIntrgral = true;
       this.dataForm.integral = row.integral;
       this.dataForm.id = row.id;
       // console.log(index);
     },
     sure() {
-      this.dialogVisible = false;
+      this.enitUserIntrgral = false;
       addById(this.dataForm)
         .then(response => {
           this.getList();
@@ -236,33 +227,24 @@ export default {
         });
     },
     switchChange() {
-      if (this.update.type == 1) {
-        this.update.type = 0;
-        chanSign(this.update)
-          .then(response => {})
-          .catch(err => {
-            console.log(err);
-          });
-      } else if (this.update.type == 0) {
-        this.update.type = 1;
-        chanSign(this.update)
-          .then(response => {})
-          .catch(err => {
-            console.log(err);
-          });
+      if (this.update.signinType == 0) {
+        this.update.signinType = 1
+      } else if (this.update.signinType == 1) {
+        this.update.signinType = 0
       }
+      this.editSignIntegral();
     },
     editSign() {
-      this.dialogVisible1 = true;
+      this.enitSigninIntrgral = true;
     },
     editSignIntegral() {
-      this.dialogVisible1 = false;
       chanSign(this.update)
         .then(response => {
-          console.log(response);
+          this.enitSigninIntrgral = false;
         })
         .catch(err => {
           console.log(err);
+          this.enitSigninIntrgral = false;
         });
     }
   }

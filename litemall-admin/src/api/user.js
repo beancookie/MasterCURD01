@@ -49,23 +49,23 @@ export function listHistory(query) {
 }
 export function addById(query) {
   return request({
-    url: '/user/addByIntegral',
-    method: 'get',
+    url: '/user/integral',
+    method: 'put',
     params: query
   })
 }
 
 export function getType() {
   return request({
-    url: '/user/getSignalAndType',
+    url: '/user/integralAndType',
     method: 'get'
   })
 }
 
 export function chanSign(query) {
   return request({
-    url: '/user/updateSignIntegral',
-    method: 'get',
+    url: '/user/integralConfig',
+    method: 'put',
     params: query
   })
 }
