@@ -1,31 +1,58 @@
 <template>
   <div class="app-container">
-
     <!-- 查询和其他操作 -->
     <div class="filter-container">
-      <el-input v-model="listQuery.username" clearable class="filter-item" style="width: 200px;" placeholder="请输入用户名"/>
-      <el-input v-model="listQuery.mobile" clearable class="filter-item" style="width: 200px;" placeholder="请输入手机号"/>
-      <el-button class="filter-item" type="primary" icon="el-icon-search" @click="handleFilter">查找</el-button>
-      <el-button :loading="downloadLoading" class="filter-item" type="primary" icon="el-icon-download" @click="handleDownload">导出</el-button>
-      <el-switch
-        v-model="value3[this.update.type]"
-        style="display: inline-block;margin-left: 500px;"
-        active-color="#13ce66"
-        inactive-color="#ff4949"
-        active-text="固定积分"
-        inactive-text="随机签到积分"
-        @change="switchChange"/>
-      <el-input v-show="value3" :disabled="true" v-model="this.update.signIntegral" style="width: 100px;" />
-      <el-button v-show="value3" :disabled="this.update.type==0?true:false" @click="editSign">修改固定积分</el-button>
+      <div>
+        <el-input
+          v-model="listQuery.username"
+          clearable
+          class="filter-item"
+          style="width: 200px;"
+          placeholder="请输入用户名"
+        />
+        <el-input
+          v-model="listQuery.mobile"
+          clearable
+          class="filter-item"
+          style="width: 200px;"
+          placeholder="请输入手机号"
+        />
+        <el-button class="filter-item" type="primary" icon="el-icon-search" @click="handleFilter">查找</el-button>
+        <el-button
+          :loading="downloadLoading"
+          class="filter-item"
+          type="primary"
+          icon="el-icon-download"
+          @click="handleDownload"
+        >导出</el-button>
+      </div>
+      <div>
+        <el-switch
+          v-model="value3[this.update.type]"
+          style="margin-right: 20px;"
+          active-color="#13ce66"
+          inactive-color="#ff4949"
+          active-text="固定积分"
+          inactive-text="随机签到积分"
+          @change="switchChange"
+        />
+        <el-input
+          v-show="value3"
+          :disabled="true"
+          v-model="this.update.signIntegral"
+          style="width: 50px; margin-right: 10px;"
+        />
+        <el-button
+          v-show="value3"
+          :disabled="this.update.type==0?true:false"
+          @click="editSign"
+        >修改固定积分</el-button>
+      </div>
     </div>
-
-    <el-dialog
-      :visible.sync="dialogVisible1"
-      title="编辑"
-      width="30%">
+    <el-dialog :visible.sync="dialogVisible1" title="编辑签到积分" width="30%">
       <el-form ref="update">
         <el-form-item label="输入签到积分" prop="signIntegral">
-          <el-input v-model="update.signIntegral"/>
+          <el-input-number v-model="update.signIntegral" :min="1" :max="10" :step="1"></el-input-number>
         </el-form-item>
       </el-form>
       <span slot="footer" class="dialog-footer">
@@ -34,56 +61,51 @@
       </span>
     </el-dialog>
     <!-- 查询结果 -->
-    <el-table v-loading="listLoading" :data="list" element-loading-text="正在查询中。。。" border fit highlight-current-row>
+    <el-table
+      v-loading="listLoading"
+      :data="list"
+      element-loading-text="正在查询中。。。"
+      border=""
+      fit
+      highlight-current-row
+    >
       <el-table-column align="center" width="100px" label="用户ID" prop="id" sortable/>
-
       <el-table-column align="center" label="用户名" prop="username"/>
-
       <el-table-column align="center" label="手机号码" prop="mobile"/>
-
       <el-table-column align="center" label="性别" prop="gender">
         <template slot-scope="scope">
-          <el-tag >{{ genderDic[scope.row.gender] }}</el-tag>
+          <el-tag>{{ genderDic[scope.row.gender] }}</el-tag>
         </template>
       </el-table-column>
-
       <el-table-column align="center" label="生日" prop="birthday"/>
-
       <el-table-column align="center" label="用户等级" prop="userLevel">
         <template slot-scope="scope">
-          <el-tag >{{ levelDic[scope.row.userLevel] }}</el-tag>
+          <el-tag>{{ levelDic[scope.row.userLevel] }}</el-tag>
         </template>
       </el-table-column>
-
       <el-table-column align="center" label="状态" prop="status">
         <template slot-scope="scope">
           <el-tag>{{ statusDic[scope.row.status] }}</el-tag>
         </template>
       </el-table-column>
-
       <el-table-column align="center" label="积分" prop="integral"/>
-      </el-table-column>
-
       <el-table-column label="操作" align="center">
         <template slot-scope="scope">
-          <el-button
-            size="mini"
-            @click="handleEdit(scope.$index, scope.row)">编辑</el-button>
+          <el-button size="mini" @click="handleEdit(scope.$index, scope.row)">编辑</el-button>
         </template>
       </el-table-column>
     </el-table>
-
-    </el-table>
-
-    <pagination v-show="total>0" :total="total" :page.sync="listQuery.page" :limit.sync="listQuery.limit" @pagination="getList" />
-
-    <el-dialog
-      :visible.sync="dialogVisible"
-      title="编辑"
-      width="30%">
+    <pagination
+      v-show="total>0"
+      :total="total"
+      :page.sync="listQuery.page"
+      :limit.sync="listQuery.limit"
+      @pagination="getList"
+    />
+    <el-dialog :visible.sync="dialogVisible" title="编辑用户积分" width="30%">
       <el-form ref="dataForm">
         <el-form-item label="输入积分" prop="integral">
-          <el-input v-model="dataForm.integral"/>
+          <el-input-number v-model="dataForm.integral" :step="1"></el-input-number>
         </el-form-item>
       </el-form>
       <span slot="footer" class="dialog-footer">
@@ -91,16 +113,23 @@
         <el-button type="primary" @click="sure">确 定</el-button>
       </span>
     </el-dialog>
-
   </div>
 </template>
 
+<style lang="scss" scoped>
+.filter-container {
+  display: flex;
+  justify-content: space-between;
+}
+</style>
+
+
 <script>
-import { fetchList, addById, getType, chanSign } from '@/api/user'
-import Pagination from '@/components/Pagination' // Secondary package based on el-pagination
+import { fetchList, addById, getType, chanSign } from "@/api/user";
+import Pagination from "@/components/Pagination"; // Secondary package based on el-pagination
 
 export default {
-  name: 'User',
+  name: "User",
   components: { Pagination },
   data() {
     return {
@@ -112,13 +141,13 @@ export default {
         limit: 20,
         username: undefined,
         mobile: undefined,
-        sort: 'add_time',
-        order: 'desc'
+        sort: "add_time",
+        order: "desc"
       },
       downloadLoading: false,
-      genderDic: ['未知', '男', '女'],
-      levelDic: ['普通用户', 'VIP用户', '高级VIP用户'],
-      statusDic: ['可用', '禁用', '注销'],
+      genderDic: ["未知", "男", "女"],
+      levelDic: ["普通用户", "VIP用户", "高级VIP用户"],
+      statusDic: ["可用", "禁用", "注销"],
       dialogVisible: false,
       dialogVisible1: false,
       dataForm: {
@@ -133,93 +162,109 @@ export default {
         type: undefined,
         signIntegral: undefined
       }
-    }
+    };
   },
   created() {
-    this.getList()
-    this.getType()
+    this.getList();
+    this.getType();
   },
   methods: {
     getList() {
-      this.listLoading = true
-      fetchList(this.listQuery).then(response => {
-        // console.log(response.data.data.items)
-        this.list = response.data.data.items
-        this.total = response.data.data.total
-        this.listLoading = false
-      }).catch(() => {
-        this.list = []
-        this.total = 0
-        this.listLoading = false
-      })
+      this.listLoading = true;
+      fetchList(this.listQuery)
+        .then(response => {
+          // console.log(response.data.data.items)
+          this.list = response.data.data.items;
+          this.total = response.data.data.total;
+          this.listLoading = false;
+        })
+        .catch(() => {
+          this.list = [];
+          this.total = 0;
+          this.listLoading = false;
+        });
     },
     getType() {
-      this.listLoading = true
-      getType().then(response => {
-        console.log(response.data.data)
-        this.typeList = response.data.data.items
-      }).catch((err) => {
-        console.log(err.data.type)
-        this.update.type = err.data.type
-        this.update.signIntegral = err.data.signIntegral
-        this.listLoading = false
-      })
+      this.listLoading = true;
+      getType()
+        .then(response => {
+          console.log(response.data.data);
+          this.typeList = response.data.data.items;
+        })
+        .catch(err => {
+          console.log(err.data.type);
+          this.update.type = err.data.type;
+          this.update.signIntegral = err.data.signIntegral;
+          this.listLoading = false;
+        });
     },
     handleFilter() {
-      this.listQuery.page = 1
-      this.getList()
+      this.listQuery.page = 1;
+      this.getList();
     },
     handleDownload() {
-      this.downloadLoading = true
-      import('@/vendor/Export2Excel').then(excel => {
-        const tHeader = ['用户名', '手机号码', '性别', '生日', '状态', '积分']
-        const filterVal = ['username', 'mobile', 'gender', 'birthday', 'status', 'integral']
-        excel.export_json_to_excel2(tHeader, this.list, filterVal, '用户信息')
-        this.downloadLoading = false
-      })
+      this.downloadLoading = true;
+      import("@/vendor/Export2Excel").then(excel => {
+        const tHeader = ["用户名", "手机号码", "性别", "生日", "状态", "积分"];
+        const filterVal = [
+          "username",
+          "mobile",
+          "gender",
+          "birthday",
+          "status",
+          "integral"
+        ];
+        excel.export_json_to_excel2(tHeader, this.list, filterVal, "用户信息");
+        this.downloadLoading = false;
+      });
     },
     handleEdit(index, row) {
-      this.dialogVisible = true
-      this.dataForm.integral = row.integral
-      this.dataForm.id = row.id
+      this.dialogVisible = true;
+      this.dataForm.integral = row.integral;
+      this.dataForm.id = row.id;
       // console.log(index);
     },
     sure() {
-      this.dialogVisible = false
-      addById(this.dataForm).then(response => {
-        this.getList()
-        console.log(this.dataForm)
-      }).catch(error => {
-        console.log(error)
-      })
+      this.dialogVisible = false;
+      addById(this.dataForm)
+        .then(response => {
+          this.getList();
+          console.log(this.dataForm);
+        })
+        .catch(error => {
+          console.log(error);
+        });
     },
     switchChange() {
       if (this.update.type == 1) {
-        this.update.type = 0
-        chanSign(this.update).then(response => {
-        }).catch(err => {
-          console.log(err)
-        })
+        this.update.type = 0;
+        chanSign(this.update)
+          .then(response => {})
+          .catch(err => {
+            console.log(err);
+          });
       } else if (this.update.type == 0) {
-        this.update.type = 1
-        chanSign(this.update).then(response => {
-        }).catch(err => {
-          console.log(err)
-        })
+        this.update.type = 1;
+        chanSign(this.update)
+          .then(response => {})
+          .catch(err => {
+            console.log(err);
+          });
       }
     },
     editSign() {
-      this.dialogVisible1 = true
+      this.dialogVisible1 = true;
     },
     editSignIntegral() {
-      this.dialogVisible1 = false
-      chanSign(this.update).then(response => {
-        console.log(response)
-      }).catch(err => {
-        console.log(err)
-      })
+      this.dialogVisible1 = false;
+      chanSign(this.update)
+        .then(response => {
+          console.log(response);
+        })
+        .catch(err => {
+          console.log(err);
+        });
     }
-
   }
-}
+};
 </script>
