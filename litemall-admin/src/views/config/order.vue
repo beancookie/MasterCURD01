@@ -30,6 +30,7 @@
 <script>
 import { listOrder, updateOrder } from '@/api/config'
 
+
 export default {
   name: 'ConfigOrder',
   data() {

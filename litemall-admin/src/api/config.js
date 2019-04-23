@@ -15,6 +15,17 @@ export function updateMall(data) {
   })
 }
 
+
+// export function addOrder(data) {
+//   return request({
+//     url: '/config/mall1',
+//     method: 'post',
+//     data
+//   })
+// }
+
+
+
 export function listExpress() {
   return request({
     url: '/config/express',

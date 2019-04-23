@@ -98,36 +98,38 @@
     <el-dialog :visible.sync="orderDialogVisible" title="订单详情" width="800">
       <el-form :data="orderDetail" label-position="left">
         <el-form-item label="订单编号">
+          
           <span>{{ orderDetail.order.orderSn }}</span>
         </el-form-item>
-        <el-form-item label="订单状态">
-          <template slot-scope="scope">
+        <el-form-item label="眼镜名称">
+            <span>{{ orderDetail.order.glassName }}</span>
+          <!-- <template slot-scope="scope">
             <el-tag>{{ scope.order.orderStatus | orderStatusFilter }}</el-tag>
-          </template>
+          </template> -->
         </el-form-item>
-        <el-form-item label="订单用户">
-          <span>{{ orderDetail.user.nickname }}</span>
+        <el-form-item label="眼镜价格">
+          <span>{{ orderDetail.order.glassPrice }}</span>
         </el-form-item>
-        <el-form-item label="用户留言">
+        <!-- <el-form-item label="用户留言">
           <span>{{ orderDetail.order.message }}</span>
-        </el-form-item>
+        </el-form-item> -->
         <el-form-item label="收货信息">
-          <span>（收货人）{{ orderDetail.order.consignee }}</span>
-          <span>（手机号）{{ orderDetail.order.mobile }}</span>
-          <span>（地址）{{ orderDetail.order.address }}</span>
+          <span>（收货人）{{ orderDetail.order.buyName }}</span>
+          <span>（手机号）{{ orderDetail.order.buyPhone }}</span>
+          <span>（地址）{{ orderDetail.order.buyAddress }}</span>
         </el-form-item>
         <el-form-item label="商品信息">
           <el-table :data="orderDetail.orderGoods" border="" fit highlight-current-row>
-            <el-table-column align="center" label="商品名称" prop="goodsName"/>
-            <el-table-column align="center" label="商品编号" prop="goodsSn"/>
-            <el-table-column align="center" label="货品规格" prop="specifications"/>
-            <el-table-column align="center" label="货品价格" prop="price"/>
-            <el-table-column align="center" label="货品数量" prop="number"/>
-            <el-table-column align="center" label="货品图片" prop="picUrl">
-              <template slot-scope="scope">
+            <el-table-column align="center" label="商品名称" prop="parameter1"/>
+            <el-table-column align="center" label="商品编号" prop="parameter2"/>
+            <el-table-column align="center" label="货品规格" prop="parameter3"/>
+            <el-table-column align="center" label="货品价格" prop="parameter4"/>
+            <el-table-column align="center" label="货品数量" prop="parameter5"/>
+            <!-- <el-table-column align="center" label="货品图片" prop="picUrl"> -->
+              <!-- <template slot-scope="scope">
                 <img :src="scope.row.picUrl" width="40">
               </template>
-            </el-table-column>
+            </el-table-column> -->
           </el-table>
         </el-form-item>
       </el-form>
@@ -259,19 +261,19 @@
           label-width="100px"
           class="demo-ruleForm"
         >
-          <el-form-item label="球镜" prop="rightGlassMirror" required>
+          <el-form-item label="球镜" prop="rightGlassMirror" >
             <el-input v-model="ruleForm2.rightGlassMirror"></el-input>
           </el-form-item>
-          <el-form-item label="柱镜" prop="rightGlassCylinder" required>
+          <el-form-item label="柱镜" prop="rightGlassCylinder" >
             <el-input v-model="ruleForm2.rightGlassCylinder"></el-input>
           </el-form-item>
-          <el-form-item label="轴位" prop="rightGlassAxialposition" required>
+          <el-form-item label="轴位" prop="rightGlassAxialposition" >
             <el-input v-model="ruleForm2.rightGlassAxialposition"></el-input>
           </el-form-item>
-          <el-form-item label="裸眼视力" prop="rightGlassNakedeyesight" required>
+          <el-form-item label="裸眼视力" prop="rightGlassNakedeyesight" >
             <el-input v-model="ruleForm2.rightGlassNakedeyesight"></el-input>
           </el-form-item>
-          <el-form-item label="矫正视力" prop="rightGlassCorrectivevision" required>
+          <el-form-item label="矫正视力" prop="rightGlassCorrectivevision" >
             <el-input v-model="ruleForm2.rightGlassCorrectivevision"></el-input>
           </el-form-item>
           <el-form-item>
@@ -292,25 +294,25 @@
           label-width="100px"
           class="demo-ruleForm"
         >
-          <el-form-item label="瞳距" prop="glassPitch" required>
+          <el-form-item label="瞳距" prop="glassPitch" >
             <el-input v-model="ruleForm3.glassPitch"></el-input>
           </el-form-item>
-          <el-form-item label="瞳高" prop="glassHigh" required>
+          <el-form-item label="瞳高" prop="glassHigh" >
             <el-input v-model="ruleForm3.glassHigh"></el-input>
           </el-form-item>
-          <el-form-item label="ADD" prop="glassADD" required>
+          <el-form-item label="ADD" prop="glassADD" >
             <el-input v-model="ruleForm3.glassADD"></el-input>
           </el-form-item>
-          <el-form-item label="斜角" prop="glassbevel" required>
+          <el-form-item label="斜角" prop="glassbevel" >
             <el-input v-model="ruleForm3.glassbevel"></el-input>
           </el-form-item>
-          <el-form-item label="镜架品牌" prop="glassFramebrand" required>
+          <el-form-item label="镜架品牌" prop="glassFramebrand" >
             <el-input v-model="ruleForm3.glassFramebrand"></el-input>
           </el-form-item>
-          <el-form-item label="镜架货号" prop="glassFramenumber" required>
+          <el-form-item label="镜架货号" prop="glassFramenumber" required >
             <el-input v-model="ruleForm3.glassFramenumber"></el-input>
           </el-form-item>
-          <el-form-item label="镜片折射率" prop="glassLensindex" required>
+          <el-form-item label="镜片折射率" prop="glassLensindex" >
             <el-input v-model="ruleForm3.glassLensindex"></el-input>
           </el-form-item>
           <el-form-item label="镜片品牌" prop="glassLensbrand" required>
@@ -353,7 +355,8 @@
 </style>
 
 <script>
-import { listOrder, shipOrder, refundOrder, detailOrder } from "@/api/order";
+import { listOrder, shipOrder, refundOrder, detailOrder ,addOrdertoHost } from "@/api/order";
+
 import Pagination from "@/components/Pagination"; // Secondary package based on el-pagination
 import checkPermission from "@/utils/permission"; // 权限判断函数
 
@@ -394,34 +397,94 @@ export default {
       },
       statusMap,
       orderDialogVisible: false,
+      orderFromHost:{
+        buyName:"name",
+        buyAddress:"address",
+        buyPhone:"phone",
+        glassDate:"date",
+        glassName:"name",
+        glassNum:"glassNum",
+        glassPrice:"price",
+        leftEyeDetail:{
+         "leftGlassAxialposition":"leftGlassAxialpositio",
+         "leftGlassCorrectivevision":"leftGlassCorrectivevision",
+         "leftGlassCylinder":"leftGlassCylinder",
+         "leftGlassMirror":"leftGlassMirror",
+         "leftGlassNakedeyesight":"leftGlassNakedeyesight"
+         },
+          rightDetail:{
+         "rightGlassAxialposition":"rightGlassAxialpositio",
+         "rightGlassCorrectivevision":"rightGlassCorrectivevision",
+         "rightGlassCylinder":"rightGlassCylinder",
+         "rightGlassMirror":"rightGlassMirror",
+         "rightGlassNakedeyesight":"rightGlassNakedeyesight"
+         },
+         allDetail:{
+         glassAdd:"glassAdd",
+         glassAmountofconsumptio:"glassAmountofconsumptio",
+         glassFramebrand:"glassFramebrand",
+         glassFramenumber:"glassFramenumber",
+         glassHigh:"glassHigh",
+         glassLensbrand:"glassLensbrand",
+         glassLensfunction:"glassLensfunction",
+         glassLensindex:"glassLensindex",
+          glassPitch:"glassPitch",
+          glassRemarks:"glassRemarks",
+          glassbevel:"glassbevel"
+    }
+      },
       orderDetail: {
         order: {},
         user: {},
-        orderGoods: [
+       orderGoods: [
+         
           {
-            goodsName: "11",
-            goodsSn: "1",
-            specifications: "name:zl",
-            price: 1,
-            number: 2,
-            picUrl: "xx"
+            parameter1: "",
+            parameter2: "",
+            parameter3: "",
+            parameter4: "",
+            parameter5: ""
+           
+           
           },
           {
-            goodsName: "左眼参数",
-            goodsSn: "左眼参数",
-            specifications: "name:zl",
-            price: "左眼参数",
-            number: 2,
-            picUrl: "xx"
+           parameter1: "右眼球镜",
+            parameter2: "右眼柱镜",
+            parameter3: "右眼轴位",
+            parameter4: "右眼裸眼视力",
+            parameter5: "右眼矫正视力",
           },
-          {
-            goodsName: "11",
-            goodsSn: "1",
-            specifications: "name:zl",
-            price: 1,
-            number: 2,
-            picUrl: "xx"
-          }
+            {
+            parameter1: "",
+            parameter2: "",
+            parameter3: "",
+            parameter4: "",
+            parameter5: ""
+           
+           },
+            {
+            parameter1: "瞳距",
+            parameter2: "瞳高",
+            parameter3: "ADD",
+            parameter4: "斜角",
+            parameter5: "镜架品牌",
+          },
+            {
+            parameter1: "",
+            parameter2: "",
+            parameter3: "",
+            parameter4: "",
+            parameter5: ""
+            
+           },
+            {
+            parameter1: "镜架货号",
+            parameter2: "镜片折射率",
+            parameter3: "镜片品牌",
+            parameter4: "镜片功能",
+            parameter5: "消费金额"
+          },
+
         ]
       },
       shipForm: {
@@ -589,10 +652,53 @@ export default {
       this.getList();
     },
     handleDetail(row) {
-      detailOrder(row.id).then(response => {
-        this.orderDetail = response.data.data;
-      });
+      var that=this;
+       var obj={};
+       obj.buyName=that.orderFromHost.buyName;
+       obj.buyAddress=that.orderFromHost.buyAddress;
+       obj.buyPhone=that.orderFromHost.buyPhone;
+       obj.glassDate=that.orderFromHost.glassDate;
+       obj.glassName=that.orderFromHost.glassName;
+       obj.glassNum=that.orderFromHost.glassNum;
+       obj.glassPrice=that.orderFromHost.glassPrice;
+       that.orderDetail.order=obj;
+       var leftEye=that.orderFromHost.leftEyeDetail;
+       var firstLine={};
+       firstLine.parameter1=leftEye.leftGlassAxialposition;
+       firstLine.parameter2=leftEye.leftGlassCorrectivevision;
+       firstLine.parameter3=leftEye.leftGlassCylinder;
+       firstLine.parameter4=leftEye.leftGlassMirror
+       firstLine.parameter5=leftEye.leftGlassNakedeyesight;
+       this.orderDetail.orderGoods[0]=firstLine;
+        var rightEye=that.orderFromHost.rightDetail;
+        var twoLine={};
+       twoLine.parameter1=rightEye.rightGlassAxialposition;
+       twoLine.parameter2=rightEye.rightGlassCorrectivevision;
+       twoLine.parameter3=rightEye.rightGlassCylinder;
+       twoLine.parameter4=rightEye.rightGlassMirror
+       twoLine.parameter5=rightEye.rightGlassNakedeyesight;
+       this.orderDetail.orderGoods[2]=twoLine;
+        var threeLine={};
+        var allEye=that.orderFromHost.allDetail;
+        threeLine.parameter1=allEye.glassAdd;
+        threeLine.parameter2=allEye.glassAmountofconsumptio;
+        threeLine.parameter3=allEye.glassFramebrand;
+       threeLine.parameter4=allEye.glassFramenumber
+       threeLine.parameter5=allEye.glassHigh;
+       this.orderDetail.orderGoods[4]=threeLine;
+         var fourLine={};
+        fourLine.parameter1=allEye.glassLensbrand;
+        fourLine.parameter2=allEye.glassLensfunction;
+        fourLine.parameter3=allEye.glassLensindex;
+       fourLine.parameter4=allEye.glassPitch
+       fourLine.parameter5=allEye.glassRemarks;
+       this.orderDetail.orderGoods[6]=fourLine;
+         
+
+
       this.orderDialogVisible = true;
+      
+
     },
     handleShip(row) {
       this.shipForm.orderId = row.id;
@@ -625,6 +731,9 @@ export default {
         }
       });
     },
+    
+
+
     addOrder() {
       // this.$router.push("/addOrder");
       this.dialogFormVisible = true;
@@ -690,18 +799,22 @@ export default {
       console.log(value);
     },
     submitForm(formName) {
-      this.active++;
-      return
+      // this.active++;
+      // return
       var that = this;
       this.$refs[formName].validate(valid => {
         if (valid) {
           that.active++;
-          if (that.active == 4) {
+          if (that.active == 5) {
             that.ruleForm.leftEyeDetail = that.ruleForm1;
             that.ruleForm.rightEyeDetail = that.ruleForm2;
             that.ruleForm.allEyeDetail = that.ruleForm3;
+            console.log(that.ruleForm)
+            addOrdertoHost(that.ruleForm);  
+            }
+          if(that.active==5){
             that.dialogFormVisible = false;
-          }
+          }  
         } else {
           console.log("error submit!!");
           return false;
