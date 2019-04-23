@@ -117,7 +117,7 @@
           <span>（地址）{{ orderDetail.order.address }}</span>
         </el-form-item>
         <el-form-item label="商品信息">
-          <el-table :data="orderDetail.orderGoods" border="" fit highlight-current-row>      
+          <el-table :data="orderDetail.orderGoods" border="" fit highlight-current-row>
             <el-table-column align="center" label="商品名称" prop="goodsName"/>
             <el-table-column align="center" label="商品编号" prop="goodsSn"/>
             <el-table-column align="center" label="货品规格" prop="specifications"/>
@@ -130,8 +130,7 @@
             </el-table-column>
           </el-table>
         </el-form-item>
-      
-            </el-form>
+      </el-form>
     </el-dialog>
     <!-- 发货对话框 -->
     <el-dialog :visible.sync="shipDialogVisible" title="发货">
@@ -158,10 +157,9 @@
     <!-- 退款对话框 -->
     <el-dialog :visible.sync="refundDialogVisible" title="退款">
       <el-form
-         inline=true
+        inline="true"
         ref="refundForm"
         :model="refundForm"
-
         status-icon
         label-position="left"
         label-width="100px"
@@ -176,7 +174,7 @@
         <el-button type="primary" @click="confirmRefund">确定</el-button>
       </div>
     </el-dialog>
-    <el-dialog :visible.sync="dialogFormVisible" >
+    <el-dialog :visible.sync="dialogFormVisible">
       <el-steps :active="active" finish-status="success" align-center>
         <el-step title="填写订单基本参数"></el-step>
         <el-step title="请填写左眼规格参数"></el-step>
@@ -186,17 +184,18 @@
       <div v-if="active==1" class="btn-wrap" style="margin-top:50px">
         <el-form 
           :model="ruleForm" 
-          :inline="true"
+          :inline="true" 
           ref="ruleForm" 
-          :rules="rules"
-          label-width="100px">
+          :rules="rules" 
+          label-width="100px"
+        >
           <el-form-item label="眼镜名称" prop="glassName" required>
             <el-input v-model="ruleForm.glassName"></el-input>
           </el-form-item>
-           <el-form-item label="眼镜价格" prop="glassPrice" required>
-              <el-input v-model="ruleForm.glassPrice"></el-input>
-              </el-form-item>
-          <el-form-item label="购买日期" prop="glassDate" required  >
+          <el-form-item label="眼镜价格" prop="glassPrice" required>
+            <el-input v-model="ruleForm.glassPrice"></el-input>
+          </el-form-item>
+          <el-form-item label="购买日期" prop="glassDate" required>
             <el-date-picker
               align="left"
               type="datetime"
@@ -204,13 +203,13 @@
               v-model="ruleForm.glassDate"
             ></el-date-picker>
           </el-form-item>
-          <el-form-item label="购买人" prop="buyName" style="margin-left:-33px">
+          <el-form-item label="购买人" prop="buyName">
             <el-input v-model="ruleForm.buyName"></el-input>
           </el-form-item>
-          <el-form-item label="手机号" prop="buyPhone" >
+          <el-form-item label="手机号" prop="buyPhone">
             <el-input v-model="ruleForm.buyPhone"></el-input>
           </el-form-item>
-          <el-form-item label="购买人地址" prop="buyAddress" >
+          <el-form-item label="购买人地址" prop="buyAddress">
             <el-input v-model="ruleForm.buyAddress"></el-input>
           </el-form-item>
           <el-form-item>
@@ -223,27 +222,31 @@
           :model="ruleForm1"
           :inline="true"
           ref="ruleForm1"
-          :rules="rules1"
+          :rules="rules"
           label-width="100px"
           class="demo-ruleForm"
         >
-          <el-form-item label="球镜" prop="glassMirror" required>
-            <el-input v-model="ruleForm1.glassMirror"></el-input>
+          <el-form-item label="球镜" prop="leftGlassMirror" required>
+            <el-input v-model="ruleForm1.leftGlassMirror"></el-input>
           </el-form-item>
-          <el-form-item label="柱镜" prop="glassCylinder" required>
-            <el-input v-model="ruleForm1.glassCylinder"></el-input>
+          <el-form-item label="柱镜" prop="leftGlassCylinder" required>
+            <el-input v-model="ruleForm1.leftGlassCylinder"></el-input>
           </el-form-item>
-          <el-form-item label="轴位" prop="glassAxialposition" required>
-            <el-input v-model="ruleForm1.glassAxialposition"></el-input>
+          <el-form-item label="轴位" prop="leftGlassAxialposition" required>
+            <el-input v-model="ruleForm1.leftGlassAxialposition"></el-input>
           </el-form-item>
-          <el-form-item label="裸眼视力" prop="glassNakedeyesight" required>
-            <el-input v-model="ruleForm1.glassNakedeyesight"></el-input>
+          <el-form-item label="裸眼视力" prop="leftGlassNakedeyesight" required>
+            <el-input v-model="ruleForm1.leftGlassNakedeyesight"></el-input>
           </el-form-item>
-          <el-form-item label="矫正视力" prop="glassCorrectivevision" required>
-            <el-input v-model="ruleForm1.glassCorrectivevision"></el-input>
+          <el-form-item label="矫正视力" prop="leftGlassCorrectivevision" required>
+            <el-input v-model="ruleForm1.leftGlassCorrectivevision"></el-input>
           </el-form-item>
           <el-form-item>
-            <el-button type="primary" @click="submitForm('ruleForm1')" style="margin-left:500px">下一步填写右眼参数</el-button>
+            <el-button
+              type="primary"
+              @click="submitForm('ruleForm1')"
+              style="margin-left:500px"
+            >下一步填写右眼参数</el-button>
           </el-form-item>
         </el-form>
       </div>
@@ -252,27 +255,31 @@
           :model="ruleForm2"
           :inline="true"
           ref="ruleForm2"
-          :rules="rules2"
+          :rules="rules"
           label-width="100px"
           class="demo-ruleForm"
         >
-          <el-form-item label="球镜" prop="glassMirror" required>
-            <el-input v-model="ruleForm2.glassMirror"></el-input>
+          <el-form-item label="球镜" prop="rightGlassMirror" required>
+            <el-input v-model="ruleForm2.rightGlassMirror"></el-input>
           </el-form-item>
-          <el-form-item label="柱镜" prop="glassCylinder" required>
-            <el-input v-model="ruleForm2.glassCylinder"></el-input>
+          <el-form-item label="柱镜" prop="rightGlassCylinder" required>
+            <el-input v-model="ruleForm2.rightGlassCylinder"></el-input>
           </el-form-item>
-          <el-form-item label="轴位" prop="glassAxialposition" required>
-            <el-input v-model="ruleForm2.glassAxialposition"></el-input>
+          <el-form-item label="轴位" prop="rightGlassAxialposition" required>
+            <el-input v-model="ruleForm2.rightGlassAxialposition"></el-input>
           </el-form-item>
-          <el-form-item label="裸眼视力" prop="glassNakedeyesight" required>
-            <el-input v-model="ruleForm2.glassNakedeyesight"></el-input>
+          <el-form-item label="裸眼视力" prop="rightGlassNakedeyesight" required>
+            <el-input v-model="ruleForm2.rightGlassNakedeyesight"></el-input>
           </el-form-item>
-          <el-form-item label="矫正视力" prop="glassCorrectivevision" required>
-            <el-input v-model="ruleForm2.glassCorrectivevision"></el-input>
+          <el-form-item label="矫正视力" prop="rightGlassCorrectivevision" required>
+            <el-input v-model="ruleForm2.rightGlassCorrectivevision"></el-input>
           </el-form-item>
           <el-form-item>
-            <el-button type="primary" @click="submitForm('ruleForm2')" style="margin-left:500px">下一步填写其他信息</el-button>
+            <el-button
+              type="primary"
+              @click="submitForm('ruleForm2')"
+              style="margin-left:500px"
+            >下一步填写其他信息</el-button>
           </el-form-item>
         </el-form>
       </div>
@@ -281,7 +288,7 @@
           :model="ruleForm3"
           :inline="true"
           ref="ruleForm3"
-          :rules="rules3"
+          :rules="rules"
           label-width="100px"
           class="demo-ruleForm"
         >
@@ -319,7 +326,12 @@
             <el-input v-model="ruleForm3.glassRemarks"></el-input>
           </el-form-item>
           <el-form-item>
-            <el-button type="primary" @click="submitForm('ruleForm3')" style="margin-left:200px" size="medium">提交订单</el-button>
+            <el-button
+              type="primary"
+              @click="submitForm('ruleForm3')"
+              style="margin-left:200px"
+              size="medium"
+            >提交订单</el-button>
           </el-form-item>
         </el-form>
       </div>
@@ -333,11 +345,10 @@
   .btn {
     justify-content: flex-end;
   }
-  .buttonOne{
+  .buttonOne {
     float: right;
-    margin-left: 500px
+    margin-left: 500px;
   }
-  
 }
 </style>
 
@@ -347,6 +358,7 @@ import Pagination from "@/components/Pagination"; // Secondary package based on 
 import checkPermission from "@/utils/permission"; // 权限判断函数
 
 const statusMap = {
+  100: "线下订单",
   101: "未付款",
   102: "用户取消",
   103: "系统取消",
@@ -385,10 +397,32 @@ export default {
       orderDetail: {
         order: {},
         user: {},
-        orderGoods: [     {"goodsName":"11","goodsSn":"1","specifications":"name:zl","price":1,"number":2,"picUrl":"xx"},
-         {"goodsName":"左眼参数","goodsSn":"左眼参数","specifications":"name:zl","price":"左眼参数","number":2,"picUrl":"xx"},
-         {"goodsName":"11","goodsSn":"1","specifications":"name:zl","price":1,"number":2,"picUrl":"xx"}
-         ]
+        orderGoods: [
+          {
+            goodsName: "11",
+            goodsSn: "1",
+            specifications: "name:zl",
+            price: 1,
+            number: 2,
+            picUrl: "xx"
+          },
+          {
+            goodsName: "左眼参数",
+            goodsSn: "左眼参数",
+            specifications: "name:zl",
+            price: "左眼参数",
+            number: 2,
+            picUrl: "xx"
+          },
+          {
+            goodsName: "11",
+            goodsSn: "1",
+            specifications: "name:zl",
+            price: 1,
+            number: 2,
+            picUrl: "xx"
+          }
+        ]
       },
       shipForm: {
         orderId: undefined,
@@ -404,123 +438,45 @@ export default {
       downloadLoading: false,
       active: 1,
       ruleForm: {
-        glassName: "",
-        glassPrice: "",
+        glassName: undefined,
+        glassPrice: undefined,
         glassNum: 1,
-        glassDate: "",
-        buyName: "",
-        buyPhone: "",
-        buyAddress: "",
-        leftEyeDetail:{},
-        rightEyeDetail:{},
-        allEyeDetail:{}
+        glassDate: undefined,
+        buyName: undefined,
+        buyPhone: undefined,
+        buyAddress: undefined,
+        leftEyeDetail: {},
+        rightEyeDetail: {},
+        allEyeDetail: {}
       },
       ruleForm1: {
-        glassMirror: "",
-        glassCylinder: "",
-        glassAxialposition: "",
-        glassNakedeyesight: "",
-        glassCorrectivevision: ""
+        leftGlassMirror: undefined,
+        leftGlassCylinder: undefined,
+        leftGlassAxialposition: undefined,
+        leftGlassNakedeyesight: undefined,
+        leftGlassCorrectivevision: undefined
       },
       ruleForm2: {
-        glassMirror: "",
-        glassCylinder: "",
-        glassAxialposition: "",
-        glassNakedeyesight: "",
-        glassCorrectivevision: ""
+        rightGlassMirror: undefined,
+        rightGlassCylinder: undefined,
+        rightGlassAxialposition: undefined,
+        rightGlassNakedeyesight: undefined,
+        rightGlassCorrectivevision: undefined
       },
       ruleForm3: {
-        glassPitch: "",
-        glassHigh: "",
-        glassADD: "",
-        glassbevel: "",
-        glassFramebrand: "",
-        glassFramenumber: "",
-        glassLensindex: "",
-        glassLensbrand: "",
-        glassLensfunction: "",
-        glassAmountofconsumption: "",
-        glassRemarks: ""
+        glassPitch: undefined,
+        glassHigh: undefined,
+        glassADD: undefined,
+        glassbevel: undefined,
+        glassFramebrand: undefined,
+        glassFramenumber: undefined,
+        glassLensindex: undefined,
+        glassLensbrand: undefined,
+        glassLensfunction: undefined,
+        glassAmountofconsumption: undefined,
+        glassRemarks: undefined
       },
       dialogFormVisible: false,
-      rules1:{
-  
-        glassMirror: [
-            { required: true, message: '请输入球镜', trigger: 'blur' }
-         ],
-          glassCylinder: [
-            { required: true, message: '请输入柱镜', trigger: 'blur' }
-         ],
-          glassAxialposition: [
-            { required: true, message: '请输入轴位', trigger: 'blur' }
-         ],
-          glassNakedeyesight: [
-            { required: true, message: '请输入裸眼视力', trigger: 'blur' }
-         ],
-          glassCorrectivevision: [
-            { required: true, message: '请输入矫正视力', trigger: 'blur' }
-         ],
-
-    },
-     rules2:{
-  
-        glassMirror: [
-            { required: true, message: '请输入球镜', trigger: 'blur' }
-         ],
-          glassCylinder: [
-            { required: true, message: '请输入柱镜', trigger: 'blur' }
-         ],
-          glassAxialposition: [
-            { required: true, message: '请输入轴位', trigger: 'blur' }
-         ],
-          glassNakedeyesight: [
-            { required: true, message: '请输入裸眼视力', trigger: 'blur' }
-         ],
-          glassCorrectivevision: [
-            { required: true, message: '请输入矫正视力', trigger: 'blur' }
-         ],
-
-    },
-
-
-      rules3: {
-        glassPitch: [
-          { required: true, message: '请输入瞳距', trigger: 'blur' }
-       ],
-        glassHigh: [
-          { required: true, message: '请输入瞳高', trigger: 'blur' }
-       ],
-        glassADD: [
-          { required: true, message: '请输入ADD', trigger: 'blur' }
-       ],
-        glassbevel: [
-          { required: true, message: '请输入斜角', trigger: 'blur' }
-       ],
-        glassFramebrand: [
-          { required: true, message: '请输入镜架品牌', trigger: 'blur' }
-       ],
-        glassFramenumber: [
-          { required: true, message: '请输入镜架货号', trigger: 'blur' }
-       ],
-        glassLensindex: [
-          { required: true, message: '请输入镜片折射率', trigger: 'blur' }
-       ],
-        glassLensbrand: [
-          { required: true, message: '请输入镜片品牌', trigger: 'blur' }
-       ],
-        glassLensfunction: [
-          { required: true, message: '请输入镜片功能', trigger: 'blur' }
-       ],
-        glassAmountofconsumption: [
-          { required: true, message: '请输入消费金额', trigger: 'blur' }
-       ],
-       glassRemarks: [
-          { required: true, message: '请输入备注信息', trigger: 'blur' }
-       ],
-      },
- 
-  
-
       rules: {
         glassName: [
           { required: true, message: "请输入眼镜名称", trigger: "blur" }
@@ -532,12 +488,7 @@ export default {
           { required: true, message: "请输入眼镜数量", trigger: "blur" }
         ],
         glassDate: [
-          {
-            type: "date",
-            required: true,
-            message: "请输入购买眼镜时间",
-            trigger: "change"
-          }
+          { type: "date", required: true, message: "请输入购买眼镜时间", trigger: "change" }
         ],
         buyName: [
           { required: true, message: "请输入购买人姓名", trigger: "blur" }
@@ -547,8 +498,70 @@ export default {
         ],
         buyAddress: [
           { required: true, message: "请输入购买人地址", trigger: "blur" }
+        ],
+        leftGlassMirror: [
+          { required: true, message: "请输入球镜", trigger: "blur" }
+        ],
+        leftGlassCylinder: [
+          { required: true, message: "请输入柱镜", trigger: "blur" }
+        ],
+        leftGlassAxialposition: [
+          { required: true, message: "请输入轴位", trigger: "blur" }
+        ],
+        leftGlassNakedeyesight: [
+          { required: true, message: "请输入裸眼视力", trigger: "blur" }
+        ],
+        leftGlassCorrectivevision: [
+          { required: true, message: "请输入矫正视力", trigger: "blur" }
+        ],
+        rightGlassMirror: [
+          { required: true, message: "请输入球镜", trigger: "blur" }
+        ],
+        rightGlassCylinder: [
+          { required: true, message: "请输入柱镜", trigger: "blur" }
+        ],
+        rightGlassAxialposition: [
+          { required: true, message: "请输入轴位", trigger: "blur" }
+        ],
+        rightGlassNakedeyesight: [
+          { required: true, message: "请输入裸眼视力", trigger: "blur" }
+        ],
+        rightGlassCorrectivevision: [
+          { required: true, message: "请输入矫正视力", trigger: "blur" }
+        ],
+        glassPitch: [
+          { required: true, message: "请输入瞳距", trigger: "blur" }
+        ],
+        glassHigh: [
+          { required: true, message: "请输入瞳高", trigger: "blur" }
+        ],
+        glassADD: [
+          { required: true, message: "请输入ADD", trigger: "blur" }
+        ],
+        glassbevel: [
+          { required: true, message: "请输入斜角", trigger: "blur" }
+        ],
+        glassFramebrand: [
+          { required: true, message: "请输入镜架品牌", trigger: "blur" }
+        ],
+        glassFramenumber: [
+          { required: true, message: "请输入镜架货号", trigger: "blur" }
+        ],
+        glassLensindex: [
+          { required: true, message: "请输入镜片折射率", trigger: "blur" }
+        ],
+        glassLensbrand: [
+          { required: true, message: "请输入镜片品牌", trigger: "blur" }
+        ],
+        glassLensfunction: [
+          { required: true, message: "请输入镜片功能", trigger: "blur" }
+        ],
+        glassAmountofconsumption: [
+          { required: true, message: "请输入消费金额", trigger: "blur" }
+        ],
+        glassRemarks: [
+          { required: true, message: "请输入备注信息", trigger: "blur" }
         ]
-       
       }
     };
   },
@@ -677,28 +690,24 @@ export default {
       console.log(value);
     },
     submitForm(formName) {
-      // var that = this;
-      // that.active++;
-          var that=this;
-         this.$refs[formName].validate((valid) => {
-            if (valid) {
-             that.active++;
-             if(that.active==4){
-              that.ruleForm.leftEyeDetail=that.ruleForm1;
-              that.ruleForm.rightEyeDetail=that.ruleForm2;
-              that.ruleForm.allEyeDetail=that.ruleForm3;
-              that.dialogFormVisible=false
-
-             }    
-
-            } else {
-              console.log('error submit!!');
-              return false;
-            }
-          });
+      this.active++;
+      return
+      var that = this;
+      this.$refs[formName].validate(valid => {
+        if (valid) {
+          that.active++;
+          if (that.active == 4) {
+            that.ruleForm.leftEyeDetail = that.ruleForm1;
+            that.ruleForm.rightEyeDetail = that.ruleForm2;
+            that.ruleForm.allEyeDetail = that.ruleForm3;
+            that.dialogFormVisible = false;
+          }
+        } else {
+          console.log("error submit!!");
+          return false;
+        }
+      });
     }
   }
 };
-
-
 </script>
