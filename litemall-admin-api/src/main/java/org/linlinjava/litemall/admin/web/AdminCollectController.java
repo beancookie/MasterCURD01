@@ -31,20 +31,20 @@ public class AdminCollectController {
     private LitemallCollectService collectService;
 
 
-    @RequiresPermissions("admin:collect:list")
-    @RequiresPermissionsDesc(menu={"用户管理" , "用户收藏"}, button="查询")
-    @GetMapping("/list")
-    public Object list(String userId, String valueId,
-                       @RequestParam(defaultValue = "1") Integer page,
-                       @RequestParam(defaultValue = "10") Integer limit,
-                       @Sort @RequestParam(defaultValue = "add_time") String sort,
-                       @Order @RequestParam(defaultValue = "desc") String order) {
-        List<LitemallCollect> collectList = collectService.querySelective(userId, valueId, page, limit, sort, order);
-        long total = PageInfo.of(collectList).getTotal();
-        Map<String, Object> data = new HashMap<>();
-        data.put("total", total);
-        data.put("items", collectList);
-
-        return ResponseUtil.ok(data);
-    }
+//    @RequiresPermissions("admin:collect:list")
+//    @RequiresPermissionsDesc(menu={"用户管理" , "用户收藏"}, button="查询")
+//    @GetMapping("/list")
+//    public Object list(String userId, String valueId,
+//                       @RequestParam(defaultValue = "1") Integer page,
+//                       @RequestParam(defaultValue = "10") Integer limit,
+//                       @Sort @RequestParam(defaultValue = "add_time") String sort,
+//                       @Order @RequestParam(defaultValue = "desc") String order) {
+//        List<LitemallCollect> collectList = collectService.querySelective(userId, valueId, page, limit, sort, order);
+//        long total = PageInfo.of(collectList).getTotal();
+//        Map<String, Object> data = new HashMap<>();
+//        data.put("total", total);
+//        data.put("items", collectList);
+//
+//        return ResponseUtil.ok(data);
+//    }
 }

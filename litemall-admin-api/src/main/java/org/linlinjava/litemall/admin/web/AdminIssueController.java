@@ -29,8 +29,8 @@ public class AdminIssueController {
     @Autowired
     private LitemallIssueService issueService;
 
-    @RequiresPermissions("admin:issue:list")
-    @RequiresPermissionsDesc(menu={"商场管理" , "通用问题"}, button="查询")
+//    @RequiresPermissions("admin:issue:list")
+//    @RequiresPermissionsDesc(menu={"商场管理" , "通用问题"}, button="查询")
     @GetMapping("/list")
     public Object list(String question,
                        @RequestParam(defaultValue = "1") Integer page,
@@ -58,8 +58,8 @@ public class AdminIssueController {
         return null;
     }
 
-    @RequiresPermissions("admin:issue:create")
-    @RequiresPermissionsDesc(menu={"商场管理" , "通用问题"}, button="添加")
+//    @RequiresPermissions("admin:issue:create")
+//    @RequiresPermissionsDesc(menu={"商场管理" , "通用问题"}, button="添加")
     @PostMapping("/create")
     public Object create(@RequestBody LitemallIssue issue) {
         Object error = validate(issue);
@@ -70,15 +70,15 @@ public class AdminIssueController {
         return ResponseUtil.ok(issue);
     }
 
-    @RequiresPermissions("admin:issue:read")
+//    @RequiresPermissions("admin:issue:read")
     @GetMapping("/read")
     public Object read(@NotNull Integer id) {
         LitemallIssue issue = issueService.findById(id);
         return ResponseUtil.ok(issue);
     }
 
-    @RequiresPermissions("admin:issue:update")
-    @RequiresPermissionsDesc(menu={"商场管理" , "通用问题"}, button="编辑")
+//    @RequiresPermissions("admin:issue:update")
+//    @RequiresPermissionsDesc(menu={"商场管理" , "通用问题"}, button="编辑")
     @PostMapping("/update")
     public Object update(@RequestBody LitemallIssue issue) {
         Object error = validate(issue);
@@ -92,8 +92,8 @@ public class AdminIssueController {
         return ResponseUtil.ok(issue);
     }
 
-    @RequiresPermissions("admin:issue:delete")
-    @RequiresPermissionsDesc(menu={"商场管理" , "通用问题"}, button="删除")
+//    @RequiresPermissions("admin:issue:delete")
+//    @RequiresPermissionsDesc(menu={"商场管理" , "通用问题"}, button="删除")
     @PostMapping("/delete")
     public Object delete(@RequestBody LitemallIssue issue) {
         Integer id = issue.getId();

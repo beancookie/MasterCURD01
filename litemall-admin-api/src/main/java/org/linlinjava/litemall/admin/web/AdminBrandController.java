@@ -30,9 +30,9 @@ public class AdminBrandController {
     @Autowired
     private LitemallBrandService brandService;
 
-    @RequiresPermissions("admin:brand:list")
-    @RequiresPermissionsDesc(menu={"商场管理" , "品牌管理"}, button="查询")
-    @GetMapping("/list")
+//    @RequiresPermissions("admin:brand:list")
+//    @RequiresPermissionsDesc(menu={"商场管理" , "品牌管理"}, button="查询")
+//    @GetMapping("/list")
     public Object list(String id, String name,
                        @RequestParam(defaultValue = "1") Integer page,
                        @RequestParam(defaultValue = "10") Integer limit,
@@ -46,7 +46,7 @@ public class AdminBrandController {
 
         return ResponseUtil.ok(data);
     }
-
+//
     private Object validate(LitemallBrand brand) {
         String name = brand.getName();
         if (StringUtils.isEmpty(name)) {
@@ -64,10 +64,10 @@ public class AdminBrandController {
         }
         return null;
     }
-
-    @RequiresPermissions("admin:brand:create")
-    @RequiresPermissionsDesc(menu={"商场管理" , "品牌管理"}, button="添加")
-    @PostMapping("/create")
+//
+//    @RequiresPermissions("admin:brand:create")
+//    @RequiresPermissionsDesc(menu={"商场管理" , "品牌管理"}, button="添加")
+//    @PostMapping("/create")
     public Object create(@RequestBody LitemallBrand brand) {
         Object error = validate(brand);
         if (error != null) {
@@ -76,18 +76,18 @@ public class AdminBrandController {
         brandService.add(brand);
         return ResponseUtil.ok(brand);
     }
-
-    @RequiresPermissions("admin:brand:read")
-    @RequiresPermissionsDesc(menu={"商场管理" , "品牌管理"}, button="详情")
-    @GetMapping("/read")
+//
+//    @RequiresPermissions("admin:brand:read")
+//    @RequiresPermissionsDesc(menu={"商场管理" , "品牌管理"}, button="详情")
+//    @GetMapping("/read")
     public Object read(@NotNull Integer id) {
         LitemallBrand brand = brandService.findById(id);
         return ResponseUtil.ok(brand);
     }
-
-    @RequiresPermissions("admin:brand:update")
-    @RequiresPermissionsDesc(menu={"商场管理" , "品牌管理"}, button="编辑")
-    @PostMapping("/update")
+//
+//    @RequiresPermissions("admin:brand:update")
+//    @RequiresPermissionsDesc(menu={"商场管理" , "品牌管理"}, button="编辑")
+//    @PostMapping("/update")
     public Object update(@RequestBody LitemallBrand brand) {
         Object error = validate(brand);
         if (error != null) {
@@ -98,10 +98,10 @@ public class AdminBrandController {
         }
         return ResponseUtil.ok(brand);
     }
-
-    @RequiresPermissions("admin:brand:delete")
-    @RequiresPermissionsDesc(menu={"商场管理" , "品牌管理"}, button="删除")
-    @PostMapping("/delete")
+//
+//    @RequiresPermissions("admin:brand:delete")
+//    @RequiresPermissionsDesc(menu={"商场管理" , "品牌管理"}, button="删除")
+//    @PostMapping("/delete")
     public Object delete(@RequestBody LitemallBrand brand) {
         Integer id = brand.getId();
         if (id == null) {

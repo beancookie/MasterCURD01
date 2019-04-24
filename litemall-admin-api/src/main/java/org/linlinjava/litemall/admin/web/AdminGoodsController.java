@@ -15,9 +15,9 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.constraints.NotNull;
 
-@RestController
-@RequestMapping("/admin/goods")
-@Validated
+//@RestController
+//@RequestMapping("/admin/goods")
+//@Validated
 public class AdminGoodsController {
     private final Log logger = LogFactory.getLog(AdminGoodsController.class);
 

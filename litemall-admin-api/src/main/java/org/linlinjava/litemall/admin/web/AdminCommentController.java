@@ -18,9 +18,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@RestController
-@RequestMapping("/admin/comment")
-@Validated
+//@RestController
+//@RequestMapping("/admin/comment")
+//@Validated
 public class AdminCommentController {
     private final Log logger = LogFactory.getLog(AdminCommentController.class);
 

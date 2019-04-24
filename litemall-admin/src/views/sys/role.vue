@@ -223,6 +223,7 @@ export default {
       this.permissionForm.roleId = row.id
       getPermission({ roleId: row.id })
         .then(response => {
+          console.log(response.data.data)
           this.systemPermissions = response.data.data.systemPermissions
           this.assignedPermissions = response.data.data.assignedPermissions
         })
