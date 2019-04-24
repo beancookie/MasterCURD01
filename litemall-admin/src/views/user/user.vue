@@ -32,8 +32,8 @@
           style="margin-right: 20px;"
           active-color="#13ce66"
           inactive-color="#f56c6c"
-          active-text="随机签到积分"
-          inactive-text="固定积分"
+          active-text="随机积分签到"
+          inactive-text="固定积分签到"
           @change="switchChange"
         />
         <el-button
@@ -60,7 +60,7 @@
     <el-dialog :visible.sync="enitUserIntrgral" title="编辑用户积分" width="30%">
       <el-form ref="dataForm">
         <el-form-item label="输入积分" prop="integral">
-          <el-input-number v-model="dataForm.integral" :step="1"></el-input-number>
+          <el-input-number v-model="dataForm.integral" :min="1" :step="1"></el-input-number>
         </el-form-item>
       </el-form>
       <span slot="footer" class="dialog-footer">

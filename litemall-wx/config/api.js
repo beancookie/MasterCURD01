@@ -97,4 +97,6 @@ module.exports = {
 
   UserIndex: WxApiRoot + 'user/index', //个人页面用户相关信息
 
+  SigninTotalAndIntegral: WxApiRoot + 'signin', //总积分和总签到天数
+  Signin: WxApiRoot + 'signin', //总积分和总签到天数
 };

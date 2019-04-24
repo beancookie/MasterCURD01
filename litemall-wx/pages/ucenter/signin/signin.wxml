@@ -4,7 +4,7 @@
     <view class='sign-com'>
       <view class='thead'>
         <view class="cc">
-          <view class='tt'>已连续签到</view>
+          <view class='tt'>已累计签到</view>
           <view class='mm'>
             <label class='n'>{{signNum}}</label>
             天
@@ -13,7 +13,7 @@
         <view class="cc">
           <view class='tt'>当前积分</view>
           <view class='mm'>
-            <label class='n'>{{signNum}}</label>
+            <label class='n'>{{integralTotal}}</label>
           </view>
         </view>
       </view>
@@ -22,25 +22,25 @@
           <view class='mol-line'></view>
           <view class='mol-ites'>
             <view class="ite {{signNum>=min?'hover':''}}" data-n='{{min}}'>
-              <label class='n'>+{{min<7?1:3}}</label>
+              <label class='n'>+{{integral}}</label>
             </view>
             <view class="ite {{signNum>=min+1?'hover':''}}" data-n='{{min+1}}'>
-              <label class='n'>+{{min+1<7?1:3}}</label>
+              <label class='n'>+{{integral}}</label>
             </view>
             <view class="ite {{signNum>=min+2?'hover':''}}" data-n='{{min+2}}'>
-              <label class='n'>+{{min+2<7?1:3}}</label>
+              <label class='n'>+{{integral}}</label>
             </view>
             <view class="ite {{signNum>=min+3?'hover':''}}" data-n='{{min+3}}'>
-              <label class='n'>+{{min+3<7?1:3}}</label>
+              <label class='n'>+{{integral}}</label>
             </view>
             <view class="ite {{signNum>=min+4?'hover':''}}" data-n='{{min+4}}'>
-              <label class='n'>+{{min+4<7?1:3}}</label>
+              <label class='n'>+{{integral}}</label>
             </view>
             <view class="ite {{signNum>=min+5?'hover':''}}" data-n='{{min+5}}'>
-              <label class='n'>+{{min+5<7?1:3}}</label>
+              <label class='n'>+{{integral}}</label>
             </view>
             <view class="ite {{signNum>=min+6?'hover':''}}" data-n='{{max}}'>
-              <label class='n'>+{{min+6<7?1:3}}</label>
+              <label class='n'>+{{integral}}</label>
             </view>
           </view>
         </view>
