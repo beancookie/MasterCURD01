@@ -56,12 +56,6 @@ export const constantRouterMap = [
     hidden: true
   },
   {
-    path: '/addOrder',
-    component: () => import('@/views/mall/addGood.vue'),
-    hidden: true
-  },
-
-  {
     path: '',
     component: Layout,
     redirect: 'dashboard',
