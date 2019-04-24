@@ -5,27 +5,22 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.linlinjava.litemall.admin.annotation.RequiresPermissionsDesc;
-import org.linlinjava.litemall.core.util.RegexUtil;
 import org.linlinjava.litemall.core.util.ResponseUtil;
-import org.linlinjava.litemall.core.util.bcrypt.BCryptPasswordEncoder;
 import org.linlinjava.litemall.core.validator.Order;
 import org.linlinjava.litemall.core.validator.Sort;
-import org.linlinjava.litemall.db.domain.LitemallSign;
+import org.linlinjava.litemall.db.domain.LitemallIntegral;
 import org.linlinjava.litemall.db.domain.LitemallUser;
+import org.linlinjava.litemall.db.service.LitemallIntegralService;
 import org.linlinjava.litemall.db.service.LitemallSystemConfigService;
 import org.linlinjava.litemall.db.service.LitemallUserService;
 import org.linlinjava.litemall.db.util.IntegralConstant;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.util.StringUtils;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.constraints.NotEmpty;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import static org.linlinjava.litemall.admin.util.AdminResponseCode.*;
 
 @RestController
 @RequestMapping("/admin/user")
@@ -38,6 +33,9 @@ public class AdminUserController {
 
     @Autowired
     private LitemallSystemConfigService systemConfigService;
+
+    @Autowired
+    private LitemallIntegralService integralService;
 
     @RequiresPermissions("admin:user:list")
     @RequiresPermissionsDesc(menu = {"用户管理", "会员管理"}, button = "查询")
@@ -57,9 +55,20 @@ public class AdminUserController {
     }
 
     @PutMapping("/integral")
-    public Object add(@RequestParam("id") int id, @RequestParam("integral") long integral) {
-        LitemallUser litemallUser = new LitemallUser();
-        litemallUser.setId(id);
+    public Object add(@RequestParam("id") int userId, @RequestParam("integral") long integral) {
+        LitemallUser litemallUser = userService.findById(userId);
+        /**
+         * 把积分变化量保存到积分变化表
+         */
+        LitemallIntegral integralChange = new LitemallIntegral();
+        integralChange.setUserId(userId);
+        integralChange.setType(IntegralConstant.ADMIN);
+        integralChange.setIntegral((int) (integral - litemallUser.getIntegral()));
+        integralService.add(integralChange);
+
+        /**
+         * 更新用户积分
+         */
         litemallUser.setIntegral(integral);
         int result = userService.updateById(litemallUser);
         if (result > 0) {

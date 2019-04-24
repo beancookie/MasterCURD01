@@ -22,11 +22,22 @@ public class LitemallIntegralService {
 
     private static final Random random = new Random();
 
+    /**
+     * 添加一条积分变化量
+     *
+     * @param integral 积分变化量
+     * @return
+     */
     public int add(LitemallIntegral integral) {
         integral.setAddTime(LocalDateTime.now());
         return integralMapper.insertSelective(integral);
     }
 
+    /**
+     * 是否已经签到
+     * @param userId
+     * @return
+     */
     public boolean isSignin(Integer userId) {
         LitemallIntegralExample example = new LitemallIntegralExample();
         LitemallIntegralExample.Criteria criteria = example.createCriteria();
@@ -36,9 +47,14 @@ public class LitemallIntegralService {
         criteria.andUserIdEqualTo(userId)
                 .andAddTimeBetween(begin, end)
                 .andTypeEqualTo(IntegralConstant.SIGNIN);
-        return integralMapper.selectOneByExample(example) == null;
+        return integralMapper.selectOneByExample(example) != null;
     }
 
+    /**
+     * 签到总天数
+     * @param userId
+     * @return
+     */
     public long signinTotal(Integer userId) {
         LitemallIntegralExample example = new LitemallIntegralExample();
         LitemallIntegralExample.Criteria criteria = example.createCriteria();
@@ -47,12 +63,16 @@ public class LitemallIntegralService {
         return integralMapper.countByExample(example);
     }
 
+    /**
+     * 根据配置表中的是否随即签订积分还是固定签到积分返回签到积分
+     * @return
+     */
     public int signinIntegral() {
         Map<String, String> signinConfig = systemConfigService.listSignin();
         int type = Integer.parseInt(signinConfig.get(IntegralConstant.SIGNIN_TYPE_KEY));
-        int integral = Integer.parseInt(signinConfig.get(IntegralConstant.SIGNIN_TYPE_KEY));
+        int integral = Integer.parseInt(signinConfig.get(IntegralConstant.SIGNIN_INTEGRAL_KEY));
         if (type == IntegralConstant.SIGNIN_RANDOM) {
-            return random.nextInt(3);
+            return random.nextInt(3) + 1;
         }
         return integral;
     }

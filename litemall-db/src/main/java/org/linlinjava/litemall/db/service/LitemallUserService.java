@@ -104,10 +104,4 @@ public class LitemallUserService {
     public void deleteById(Integer id) {
         userMapper.logicalDeleteByPrimaryKey(id);
     }
-
-    public int updateIntegralById(Integer id){
-        LitemallUser litemallUser = userMapper.selectByPrimaryKey(id);
-        litemallUser.setIntegral(litemallUser.getIntegral() + integralService.signinIntegral());
-        return userMapper.updateByPrimaryKey(litemallUser);
-    }
 }
