@@ -70,6 +70,8 @@
             size="mini"
             @click="handleDetail(scope.row)"
           >详情</el-button>
+
+          
           <el-button
             v-permission="['POST /admin/order/ship']"
             v-if="scope.row.orderStatus==201"
@@ -120,11 +122,11 @@
         </el-form-item>
         <el-form-item label="商品信息">
           <el-table :data="orderDetail.orderGoods" border="" fit highlight-current-row>
-            <el-table-column align="center" label="商品名称" prop="parameter1"/>
-            <el-table-column align="center" label="商品编号" prop="parameter2"/>
-            <el-table-column align="center" label="货品规格" prop="parameter3"/>
-            <el-table-column align="center" label="货品价格" prop="parameter4"/>
-            <el-table-column align="center" label="货品数量" prop="parameter5"/>
+            <el-table-column align="center" label="左眼球镜" prop="parameter1"/>
+            <el-table-column align="center" label="左眼柱镜" prop="parameter2"/>
+            <el-table-column align="center" label="左眼轴位" prop="parameter3"/>
+            <el-table-column align="center" label="左眼裸眼视力" prop="parameter4"/>
+            <el-table-column align="center" label="左眼矫正视力" prop="parameter5"/>
             <!-- <el-table-column align="center" label="货品图片" prop="picUrl"> -->
               <!-- <template slot-scope="scope">
                 <img :src="scope.row.picUrl" width="40">
@@ -428,16 +430,15 @@ export default {
          glassLensbrand:"glassLensbrand",
          glassLensfunction:"glassLensfunction",
          glassLensindex:"glassLensindex",
-          glassPitch:"glassPitch",
-          glassRemarks:"glassRemarks",
-          glassbevel:"glassbevel"
+         glassPitch:"glassPitch",
+         glassRemarks:"glassRemarks",
+         glassbevel:"glassbevel"
     }
       },
       orderDetail: {
         order: {},
         user: {},
        orderGoods: [
-         
           {
             parameter1: "",
             parameter2: "",
