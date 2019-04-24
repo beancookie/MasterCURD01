@@ -91,6 +91,8 @@ page {
 
 .user_column {
   /* border: 1px solid black; */
+  width: 100%;
+  background: #fff;
   height: 140rpx;
   display: flex;
   justify-content: left;
