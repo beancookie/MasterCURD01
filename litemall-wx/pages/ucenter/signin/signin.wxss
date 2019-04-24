@@ -53,3 +53,7 @@ position: absolute; left: 52rpx; top: 50%; margin-top: -2rpx; z-index: 2;}
 .the-btn.signed .btn{ background-color: rgba(153, 153, 153, 0.61); }
 
 .explax{ padding: 0 30rpx; font-size: 28rpx; color: #666;}
+
+.the-tip {
+  text-align: center;
+}

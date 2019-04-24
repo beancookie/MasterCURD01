@@ -11,7 +11,7 @@
           </view>
         </view>
         <view class="cc">
-          <view class='tt'>当前积分</view>
+          <view class='tt'>会员积分</view>
           <view class='mm'>
             <label class='n'>{{integralTotal}}</label>
           </view>
@@ -58,6 +58,9 @@
         <button type='button' class='btn' bindtap='bindSignIn' data-num="{{signNum}}" disabled='{{signState}}' data-be="{{be}}">
           签到
         </button>
+      </view>
+      <view class='the-tip'>
+        每日签到积分将会累加到会员积分
       </view>
     </view>
   </view>

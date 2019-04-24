@@ -178,18 +178,13 @@ page {
   position: absolute;
   bottom: 0;
   left: 0;
-  border-radius: 0;
   padding: 0;
   margin: 0;
   margin-left: 10%;
   text-align: center;
-  /* padding-left: -5rpx; */
-  font-size: 25rpx;
+  font-size: 35rpx;
   color: #f4f4f4;
-  border-top-left-radius: 50rpx;
-  border-bottom-left-radius: 50rpx;
-  border-top-right-radius: 50rpx;
-  border-bottom-right-radius: 50rpx;
   letter-spacing: 3rpx;
-  background-image: linear-gradient(to right, #9a9ba1 0%, #9a9ba1 100%);
+  background-image: linear-gradient(to right, #67c23a 0%, #67c23a 100%);
+  margin-bottom: 15%;
 }

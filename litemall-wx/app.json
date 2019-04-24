@@ -8,6 +8,7 @@
     "pages/ucenter/order/order",
     "pages/ucenter/orderDetail/orderDetail",
     "pages/ucenter/signin/signin",
+    "pages/ucenter/info/info",
     "pages/ucenter/couponList/couponList",
     "pages/ucenter/couponSelect/couponSelect",
     "pages/auth/login/login",

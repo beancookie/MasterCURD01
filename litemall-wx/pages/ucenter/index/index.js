@@ -56,6 +56,10 @@ Page({
       wx.navigateTo({
         url: "/pages/auth/login/login"
       });
+    } else {
+      wx.navigateTo({
+        url: "/pages/ucenter/info/info"
+      });
     }
   },
   goOrder() {
@@ -166,34 +170,6 @@ Page({
         url: "/pages/auth/login/login"
       });
     };
-  },
-  bindPhoneNumber: function(e) {
-    if (e.detail.errMsg !== "getPhoneNumber:ok") {
-      // 拒绝授权
-      return;
-    }
-
-    if (!this.data.hasLogin) {
-      wx.showToast({
-        title: '绑定失败：请先登录',
-        icon: 'none',
-        duration: 2000
-      });
-      return;
-    }
-
-    util.request(api.AuthBindPhone, {
-      iv: e.detail.iv,
-      encryptedData: e.detail.encryptedData
-    }, 'POST').then(function(res) {
-      if (res.errno === 0) {
-        wx.showToast({
-          title: '绑定手机号码成功',
-          icon: 'success',
-          duration: 2000
-        });
-      }
-    });
   },
   goAfterSale: function() {
     wx.showToast({

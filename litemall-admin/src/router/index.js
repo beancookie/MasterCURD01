@@ -181,16 +181,6 @@ export const asyncRouterMap = [
           noCache: true
         },
         hidden: true
-      },
-      {
-        path: 'club',
-        component: () => import('@/views/promotion/coupon'),
-        name: 'club',
-        meta: {
-          perms: ['GET /admin/coupon/list', 'POST /admin/coupon/create', 'POST /admin/coupon/update', 'POST /admin/coupon/delete'],
-          title: '会员卡管理',
-          noCache: true
-        }
       }
     ]
   },
