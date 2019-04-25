@@ -156,9 +156,4 @@ public interface LitemallSystemMapper {
      * @project https://github.com/itfsw/mybatis-generator-plugin
      */
     int logicalDeleteByPrimaryKey(Integer id);
-
-    LitemallSystem selectByKeyName(@Param("keyName") String keyName);
-
-    int updateByKeyName(LitemallSystem litemallSystem);
-
 }
