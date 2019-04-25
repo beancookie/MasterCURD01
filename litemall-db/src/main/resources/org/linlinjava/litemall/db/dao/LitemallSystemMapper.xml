@@ -425,26 +425,26 @@
     from litemall_system
     where key_name = #{keyName,jdbcType=VARCHAR}
   </select>
-  <!--&amp;lt;update id="updateByKeyName" parameterType="org.linlinjava.litemall.db.domain.LitemallSystem"&amp;gt;-->
+  <!--&amp;amp;lt;update id="updateByKeyName" parameterType="org.linlinjava.litemall.db.domain.LitemallSystem"&amp;amp;gt;-->
     <!--update litemall_system-->
-     <!--&amp;lt;set&amp;gt;-->
-       <!--&amp;lt;if test="id!=null"&amp;gt;-->
+     <!--&amp;amp;lt;set&amp;amp;gt;-->
+       <!--&amp;amp;lt;if test="id!=null"&amp;amp;gt;-->
          <!--id=#{id},-->
-       <!--&amp;lt;/if&amp;gt;-->
-       <!--&amp;lt;if test="keyValue!=null"&amp;gt;-->
+       <!--&amp;amp;lt;/if&amp;amp;gt;-->
+       <!--&amp;amp;lt;if test="keyValue!=null"&amp;amp;gt;-->
          <!--key_value = #{keyValue},-->
-       <!--&amp;lt;/if&amp;gt;-->
-       <!--&amp;lt;if test="addTime!=null"&amp;gt;-->
+       <!--&amp;amp;lt;/if&amp;amp;gt;-->
+       <!--&amp;amp;lt;if test="addTime!=null"&amp;amp;gt;-->
          <!--add_time=#{addTime},-->
-       <!--&amp;lt;/if&amp;gt;-->
-       <!--&amp;lt;if test="updateTime!=null"&amp;gt;-->
+       <!--&amp;amp;lt;/if&amp;amp;gt;-->
+       <!--&amp;amp;lt;if test="updateTime!=null"&amp;amp;gt;-->
          <!--update_time=#{updateTime},-->
-       <!--&amp;lt;/if&amp;gt;-->
-       <!--&amp;lt;if test="deleted!=null"&amp;gt;-->
+       <!--&amp;amp;lt;/if&amp;amp;gt;-->
+       <!--&amp;amp;lt;if test="deleted!=null"&amp;amp;gt;-->
          <!--deleted=#{deleted},-->
-       <!--&amp;lt;/if&amp;gt;-->
-     <!--&amp;lt;/set&amp;gt;-->
+       <!--&amp;amp;lt;/if&amp;amp;gt;-->
+     <!--&amp;amp;lt;/set&amp;amp;gt;-->
      <!--where key_name =#{keyName}-->
-  <!--&amp;lt;/update&amp;gt;-->
+  <!--&amp;amp;lt;/update&amp;amp;gt;-->
   
 </mapper>
