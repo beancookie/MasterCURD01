@@ -5,6 +5,7 @@ const user = {
   state: {
     user: '',
     status: '',
+    userId: '',
     code: '',
     token: getToken(),
     name: '',
@@ -39,6 +40,9 @@ const user = {
     SET_AVATAR: (state, avatar) => {
       state.avatar = avatar
     },
+    SET_USER_ID: (state, userId) => {
+      state.userId = userId
+    },
     SET_ROLES: (state, roles) => {
       state.roles = roles
     },
@@ -68,14 +72,13 @@ const user = {
       return new Promise((resolve, reject) => {
         getUserInfo(state.token).then(response => {
           const data = response.data.data
-
           if (data.perms && data.perms.length > 0) { // 验证返回的perms是否是一个非空数组
             commit('SET_PERMS', data.perms)
           } else {
             reject('getInfo: perms must be a non-null array !')
           }
-
           commit('SET_ROLES', data.roles)
+          commit('SET_USER_ID', data.userId)
           commit('SET_NAME', data.name)
           commit('SET_AVATAR', data.avatar)
           commit('SET_INTRODUCTION', data.introduction)

@@ -191,10 +191,10 @@ public class LitemallGoodsService {
         goodsMapper.logicalDeleteByPrimaryKey(id);
     }
 
-    public void add(LitemallGoods goods) {
+    public int add(LitemallGoods goods) {
         goods.setAddTime(LocalDateTime.now());
         goods.setUpdateTime(LocalDateTime.now());
-        goodsMapper.insertSelective(goods);
+        return goodsMapper.insertSelective(goods);
     }
 
     /**

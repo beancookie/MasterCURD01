@@ -4,6 +4,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.linlinjava.litemall.admin.annotation.RequiresPermissionsDesc;
+import org.linlinjava.litemall.admin.dao.OrderAllinone;
 import org.linlinjava.litemall.admin.service.AdminOrderService;
 import org.linlinjava.litemall.core.validator.Order;
 import org.linlinjava.litemall.core.validator.Sort;
@@ -98,6 +99,20 @@ public class AdminOrderController {
     @PostMapping("/reply")
     public Object reply(@RequestBody String body) {
         return adminOrderService.reply(body);
+    }
+
+
+    /**
+     * 管理员手动添加订单
+     *
+     * @param order 订单信息，{ orderId：xxx }
+     * @return 订单操作结果
+     */
+    @RequiresPermissions("admin:order:reply")
+    @RequiresPermissionsDesc(menu = {"商场管理", "订单管理"}, button = "订单商品回复")
+    @PostMapping
+    public Object add(@RequestBody OrderAllinone order) {
+        return adminOrderService.add(order);
     }
 
 }

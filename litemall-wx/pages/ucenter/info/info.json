@@ -1,0 +1,7 @@
+{
+  "navigationBarTitleText": "个人信息",
+  "usingComponents": {
+    "van-cell": "../../../lib/zanui-weapp/cell/index",
+    "van-cell-group": "../../../lib/zanui-weapp/cell-group/index"
+  }
+}

@@ -26,6 +26,7 @@ import static org.linlinjava.litemall.admin.util.AdminResponseCode.GOODS_UPDATE_
 @Service
 public class AdminGoodsService {
     private final Log logger = LogFactory.getLog(AdminGoodsService.class);
+    public static final int ERROR_CODE = -1;
 
     @Autowired
     private LitemallGoodsService goodsService;
@@ -96,32 +97,36 @@ public class AdminGoodsService {
         }
 
         LitemallGoodsSpecification[] specifications = goodsAllinone.getSpecifications();
-        for (LitemallGoodsSpecification specification : specifications) {
-            String spec = specification.getSpecification();
-            if (StringUtils.isEmpty(spec)) {
-                return ResponseUtil.badArgument();
-            }
-            String value = specification.getValue();
-            if (StringUtils.isEmpty(value)) {
-                return ResponseUtil.badArgument();
+        if (null != specifications) {
+            for (LitemallGoodsSpecification specification : specifications) {
+                String spec = specification.getSpecification();
+                if (StringUtils.isEmpty(spec)) {
+                    return ResponseUtil.badArgument();
+                }
+                String value = specification.getValue();
+                if (StringUtils.isEmpty(value)) {
+                    return ResponseUtil.badArgument();
+                }
             }
         }
 
         LitemallGoodsProduct[] products = goodsAllinone.getProducts();
-        for (LitemallGoodsProduct product : products) {
-            Integer number = product.getNumber();
-            if (number == null || number < 0) {
-                return ResponseUtil.badArgument();
-            }
+        if (null != products) {
+            for (LitemallGoodsProduct product : products) {
+                Integer number = product.getNumber();
+                if (number == null || number < 0) {
+                    return ResponseUtil.badArgument();
+                }
 
-            BigDecimal price = product.getPrice();
-            if (price == null) {
-                return ResponseUtil.badArgument();
-            }
+                BigDecimal price = product.getPrice();
+                if (price == null) {
+                    return ResponseUtil.badArgument();
+                }
 
-            String[] productSpecifications = product.getSpecifications();
-            if (productSpecifications.length == 0) {
-                return ResponseUtil.badArgument();
+                String[] productSpecifications = product.getSpecifications();
+                if (productSpecifications.length == 0) {
+                    return ResponseUtil.badArgument();
+                }
             }
         }
 
@@ -209,10 +214,10 @@ public class AdminGoodsService {
     }
 
     @Transactional
-    public Object create(GoodsAllinone goodsAllinone) {
+    public int create(GoodsAllinone goodsAllinone) {
         Object error = validate(goodsAllinone);
         if (error != null) {
-            return error;
+            return ERROR_CODE;
         }
 
         LitemallGoods goods = goodsAllinone.getGoods();
@@ -220,14 +225,8 @@ public class AdminGoodsService {
         LitemallGoodsSpecification[] specifications = goodsAllinone.getSpecifications();
         LitemallGoodsProduct[] products = goodsAllinone.getProducts();
 
-        String name = goods.getName();
-        if (goodsService.checkExistByName(name)) {
-            return ResponseUtil.fail(GOODS_NAME_EXIST, "商品名已经存在");
-        }
-
         // 商品基本信息表litemall_goods
         goodsService.add(goods);
-
         //将生成的分享图片地址写入数据库
         String url = qCodeService.createGoodShareImage(goods.getId().toString(), goods.getPicUrl(), goods.getName());
         if (!StringUtils.isEmpty(url)) {
@@ -236,25 +235,29 @@ public class AdminGoodsService {
                 throw new RuntimeException("更新数据失败");
             }
         }
-
-        // 商品规格表litemall_goods_specification
-        for (LitemallGoodsSpecification specification : specifications) {
-            specification.setGoodsId(goods.getId());
-            specificationService.add(specification);
+        if (null != specifications) {
+            // 商品规格表litemall_goods_specification
+            for (LitemallGoodsSpecification specification : specifications) {
+                specification.setGoodsId(goods.getId());
+                specificationService.add(specification);
+            }
         }
 
-        // 商品参数表litemall_goods_attribute
-        for (LitemallGoodsAttribute attribute : attributes) {
-            attribute.setGoodsId(goods.getId());
-            attributeService.add(attribute);
+        if (null != attributes) {
+            // 商品参数表litemall_goods_attribute
+            for (LitemallGoodsAttribute attribute : attributes) {
+                attribute.setGoodsId(goods.getId());
+                attributeService.add(attribute);
+            }
         }
-
-        // 商品货品表litemall_product
-        for (LitemallGoodsProduct product : products) {
-            product.setGoodsId(goods.getId());
-            productService.add(product);
+        if (null != products) {
+            // 商品货品表litemall_product
+            for (LitemallGoodsProduct product : products) {
+                product.setGoodsId(goods.getId());
+                productService.add(product);
+            }
         }
-        return ResponseUtil.ok();
+        return goods.getId();
     }
 
     public Object list2() {

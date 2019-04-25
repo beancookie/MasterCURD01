@@ -113,6 +113,9 @@ public class PermissionUtil {
 
                 PostMapping postMapping = AnnotationUtils.getAnnotation(method, PostMapping.class);
                 if (postMapping != null) {
+                    if (postMapping.value().length == 0) {
+                        continue;
+                    }
                     api = "POST " + api + postMapping.value()[0];
 
                     Permission permission = new Permission();

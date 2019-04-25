@@ -7,14 +7,12 @@ import com.github.binarywang.wxpay.service.WxPayService;
 import com.github.pagehelper.PageInfo;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.linlinjava.litemall.admin.dao.OrderAllinone;
 import org.linlinjava.litemall.core.notify.NotifyService;
 import org.linlinjava.litemall.core.notify.NotifyType;
 import org.linlinjava.litemall.core.util.JacksonUtil;
 import org.linlinjava.litemall.core.util.ResponseUtil;
-import org.linlinjava.litemall.db.domain.LitemallComment;
-import org.linlinjava.litemall.db.domain.LitemallOrder;
-import org.linlinjava.litemall.db.domain.LitemallOrderGoods;
-import org.linlinjava.litemall.db.domain.UserVo;
+import org.linlinjava.litemall.db.domain.*;
 import org.linlinjava.litemall.db.service.*;
 import org.linlinjava.litemall.db.util.OrderUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,8 +23,10 @@ import org.springframework.util.StringUtils;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.Callable;
 
 import static org.linlinjava.litemall.admin.util.AdminResponseCode.*;
 
@@ -42,13 +42,55 @@ public class AdminOrderService {
     @Autowired
     private LitemallGoodsProductService productService;
     @Autowired
-    private LitemallUserService userService;
-    @Autowired
     private LitemallCommentService commentService;
     @Autowired
     private WxPayService wxPayService;
     @Autowired
     private NotifyService notifyService;
+    @Autowired
+    private AdminGoodsService goodsService;
+    @Autowired
+    private LitemallGoodsAttributeService goodsAttributeService;
+
+    @Transactional
+    public Object add(OrderAllinone orderAllinone) {
+        /**
+         * 首先添加商品，并获取商品id
+         */
+        orderAllinone.getGoodsAllinone().getGoods().setGoodsSn(orderService.generateOrderSn(orderAllinone.getUserId()));
+        int goodId = goodsService.create(orderAllinone.getGoodsAllinone());
+        for (LitemallGoodsAttribute attribute : orderAllinone.getGoodsAllinone().getAttributes()) {
+            attribute.setGoodsId(goodId);
+        }
+
+        /**
+         * 然后添加订单
+         */
+        LitemallOrder order = new LitemallOrder();
+        order.setOrderSn(orderService.generateOrderSn(orderAllinone.getUserId()));
+        order.setUserId(orderAllinone.getUserId());
+        order.setAddress(orderAllinone.getAddress());
+        order.setConsignee(orderAllinone.getConsignee());
+        order.setMobile(orderAllinone.getMobile());
+        order.setOrderStatus(OrderUtil.STATUS_OFFLINE);
+        orderService.add(order);
+
+        /**
+         * 最后添加订单和商品关联信息
+         */
+        LitemallGoods goods = orderAllinone.getGoodsAllinone().getGoods();
+
+        LitemallOrderGoods orderGoods = new LitemallOrderGoods();
+        orderGoods.setGoodsId(goodId);
+        order.setUserId(orderAllinone.getUserId());
+        orderGoods.setOrderId(order.getId());
+        orderGoods.setGoodsId(goodId);
+        orderGoods.setGoodsName(goods.getName());
+        orderGoods.setAddTime(LocalDateTime.now());
+        orderGoodsService.add(orderGoods);
+
+        return ResponseUtil.ok();
+    }
 
     public Object list(Integer userId, String orderSn, List<Short> orderStatusArray,
                        Integer page, Integer limit, String sort, String order) {
@@ -65,11 +107,13 @@ public class AdminOrderService {
     public Object detail(Integer id) {
         LitemallOrder order = orderService.findById(id);
         List<LitemallOrderGoods> orderGoods = orderGoodsService.queryByOid(id);
-        UserVo user = userService.findUserVoById(order.getUserId());
+        List<LitemallGoodsAttribute> goodsAttributes = new LinkedList<>();
+        // 商品属性
+        orderGoods.forEach(orderGood -> goodsAttributes.addAll(goodsAttributeService.queryByGid(orderGood.getGoodsId())));
         Map<String, Object> data = new HashMap<>();
         data.put("order", order);
         data.put("orderGoods", orderGoods);
-        data.put("user", user);
+        data.put("goodsAttributes", goodsAttributes);
 
         return ResponseUtil.ok(data);
     }

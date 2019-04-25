@@ -1,0 +1,32 @@
+page {
+  background: #f4f4f4;
+  min-height: 100%;
+}
+
+.container {
+  background: #f4f4f4;
+  min-height: 100%;
+}
+
+.group-wrap {
+  margin-top: 12%;
+}
+
+.btn {
+  margin-top: 20%;
+  margin-left: 10%;
+  margin-right: 10%;
+  right: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 80%;
+  height: 90rpx;
+  line-height: 98rpx;
+  position: absolute;
+  text-align: center;
+  font-size: 35rpx;
+  color: #f4f4f4;
+  letter-spacing: 3rpx;
+  background-image: linear-gradient(to right, #67c23a 0%, #67c23a 100%);
+}

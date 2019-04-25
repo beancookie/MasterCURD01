@@ -1,0 +1,18 @@
+<view class="container">
+  <van-cell-group class="group-wrap">
+    <van-cell title="用户名" size="large" value="{{userinfo.nickName}}" is-link />
+    <van-cell title="性别" size="large" value="{{userinfo.gender}}" is-link />
+    <picker
+      mode="date"
+      value="{{userinfo.birthday}}"
+      bindchange="changeBirthday"
+    >
+      <van-cell title="生日" size="large" value="{{userinfo.birthday}}" is-link />
+    </picker>
+    <van-cell title="电话" size="large" bind:click="bindPhoneNumber" value="{{userinfo.mobile}}" is-link>
+    </van-cell>
+  </van-cell-group>
+  <button class="btn" open-type="getPhoneNumber" bindgetphonenumber="bindgetphonenumber">
+    绑定电话
+  </button>
+</view>

@@ -600,31 +600,31 @@
     where id = #{id,jdbcType=INTEGER}
   </update>
 
-  <!--&amp;amp;amp;amp;amp;amp;lt;resultMap id="userVoResultmap" type="org.linlinjava.litemall.db.domain.UserIntegral"&amp;amp;amp;amp;amp;amp;gt;-->
-    <!--&amp;amp;amp;amp;amp;amp;lt;id column="id" jdbcType="INTEGER" property="id" /&amp;amp;amp;amp;amp;amp;gt;-->
-    <!--&amp;amp;amp;amp;amp;amp;lt;result column="username" jdbcType="VARCHAR" property="username" /&amp;amp;amp;amp;amp;amp;gt;-->
-    <!--&amp;amp;amp;amp;amp;amp;lt;result column="password" jdbcType="VARCHAR" property="password" /&amp;amp;amp;amp;amp;amp;gt;-->
-    <!--&amp;amp;amp;amp;amp;amp;lt;result column="gender" jdbcType="TINYINT" property="gender" /&amp;amp;amp;amp;amp;amp;gt;-->
-    <!--&amp;amp;amp;amp;amp;amp;lt;result column="birthday" jdbcType="DATE" property="birthday" /&amp;amp;amp;amp;amp;amp;gt;-->
-    <!--&amp;amp;amp;amp;amp;amp;lt;result column="last_login_time" jdbcType="TIMESTAMP" property="lastLoginTime" /&amp;amp;amp;amp;amp;amp;gt;-->
-    <!--&amp;amp;amp;amp;amp;amp;lt;result column="last_login_ip" jdbcType="VARCHAR" property="lastLoginIp" /&amp;amp;amp;amp;amp;amp;gt;-->
-    <!--&amp;amp;amp;amp;amp;amp;lt;result column="user_level" jdbcType="TINYINT" property="userLevel" /&amp;amp;amp;amp;amp;amp;gt;-->
-    <!--&amp;amp;amp;amp;amp;amp;lt;result column="nickname" jdbcType="VARCHAR" property="nickname" /&amp;amp;amp;amp;amp;amp;gt;-->
-    <!--&amp;amp;amp;amp;amp;amp;lt;result column="mobile" jdbcType="VARCHAR" property="mobile" /&amp;amp;amp;amp;amp;amp;gt;-->
-    <!--&amp;amp;amp;amp;amp;amp;lt;result column="avatar" jdbcType="VARCHAR" property="avatar" /&amp;amp;amp;amp;amp;amp;gt;-->
-    <!--&amp;amp;amp;amp;amp;amp;lt;result column="weixin_openid" jdbcType="VARCHAR" property="weixinOpenid" /&amp;amp;amp;amp;amp;amp;gt;-->
-    <!--&amp;amp;amp;amp;amp;amp;lt;result column="status" jdbcType="TINYINT" property="status" /&amp;amp;amp;amp;amp;amp;gt;-->
-    <!--&amp;amp;amp;amp;amp;amp;lt;result column="add_time" jdbcType="TIMESTAMP" property="addTime" /&amp;amp;amp;amp;amp;amp;gt;-->
-    <!--&amp;amp;amp;amp;amp;amp;lt;result column="update_time" jdbcType="TIMESTAMP" property="updateTime" /&amp;amp;amp;amp;amp;amp;gt;-->
-    <!--&amp;amp;amp;amp;amp;amp;lt;result column="deleted" jdbcType="BIT" property="deleted" /&amp;amp;amp;amp;amp;amp;gt;-->
-    <!--&amp;amp;amp;amp;amp;amp;lt;association column="id" property="litemallIntegral" select="org.linlinjava.litemall.db.dao.LitemallIntegralMapper.selectByPrimaryKey" /&amp;amp;amp;amp;amp;amp;gt;-->
-  <!--&amp;amp;amp;amp;amp;amp;lt;/resultMap&amp;amp;amp;amp;amp;amp;gt;-->
+  <!--&amp;amp;amp;amp;amp;amp;amp;lt;resultMap id="userVoResultmap" type="org.linlinjava.litemall.db.domain.UserIntegral"&amp;amp;amp;amp;amp;amp;amp;gt;-->
+    <!--&amp;amp;amp;amp;amp;amp;amp;lt;id column="id" jdbcType="INTEGER" property="id" /&amp;amp;amp;amp;amp;amp;amp;gt;-->
+    <!--&amp;amp;amp;amp;amp;amp;amp;lt;result column="username" jdbcType="VARCHAR" property="username" /&amp;amp;amp;amp;amp;amp;amp;gt;-->
+    <!--&amp;amp;amp;amp;amp;amp;amp;lt;result column="password" jdbcType="VARCHAR" property="password" /&amp;amp;amp;amp;amp;amp;amp;gt;-->
+    <!--&amp;amp;amp;amp;amp;amp;amp;lt;result column="gender" jdbcType="TINYINT" property="gender" /&amp;amp;amp;amp;amp;amp;amp;gt;-->
+    <!--&amp;amp;amp;amp;amp;amp;amp;lt;result column="birthday" jdbcType="DATE" property="birthday" /&amp;amp;amp;amp;amp;amp;amp;gt;-->
+    <!--&amp;amp;amp;amp;amp;amp;amp;lt;result column="last_login_time" jdbcType="TIMESTAMP" property="lastLoginTime" /&amp;amp;amp;amp;amp;amp;amp;gt;-->
+    <!--&amp;amp;amp;amp;amp;amp;amp;lt;result column="last_login_ip" jdbcType="VARCHAR" property="lastLoginIp" /&amp;amp;amp;amp;amp;amp;amp;gt;-->
+    <!--&amp;amp;amp;amp;amp;amp;amp;lt;result column="user_level" jdbcType="TINYINT" property="userLevel" /&amp;amp;amp;amp;amp;amp;amp;gt;-->
+    <!--&amp;amp;amp;amp;amp;amp;amp;lt;result column="nickname" jdbcType="VARCHAR" property="nickname" /&amp;amp;amp;amp;amp;amp;amp;gt;-->
+    <!--&amp;amp;amp;amp;amp;amp;amp;lt;result column="mobile" jdbcType="VARCHAR" property="mobile" /&amp;amp;amp;amp;amp;amp;amp;gt;-->
+    <!--&amp;amp;amp;amp;amp;amp;amp;lt;result column="avatar" jdbcType="VARCHAR" property="avatar" /&amp;amp;amp;amp;amp;amp;amp;gt;-->
+    <!--&amp;amp;amp;amp;amp;amp;amp;lt;result column="weixin_openid" jdbcType="VARCHAR" property="weixinOpenid" /&amp;amp;amp;amp;amp;amp;amp;gt;-->
+    <!--&amp;amp;amp;amp;amp;amp;amp;lt;result column="status" jdbcType="TINYINT" property="status" /&amp;amp;amp;amp;amp;amp;amp;gt;-->
+    <!--&amp;amp;amp;amp;amp;amp;amp;lt;result column="add_time" jdbcType="TIMESTAMP" property="addTime" /&amp;amp;amp;amp;amp;amp;amp;gt;-->
+    <!--&amp;amp;amp;amp;amp;amp;amp;lt;result column="update_time" jdbcType="TIMESTAMP" property="updateTime" /&amp;amp;amp;amp;amp;amp;amp;gt;-->
+    <!--&amp;amp;amp;amp;amp;amp;amp;lt;result column="deleted" jdbcType="BIT" property="deleted" /&amp;amp;amp;amp;amp;amp;amp;gt;-->
+    <!--&amp;amp;amp;amp;amp;amp;amp;lt;association column="id" property="litemallIntegral" select="org.linlinjava.litemall.db.dao.LitemallIntegralMapper.selectByPrimaryKey" /&amp;amp;amp;amp;amp;amp;amp;gt;-->
+  <!--&amp;amp;amp;amp;amp;amp;amp;lt;/resultMap&amp;amp;amp;amp;amp;amp;amp;gt;-->
 
-  <!--&amp;amp;amp;amp;amp;amp;lt;select id="selectAllUserAndIntegral" resultMap="userVoResultmap"&amp;amp;amp;amp;amp;amp;gt;-->
+  <!--&amp;amp;amp;amp;amp;amp;amp;lt;select id="selectAllUserAndIntegral" resultMap="userVoResultmap"&amp;amp;amp;amp;amp;amp;amp;gt;-->
 
-    <!--select &amp;amp;amp;amp;amp;amp;lt;include refid="Base_Column_List" /&amp;amp;amp;amp;amp;amp;gt;,b.integral as integral from litemall_user a left join litemall_integral b on a.id=b.id-->
+    <!--select &amp;amp;amp;amp;amp;amp;amp;lt;include refid="Base_Column_List" /&amp;amp;amp;amp;amp;amp;amp;gt;,b.integral as integral from litemall_user a left join litemall_integral b on a.id=b.id-->
 
-  <!--&amp;amp;amp;amp;amp;amp;lt;/select&amp;amp;amp;amp;amp;amp;gt;-->
+  <!--&amp;amp;amp;amp;amp;amp;amp;lt;/select&amp;amp;amp;amp;amp;amp;amp;gt;-->
 
 
 </mapper>

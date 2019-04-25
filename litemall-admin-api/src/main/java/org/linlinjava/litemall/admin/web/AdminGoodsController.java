@@ -6,6 +6,7 @@ import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.linlinjava.litemall.admin.annotation.RequiresPermissionsDesc;
 import org.linlinjava.litemall.admin.dao.GoodsAllinone;
 import org.linlinjava.litemall.admin.service.AdminGoodsService;
+import org.linlinjava.litemall.core.util.ResponseUtil;
 import org.linlinjava.litemall.core.validator.Order;
 import org.linlinjava.litemall.core.validator.Sort;
 import org.linlinjava.litemall.db.domain.LitemallGoods;
@@ -14,6 +15,8 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.constraints.NotNull;
+
+import static org.linlinjava.litemall.admin.util.AdminResponseCode.GOODS_NAME_EXIST;
 
 @RestController
 @RequestMapping("/admin/goods")
@@ -87,7 +90,11 @@ public class AdminGoodsController {
     @RequiresPermissionsDesc(menu = {"商品管理", "商品管理"}, button = "上架")
     @PostMapping("/create")
     public Object create(@RequestBody GoodsAllinone goodsAllinone) {
-        return adminGoodsService.create(goodsAllinone);
+        int result = adminGoodsService.create(goodsAllinone);
+        if (result == AdminGoodsService.ERROR_CODE) {
+            return ResponseUtil.fail(GOODS_NAME_EXIST, "商品名已经存在");
+        }
+        return ResponseUtil.ok();
     }
 
     /**

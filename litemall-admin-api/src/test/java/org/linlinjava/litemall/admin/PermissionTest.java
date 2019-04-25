@@ -28,17 +28,8 @@ public class PermissionTest {
 
     @Test
     public void test() {
-
         LitemallSystem litemallSystem=new LitemallSystem();
         litemallSystem.setKeyName("litemall_sign_type");
         litemallSystem.setKeyValue("0");
-        System.out.println(litemallSystemMapper.updateByKeyName(litemallSystem));
-//        String keyName="litemall_sign_type";
-//        LitemallSystem litemallSystem1= litemallSystemMapper.selectByKeyName(keyName);
-//        System.out.println(litemallSystem1.getKeyValue());
-//        final String basicPackage = "org.linlinjava.litemall.admin";
-//        List<Permission> permissionList = PermissionUtil.listPermission(context, basicPackage);
-//        List<PermVo> permVoList = PermissionUtil.listPermVo(permissionList);
-//        permVoList.stream().forEach(System.out::println);
     }
 }

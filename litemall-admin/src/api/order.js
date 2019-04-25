@@ -36,8 +36,6 @@ export function addOrdertoHost(data) {
   })
 }
 
-
-
 export function refundOrder(data) {
   return request({
     url: '/order/refund',
@@ -49,6 +47,14 @@ export function refundOrder(data) {
 export function replyComment(data) {
   return request({
     url: '/order/reply',
+    method: 'post',
+    data
+  })
+}
+
+export function addOrder(data) {
+  return request({
+    url: '/order',
     method: 'post',
     data
   })
