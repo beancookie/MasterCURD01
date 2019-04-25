@@ -7,6 +7,7 @@ import com.github.binarywang.wxpay.service.WxPayService;
 import com.github.pagehelper.PageInfo;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.joda.time.DateTime;
 import org.linlinjava.litemall.admin.dao.OrderAllinone;
 import org.linlinjava.litemall.core.notify.NotifyService;
 import org.linlinjava.litemall.core.notify.NotifyType;
@@ -93,8 +94,9 @@ public class AdminOrderService {
     }
 
     public Object list(Integer userId, String orderSn, List<Short> orderStatusArray,
-                       Integer page, Integer limit, String sort, String order) {
-        List<LitemallOrder> orderList = orderService.querySelective(userId, orderSn, orderStatusArray, page, limit, sort, order);
+                       Integer page, Integer limit, String sort, String order, LocalDateTime dateTime) {
+        System.out.print(dateTime);
+        List<LitemallOrder> orderList = orderService.querySelective(userId, orderSn, orderStatusArray, page, limit, sort, order,dateTime);
         long total = PageInfo.of(orderList).getTotal();
 
         Map<String, Object> data = new HashMap<>();

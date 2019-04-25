@@ -1,8 +1,10 @@
 package org.linlinjava.litemall.admin.web;
 
+import net.sf.jsqlparser.expression.DateTimeLiteralExpression;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
+import org.joda.time.DateTime;
 import org.linlinjava.litemall.admin.annotation.RequiresPermissionsDesc;
 import org.linlinjava.litemall.admin.dao.OrderAllinone;
 import org.linlinjava.litemall.admin.service.AdminOrderService;
@@ -13,6 +15,8 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.constraints.NotNull;
+import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -40,12 +44,13 @@ public class AdminOrderController {
     @RequiresPermissionsDesc(menu = {"商场管理", "订单管理"}, button = "查询")
     @GetMapping("/list")
     public Object list(Integer userId, String orderSn,
+                       LocalDateTime dateTime,
                        @RequestParam(required = false) List<Short> orderStatusArray,
                        @RequestParam(defaultValue = "1") Integer page,
                        @RequestParam(defaultValue = "10") Integer limit,
                        @Sort @RequestParam(defaultValue = "add_time") String sort,
                        @Order @RequestParam(defaultValue = "desc") String order) {
-        return adminOrderService.list(userId, orderSn, orderStatusArray, page, limit, sort, order);
+        return adminOrderService.list(userId, orderSn, orderStatusArray, page, limit, sort, order,dateTime);
     }
 
     /**
