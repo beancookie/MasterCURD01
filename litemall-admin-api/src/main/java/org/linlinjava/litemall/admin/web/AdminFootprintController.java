@@ -30,9 +30,9 @@ public class AdminFootprintController {
     @Autowired
     private LitemallFootprintService footprintService;
 
-//    @RequiresPermissions("admin:footprint:list")
-//    @RequiresPermissionsDesc(menu={"用户管理" , "用户足迹"}, button="查询")
-//    @GetMapping("/list")
+    @RequiresPermissions("admin:footprint:list")
+    @RequiresPermissionsDesc(menu={"用户管理" , "用户足迹"}, button="查询")
+    @GetMapping("/list")
     public Object list(String userId, String goodsId,
                        @RequestParam(defaultValue = "1") Integer page,
                        @RequestParam(defaultValue = "10") Integer limit,

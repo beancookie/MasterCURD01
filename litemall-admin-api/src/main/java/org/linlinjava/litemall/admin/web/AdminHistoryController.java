@@ -28,9 +28,9 @@ public class AdminHistoryController {
     @Autowired
     private LitemallSearchHistoryService searchHistoryService;
 
-//    @RequiresPermissions("admin:history:list")
-//    @RequiresPermissionsDesc(menu={"用户管理" , "搜索历史"}, button="查询")
-//    @GetMapping("/list")
+    @RequiresPermissions("admin:history:list")
+    @RequiresPermissionsDesc(menu={"用户管理" , "搜索历史"}, button="查询")
+    @GetMapping("/list")
     public Object list(String userId, String keyword,
                        @RequestParam(defaultValue = "1") Integer page,
                        @RequestParam(defaultValue = "10") Integer limit,
