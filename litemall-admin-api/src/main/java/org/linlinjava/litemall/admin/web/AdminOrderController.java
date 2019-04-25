@@ -110,7 +110,7 @@ public class AdminOrderController {
      */
     @RequiresPermissions("admin:order:reply")
     @RequiresPermissionsDesc(menu = {"商场管理", "订单管理"}, button = "订单商品回复")
-    @PostMapping
+    @PostMapping("/")
     public Object add(@RequestBody OrderAllinone order) {
         return adminOrderService.add(order);
     }
