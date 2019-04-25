@@ -93,6 +93,9 @@
         <el-form-item label="眼镜名称">
           <span>{{ orderDetail.orderGoods.goodsName }}</span>
         </el-form-item>
+        <el-form-item label="消费金额">
+          <span>{{ orderDetail.orderGoods.price }}</span>
+        </el-form-item>
         <el-form-item label="收货信息">
           <span>（收货人）{{ orderDetail.order.consignee }}</span>
           <span>（手机号）{{ orderDetail.order.mobile }}</span>
@@ -214,7 +217,7 @@
           <el-form-item label="眼镜名称" prop="glassName" required>
             <el-input v-model="ruleForm.glassName"></el-input>
           </el-form-item>
-          <el-form-item label="眼镜价格" prop="glassPrice" required>
+          <el-form-item label="消费金额" prop="glassPrice" required>
             <el-input v-model="ruleForm.glassPrice"></el-input>
           </el-form-item>
           <el-form-item label="购买人" prop="consignee">
@@ -333,7 +336,7 @@
           <el-form-item label="镜片功能" prop="glassLensfunction" required>
             <el-input v-model="ruleForm3.glassLensfunction"></el-input>
           </el-form-item>
-          <el-form-item label="消费金额" prop="glassAmountofconsumption" required>
+          <el-form-item label="眼镜单价" prop="glassAmountofconsumption" required>
             <el-input v-model="ruleForm3.glassAmountofconsumption"></el-input>
           </el-form-item>
           <el-form-item label="备注" prop="glassRemarks" required>
@@ -604,10 +607,8 @@ export default {
           this.tableData = [tableData];
           console.log(this.tableData);
           this.orderDetail.order = data.order;
-          this.orderDetail.orderGoods = data.orderGoods;
-          this.orderDetail.orderGoods.goodsName = data.orderGoods[0].goodsName;
-          // this.orderDetail.orderGoods.goodsPrice=this.tableData.orderGoods.goodsAttributes[19]
-          console.log(data);
+          this.orderDetail.orderGoods = data.orderGoods[0];
+          console.log(this.orderDetail);
 
           this.orderDialogVisible = true;
         })

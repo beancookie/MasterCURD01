@@ -87,6 +87,7 @@ public class AdminOrderService {
         orderGoods.setOrderId(order.getId());
         orderGoods.setGoodsId(goodId);
         orderGoods.setGoodsName(goods.getName());
+        orderGoods.setPrice(orderAllinone.getGoodsAllinone().getGoods().getRetailPrice());
         orderGoods.setAddTime(LocalDateTime.now());
         orderGoodsService.add(orderGoods);
 
@@ -95,6 +96,7 @@ public class AdminOrderService {
 
     public Object list(Integer userId, String orderSn, List<Short> orderStatusArray,
                        Integer page, Integer limit, String sort, String order, LocalDateTime dateTime) {
+        System.out.print(dateTime);
         List<LitemallOrder> orderList = orderService.querySelective(userId, orderSn, orderStatusArray, page, limit, sort, order,dateTime);
         long total = PageInfo.of(orderList).getTotal();
 

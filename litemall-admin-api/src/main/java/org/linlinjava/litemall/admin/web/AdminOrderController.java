@@ -41,7 +41,7 @@ public class AdminOrderController {
     @RequiresPermissionsDesc(menu = {"商场管理", "订单管理"}, button = "查询")
     @GetMapping("/list")
     public Object list(Integer userId, String orderSn,
-                       LocalDateTime dateTime,
+                       @RequestParam(required = false) LocalDateTime dateTime,
                        @RequestParam(required = false) List<Short> orderStatusArray,
                        @RequestParam(defaultValue = "1") Integer page,
                        @RequestParam(defaultValue = "10") Integer limit,

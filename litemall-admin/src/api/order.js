@@ -54,7 +54,7 @@ export function replyComment(data) {
 
 export function addOrder(data) {
   return request({
-    url: '/order',
+    url: '/order/',
     method: 'post',
     data
   })
