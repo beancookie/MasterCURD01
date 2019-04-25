@@ -9,15 +9,8 @@
         style="width: 200px;"
         placeholder="请输入用户ID"
       />
-       <el-date-picker
-      v-model="listQuery.addTime"
-      type="date"
-      placeholder="请选择付款日期">
-    </el-date-picker>
-     
-    
-
-      <!-- <el-select
+      <el-date-picker v-model="listQuery.addTime" type="date" placeholder="请选择付款日期"></el-date-picker>
+      <el-select
         v-model="listQuery.orderStatusArray"
         multiple
         style="width: 200px"
@@ -25,7 +18,7 @@
         placeholder="请选择订单状态"
       >
         <el-option v-for="(key, value) in statusMap" :key="key" :label="key" :value="value"/>
-      </el-select> -->
+      </el-select>
       <el-button
         v-permission="['GET /admin/order/list']"
         class="filter-item"
@@ -58,11 +51,7 @@
           <el-tag>{{ scope.row.orderStatus | orderStatusFilter }}</el-tag>
         </template>
       </el-table-column>
-      <!-- <el-table-column align="center" label="订单金额" prop="orderPrice"/>
-      <el-table-column align="center" label="支付金额" prop="actualPrice"/> -->
       <el-table-column align="center" label="支付时间" prop="addTime"/>
-      <!-- <el-table-column align="center" label="物流单号" prop="shipSn"/>
-      <el-table-column align="center" label="物流渠道" prop="shipChannel"/> -->
       <el-table-column align="center" label="操作" width="200" class-name="small-padding fixed-width">
         <template slot-scope="scope">
           <el-button
@@ -104,16 +93,13 @@
         <el-form-item label="眼镜名称">
           <span>{{ orderDetail.orderGoods.goodsName }}</span>
         </el-form-item>
-        <!-- <el-form-item label="眼镜价格">
-          <span>{{ orderDetail.orderGoods.price }}</span>
-        </el-form-item> -->
         <el-form-item label="收货信息">
           <span>（收货人）{{ orderDetail.order.consignee }}</span>
           <span>（手机号）{{ orderDetail.order.mobile }}</span>
           <span>（地址）{{ orderDetail.order.address }}</span>
         </el-form-item>
-        <el-form-item label="商品信息">      
-           <el-table :data="tableData" style="width: 100%">   
+        <el-form-item label="商品信息">
+          <el-table :data="tableData" style="width: 100%">
             <el-table-column type="expand">
               <template slot-scope="props">
                 <el-form label-position="left" inline class="table-expand">
@@ -432,7 +418,7 @@ export default {
       total: 0,
       listLoading: true,
       listQuery: {
-        addTime:undefined,
+        addTime: undefined,
         page: 1,
         limit: 20,
         id: undefined,
@@ -549,12 +535,8 @@ export default {
         glassPitch: [
           { required: true, message: "请输入瞳距", trigger: "blur" }
         ],
-        glassHigh: [
-          { required: true, message: "请输入瞳高", trigger: "blur" }
-        ],
-        glassADD: [
-          { required: true, message: "请输入ADD", trigger: "blur" }
-        ],
+        glassHigh: [{ required: true, message: "请输入瞳高", trigger: "blur" }],
+        glassADD: [{ required: true, message: "请输入ADD", trigger: "blur" }],
         glassbevel: [
           { required: true, message: "请输入斜角", trigger: "blur" }
         ],
@@ -596,7 +578,7 @@ export default {
       this.listLoading = true;
       listOrder(this.listQuery)
         .then(response => {
-          console.log(response)
+          console.log(response);
           this.list = response.data.data.items;
           this.total = response.data.data.total;
           this.listLoading = false;
@@ -620,13 +602,13 @@ export default {
             tableData[attribute.attribute] = attribute.value;
           });
           this.tableData = [tableData];
-          console.log(this.tableData)
+          console.log(this.tableData);
           this.orderDetail.order = data.order;
           this.orderDetail.orderGoods = data.orderGoods;
-          this.orderDetail.orderGoods.goodsName=data.orderGoods[0].goodsName
+          this.orderDetail.orderGoods.goodsName = data.orderGoods[0].goodsName;
           // this.orderDetail.orderGoods.goodsPrice=this.tableData.orderGoods.goodsAttributes[19]
-          console.log(data)
-          
+          console.log(data);
+
           this.orderDialogVisible = true;
         })
         .catch(response => {});
