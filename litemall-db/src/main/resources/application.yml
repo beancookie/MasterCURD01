@@ -9,4 +9,4 @@ logging:
     root:  ERROR
     org.springframework:  ERROR
     org.mybatis:  ERROR
-    org.linlinjava.litemall.db:  DEBUG
+    org.linlinjava.litemall.db:  ERROR
