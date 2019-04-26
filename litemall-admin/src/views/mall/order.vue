@@ -9,7 +9,17 @@
         style="width: 200px;"
         placeholder="请输入用户ID"
       />
-      <el-date-picker v-model="listQuery.addTime" type="date" placeholder="请选择付款日期"></el-date-picker>
+      
+    
+    <el-date-picker
+      v-model="listQuery.addTime"
+      type="datetimerange"
+      range-separator="至"
+      start-placeholder="开始日期"
+      end-placeholder="结束日期">
+    </el-date-picker>
+ 
+      <!-- <el-date-picker v-model="listQuery.addTime" type="date" placeholder="请选择付款日期"></el-date-picker> -->
       <el-select
         v-model="listQuery.orderStatusArray"
         multiple
@@ -576,9 +586,22 @@ export default {
     this.getList();
   },
   methods: {
+  
+    changeDate(dateA) {
+
+    var dateee = new Date(dateA).toJSON();
+    var date = new Date(+new Date(dateee)+8*3600*1000).toISOString().replace(/T/g,' ').replace(/\.[\d]{3}Z/,'');
+   return date;
+},
+
+
     checkPermission,
     getList() {
       this.listLoading = true;
+      if(this.listQuery.addTime!=null){
+      this.listQuery.addTime[0]=this.changeDate(this.listQuery.addTime[0])
+      this.listQuery.addTime[1]=this.changeDate(this.listQuery.addTime[1])
+      }
       listOrder(this.listQuery)
         .then(response => {
           console.log(response);

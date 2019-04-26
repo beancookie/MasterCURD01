@@ -1,5 +1,6 @@
 package org.linlinjava.litemall.admin.web;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
@@ -14,6 +15,8 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 @RestController
@@ -41,13 +44,22 @@ public class AdminOrderController {
     @RequiresPermissionsDesc(menu = {"商场管理", "订单管理"}, button = "查询")
     @GetMapping("/list")
     public Object list(Integer userId, String orderSn,
-                       @RequestParam(required = false) LocalDateTime dateTime,
+                       @RequestParam(required = false) String addTime,
                        @RequestParam(required = false) List<Short> orderStatusArray,
                        @RequestParam(defaultValue = "1") Integer page,
                        @RequestParam(defaultValue = "10") Integer limit,
                        @Sort @RequestParam(defaultValue = "add_time") String sort,
                        @Order @RequestParam(defaultValue = "desc") String order) {
-        return adminOrderService.list(userId, orderSn, orderStatusArray, page, limit, sort, order,dateTime);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        System.out.print(addTime);
+        LocalDateTime ldt=null;
+        LocalDateTime ldt2=null;
+        if(StringUtils.isNotBlank(addTime)){
+         String times[]=addTime.split(",");
+         ldt = LocalDateTime.parse(times[0], formatter);
+         ldt2 = LocalDateTime.parse(times[1], formatter);
+        }
+        return adminOrderService.list(userId, orderSn, orderStatusArray, page, limit, sort, order,ldt,ldt2);
     }
 
     /**

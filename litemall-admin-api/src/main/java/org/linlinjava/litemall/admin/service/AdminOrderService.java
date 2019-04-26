@@ -95,9 +95,10 @@ public class AdminOrderService {
     }
 
     public Object list(Integer userId, String orderSn, List<Short> orderStatusArray,
-                       Integer page, Integer limit, String sort, String order, LocalDateTime dateTime) {
-        System.out.print(dateTime);
-        List<LitemallOrder> orderList = orderService.querySelective(userId, orderSn, orderStatusArray, page, limit, sort, order,dateTime);
+                       Integer page, Integer limit, String sort, String order, LocalDateTime ldt, LocalDateTime dateTime) {
+
+
+        List<LitemallOrder> orderList = orderService.querySelective(userId, orderSn, orderStatusArray, page, limit, sort, order,ldt,dateTime);
         long total = PageInfo.of(orderList).getTotal();
 
         Map<String, Object> data = new HashMap<>();
