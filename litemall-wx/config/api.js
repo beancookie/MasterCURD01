@@ -6,7 +6,7 @@ var WxApiRoot = 'http://192.168.2.151:8080/wx/';
 // 云平台部署时使用
 // var WxApiRoot = 'http://118.24.0.153:8080/wx/';
 // 云平台上线时使用
-// var WxApiRoot = 'https://www.menethil.com.cn/wx/';
+// var WxApiRoot = 'http://111.231.75.5:8080/wx/';
 
 module.exports = {
   IndexUrl: WxApiRoot + 'home/index', //首页数据接口

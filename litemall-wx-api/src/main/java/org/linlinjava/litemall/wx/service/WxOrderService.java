@@ -36,10 +36,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import static org.linlinjava.litemall.wx.util.WxResponseCode.*;
 
@@ -104,6 +101,8 @@ public class WxOrderService {
     private LitemallCouponUserService couponUserService;
     @Autowired
     private CouponVerifyService couponVerifyService;
+    @Autowired
+    private LitemallGoodsAttributeService goodsAttributeService;
 
     private String detailedAddress(LitemallAddress litemallAddress) {
         Integer provinceId = litemallAddress.getProvinceId();
@@ -217,9 +216,18 @@ public class WxOrderService {
 
         List<LitemallOrderGoods> orderGoodsList = orderGoodsService.queryByOid(order.getId());
 
+        List<LitemallOrderGoods> orderGoods = orderGoodsService.queryByOid(orderId);
+        List<LitemallGoodsAttribute> goodsAttributes = new LinkedList<>();
+        // 商品属性
+        orderGoods.forEach(orderGood -> goodsAttributes.addAll(goodsAttributeService.queryByGid(orderGood.getGoodsId())));
+
+
         Map<String, Object> result = new HashMap<>();
         result.put("orderInfo", orderVo);
         result.put("orderGoods", orderGoodsList);
+        result.put("goodsAttributes", goodsAttributes);
+
+
 
         // 订单状态为已发货且物流信息不为空
         //"YTO", "800669400640887922"

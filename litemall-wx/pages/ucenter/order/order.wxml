@@ -30,9 +30,6 @@
         </view>
         <view class="status"></view>
       </view>
-      <view class="b">
-        <view class="l">实付：￥{{item.actualPrice}}</view>
-      </view>
     </navigator>
   </view>
 </view>

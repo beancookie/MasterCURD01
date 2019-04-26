@@ -1,12 +1,35 @@
 var util = require('../../../utils/util.js');
 var api = require('../../../config/api.js');
-
+const ATTRIBUTE_MAP = new Map([
+  ["leftGlassMirror", "左球镜"], 
+  ["leftGlassCylinder", "左柱镜"],
+  ["leftGlassAxialposition", "左轴位"],
+  ["leftGlassNakedeyesight", "左裸眼视力"],
+  ["leftGlassCorrectivevision", "左矫正视力"],
+  ["rightGlassMirror", "右球镜"], 
+  ["rightGlassCylinder", "右柱镜"],
+  ["rightGlassAxialposition", "右轴位"],
+  ["rightGlassNakedeyesight", "右裸眼视力"],
+  ["rightGlassCorrectivevision", "右矫正视力"],
+  ["glassPitch", "瞳距"],
+  ["glassHigh", "瞳高"],
+  ["glassADD", "ADD"],
+  ["glassbevel", "斜角"],
+  ["glassFramebrand", "镜架品牌"],
+  ["glassFramenumber", "镜架货号"],
+  ["glassLensindex", "镜片折射率"],
+  ["glassLensbrand", "镜片品牌"],
+  ["glassLensfunction", "镜片功能"],
+  ["glassAmountofconsumption", "眼镜单价"],
+  ["glassRemarks", "备注"]
+])
 Page({
   data: {
     orderId: 0,
     orderInfo: {},
     orderGoods: [],
     expressInfo: {},
+    goodsAttributes: [],
     flag: false,
     handleOption: {}
   },
@@ -43,13 +66,25 @@ Page({
       orderId: that.data.orderId
     }).then(function(res) {
       if (res.errno === 0) {
-        console.log(res.data);
+        let tmp = []
+        console.log(ATTRIBUTE_MAP);
+        
+        res.data.goodsAttributes.forEach(item => {
+          console.log(ATTRIBUTE_MAP.get(item.attribute));
+          
+          tmp.push({
+            attribute: ATTRIBUTE_MAP.get(item.attribute),
+            value: item.value
+          })
+        })
         that.setData({
           orderInfo: res.data.orderInfo,
           orderGoods: res.data.orderGoods,
           handleOption: res.data.orderInfo.handleOption,
-          expressInfo: res.data.expressInfo
+          expressInfo: res.data.expressInfo,
+          goodsAttributes: tmp
         });
+        console.log(that.data);
       }
 
       wx.hideLoading();

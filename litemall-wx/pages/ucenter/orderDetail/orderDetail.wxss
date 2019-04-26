@@ -105,6 +105,14 @@ page {
   border-bottom: 1px solid #f4f4f4;
 }
 
+.order-goods .attribute {
+  display: flex;
+  align-items: center;
+  margin-left: 31.25rpx;
+  padding-right: 31.25rpx;
+  border-bottom: 1px solid #f4f4f4;
+}
+
 .order-goods .item:last-child {
   border-bottom: none;
 }

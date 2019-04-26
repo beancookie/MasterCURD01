@@ -99,7 +99,7 @@
       <el-table-column align="center" label="积分" prop="integral"/>
       <el-table-column label="操作" align="center">
         <template slot-scope="scope">
-          <el-button size="mini" @click="handleEdit(scope.$index, scope.row)">编辑</el-button>
+          <el-button size="mini" @click="handleEdit(scope.$index, scope.row)">调整积分</el-button>
         </template>
       </el-table-column>
     </el-table>
