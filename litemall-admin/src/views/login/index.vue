@@ -22,21 +22,6 @@
       </el-form-item>
 
       <el-button :loading="loading" type="primary" style="width:100%;margin-bottom:30px;" @click.native.prevent="handleLogin">登录</el-button>
-
-      <!-- <div style="position:relative">
-        <div class="tips">
-          <span> 超级管理员用户名: admin123</span>
-          <span> 超级管理员用户名：admin123</span>
-        </div>
-        <div class="tips">
-          <span> 商城管理员用户名: mall123</span>
-          <span> 商城管理员用户名：mall123</span>
-        </div>
-        <div class="tips">
-          <span> 推广管理员用户名: promotion123</span>
-          <span> 推广管理员用户名：promotion123</span>
-        </div>
-      </div> -->
     </el-form>
 
   </div>
@@ -62,8 +47,8 @@ export default {
     }
     return {
       loginForm: {
-        username: 'admin123',
-        password: 'admin123'
+        username: '',
+        password: ''
       },
       loginRules: {
         username: [{ required: true, trigger: 'blur', validator: validateUsername }],
@@ -99,23 +84,20 @@ export default {
     handleLogin() {
       this.$refs.loginForm.validate(valid => {
         if (valid && !this.loading) {
-            this.loading = true
+          this.loading = true
           this.$store.dispatch('LoginByUsername', this.loginForm).then(() => {
             this.loading = false
             this.$router.push({ path: this.redirect || '/' })
-          })
-          .catch(response => {
-            console.log(response)
+          }).catch(response => {
             this.$notify.error({
               title: '失败',
               message: response.data.errmsg
             })
             this.loading = false
           })
+        } else {
+          return false
         }
-        //  else {
-        //   return false
-        // }
       })
     }
   }
