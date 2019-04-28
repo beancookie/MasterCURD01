@@ -59,10 +59,15 @@ public class AdminOrderService {
 
     @Transactional
     public Object add(OrderAllinone orderAllinone) {
+        List<LitemallUser> users = userService.queryByMobile(orderAllinone.getMobile());
+        if (users.size() < 1) {
+            return ResponseUtil.fail(USER_NOT_EXIST, "用户未注册");
+        }
+        LitemallUser user = users.get(0);
         /**
          * 首先添加商品，并获取商品id
          */
-        orderAllinone.getGoodsAllinone().getGoods().setGoodsSn(orderService.generateOrderSn(orderAllinone.getUserId()));
+        orderAllinone.getGoodsAllinone().getGoods().setGoodsSn(orderService.generateOrderSn(user.getId()));
         int goodId = goodsService.create(orderAllinone.getGoodsAllinone());
         for (LitemallGoodsAttribute attribute : orderAllinone.getGoodsAllinone().getAttributes()) {
             attribute.setGoodsId(goodId);
@@ -73,6 +78,7 @@ public class AdminOrderService {
          */
         LitemallOrder order = new LitemallOrder();
 
+        order.setUserId(user.getId());
         order.setOrderSn(orderService.generateOrderSn(orderAllinone.getUserId()));
         order.setAddress(orderAllinone.getAddress());
         order.setConsignee(orderAllinone.getConsignee());
