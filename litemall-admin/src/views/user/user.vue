@@ -38,18 +38,18 @@
         />
         <el-button
           :disabled="update.signinType == 0 ? true : false"
-          @click="editSign"
           type="primary"
-          size="small" 
+          size="small"
           round
-          >修改固定积分
+          @click="editSign"
+        >修改固定积分
         </el-button>
       </div>
     </div>
     <el-dialog :visible.sync="enitSigninIntrgral" title="编辑签到积分" width="30%">
       <el-form ref="update">
         <el-form-item label="输入签到积分" prop="signIntegral">
-          <el-input-number v-model="update.signinIntegral" :min="1" :max="10" :step="1"></el-input-number>
+          <el-input-number v-model="update.signinIntegral" :min="1" :max="10" :step="1"/>
         </el-form-item>
       </el-form>
       <span slot="footer" class="dialog-footer">
@@ -60,7 +60,7 @@
     <el-dialog :visible.sync="enitUserIntrgral" title="编辑用户积分" width="30%">
       <el-form ref="dataForm">
         <el-form-item label="输入积分" prop="integral">
-          <el-input-number v-model="dataForm.integral" :min="1" :step="1"></el-input-number>
+          <el-input-number v-model="dataForm.integral" :min="1" :step="1"/>
         </el-form-item>
       </el-form>
       <span slot="footer" class="dialog-footer">
@@ -78,7 +78,7 @@
       highlight-current-row
     >
       <el-table-column align="center" width="100px" label="用户ID" prop="id" sortable/>
-      <el-table-column align="center" label="用户名" prop="username"/>
+      <el-table-column align="center" label="用户名" prop="nickname"/>
       <el-table-column align="center" label="手机号码" prop="mobile"/>
       <el-table-column align="center" label="性别" prop="gender">
         <template slot-scope="scope">
@@ -120,13 +120,12 @@
 }
 </style>
 
-
 <script>
-import { fetchList, addById, getType, chanSign } from "@/api/user";
-import Pagination from "@/components/Pagination"; // Secondary package based on el-pagination
+import { fetchList, addById, getType, chanSign } from '@/api/user'
+import Pagination from '@/components/Pagination' // Secondary package based on el-pagination
 
 export default {
-  name: "User",
+  name: 'User',
   components: { Pagination },
   data() {
     return {
@@ -138,13 +137,13 @@ export default {
         limit: 20,
         username: undefined,
         mobile: undefined,
-        sort: "add_time",
-        order: "desc"
+        sort: 'add_time',
+        order: 'desc'
       },
       downloadLoading: false,
-      genderDic: ["未知", "男", "女"],
-      levelDic: ["普通用户", "VIP用户", "高级VIP用户"],
-      statusDic: ["可用", "禁用", "注销"],
+      genderDic: ['未知', '男', '女'],
+      levelDic: ['普通用户', 'VIP用户', '高级VIP用户'],
+      statusDic: ['可用', '禁用', '注销'],
       enitUserIntrgral: false,
       enitSigninIntrgral: false,
       dataForm: {
@@ -156,97 +155,99 @@ export default {
         signinType: undefined,
         signinIntegral: undefined
       }
-    };
+    }
   },
   created() {
-    this.getList();
-    this.getType();
+    this.getList()
+    this.getType()
   },
   methods: {
     getList() {
-      this.listLoading = true;
+      this.listLoading = true
       fetchList(this.listQuery)
         .then(response => {
-          this.list = response.data.data.items;
-          this.total = response.data.data.total;
-          this.listLoading = false;
+          this.list = response.data.data.items
+          this.total = response.data.data.total
+          this.listLoading = false
         })
         .catch(() => {
-          this.list = [];
-          this.total = 0;
-          this.listLoading = false;
-        });
+          this.list = []
+          this.total = 0
+          this.listLoading = false
+        })
     },
     getType() {
-      this.listLoading = true;
+      this.listLoading = true
       getType()
         .then(response => {
-          this.update = response.data.data;
-          this.isRandom = this.update.signinType == 0
-          this.listLoading = false;
+          this.update = response.data.data
+          this.isRandom = this.update.signinType === 0
+          this.listLoading = false
         })
         .catch(err => {
-          this.listLoading = false;
-        });
+          if (err) {
+            this.listLoading = false
+          }
+        })
     },
     handleFilter() {
-      this.listQuery.page = 1;
-      this.getList();
+      this.listQuery.page = 1
+      this.getList()
     },
     handleDownload() {
-      this.downloadLoading = true;
-      import("@/vendor/Export2Excel").then(excel => {
-        const tHeader = ["用户名", "手机号码", "性别", "生日", "状态", "积分"];
+      this.downloadLoading = true
+      import('@/vendor/Export2Excel').then(excel => {
+        const tHeader = ['用户名', '手机号码', '性别', '生日', '状态', '积分']
         const filterVal = [
-          "username",
-          "mobile",
-          "gender",
-          "birthday",
-          "status",
-          "integral"
-        ];
-        excel.export_json_to_excel2(tHeader, this.list, filterVal, "用户信息");
-        this.downloadLoading = false;
-      });
+          'username',
+          'mobile',
+          'gender',
+          'birthday',
+          'status',
+          'integral'
+        ]
+        excel.export_json_to_excel2(tHeader, this.list, filterVal, '用户信息')
+        this.downloadLoading = false
+      })
     },
     handleEdit(index, row) {
-      this.enitUserIntrgral = true;
-      this.dataForm.integral = row.integral;
-      this.dataForm.id = row.id;
+      this.enitUserIntrgral = true
+      this.dataForm.integral = row.integral
+      this.dataForm.id = row.id
       // console.log(index);
     },
     sure() {
-      this.enitUserIntrgral = false;
+      this.enitUserIntrgral = false
       addById(this.dataForm)
         .then(response => {
-          this.getList();
-          console.log(this.dataForm);
+          this.getList()
+          console.log(this.dataForm)
         })
         .catch(error => {
-          console.log(error);
-        });
+          console.log(error)
+        })
     },
     switchChange() {
-      if (this.update.signinType == 0) {
+      if (this.update.signinType === 0) {
         this.update.signinType = 1
-      } else if (this.update.signinType == 1) {
+      } else if (this.update.signinType === 1) {
         this.update.signinType = 0
       }
-      this.editSignIntegral();
+      this.editSignIntegral()
     },
     editSign() {
-      this.enitSigninIntrgral = true;
+      this.enitSigninIntrgral = true
     },
     editSignIntegral() {
       chanSign(this.update)
         .then(response => {
-          this.enitSigninIntrgral = false;
+          this.enitSigninIntrgral = false
         })
         .catch(err => {
-          console.log(err);
-          this.enitSigninIntrgral = false;
-        });
+          console.log(err)
+          this.enitSigninIntrgral = false
+        })
     }
   }
-};
+}
 </script>
