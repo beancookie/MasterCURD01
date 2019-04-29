@@ -18,7 +18,6 @@ page {
   align-items: center;
   justify-content: space-between;
   padding: 30rpx;
-  font-size: 28rpx;
 }
 
 .profile-info .avatar {
@@ -28,7 +27,7 @@ page {
 }
 
 .profile-info .info {
-  font-size: 28rpx;
+  font-size: 16rpx;
 }
 
 .profile-info .info-wrap {

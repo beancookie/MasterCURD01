@@ -1,7 +1,10 @@
 <view class="container">
   <view class="profile-info" bindtap="goLogin">
     <image class="avatar" src="{{userInfo.avatar}}"></image>
-    <view class="info-wrap">
+    <view wx:if="{{!hasLogin}}"  class="info">
+      <text class="name">点击登录</text>
+    </view>
+    <view  wx:if="{{hasLogin}}" class="info-wrap">
       <view class="info">
         <text class="name">积分：{{userInfo.integral}}</text>
       </view>
