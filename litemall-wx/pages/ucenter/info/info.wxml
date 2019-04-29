@@ -1,6 +1,6 @@
 <view class="container">
   <van-cell-group class="group-wrap">
-    <van-cell title="用户名" size="large" value="{{userinfo.nickName}}" is-link />
+    <van-cell title="用户名" size="large" value="{{userinfo.nickname}}" is-link />
     <van-cell title="性别" size="large" value="{{userinfo.gender}}" is-link />
     <picker
       mode="date"

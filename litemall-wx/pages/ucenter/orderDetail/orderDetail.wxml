@@ -2,15 +2,6 @@
   <view class="order-info">
     <view class="item-a">下单时间：{{orderInfo.addTime}}</view>
     <view class="item-b">订单编号：{{orderInfo.orderSn}}</view>
-    <view class="item-c">
-      <view class="r">
-        <view class="btn active" bindtap="cancelOrder" wx:if="{{handleOption.cancel}}">取消订单</view>
-        <view class="btn active" bindtap="payOrder" wx:if="{{handleOption.pay}}">去付款</view>
-        <view class="btn active" bindtap="confirmOrder" wx:if="{{handleOption.confirm}}">确认收货</view>
-        <view class="btn active" bindtap="deleteOrder" wx:if="{{handleOption.delete}}">删除订单</view>
-        <view class="btn active" bindtap="refundOrder" wx:if="{{handleOption.refund}}">申请退款</view>
-      </view>
-    </view>
   </view>
 
   <view class="order-goods">
@@ -23,38 +14,17 @@
         <view class="img">
           <image src="{{item.picUrl}}"></image>
         </view>
-        <view class="info">
-          <view class="t">
-            <text class="name">眼镜名称：{{item.goodsName}}</text>
-            <text class="number">x{{item.number}}</text>
-          </view>
-          <view class="attr">{{item.specifications}}</view>
-          <view class="price">￥{{item.price}}</view>
-        </view>
-      </view>
-    </view>
-
-    <view class="order-bottom">
-      <view class="address">
-        <view class="t">
-          <text class="name">{{orderInfo.consignee}}</text>
-          <text class="mobile">{{orderInfo.mobile}}</text>
-        </view>
-        <view class="b">地址：{{orderInfo.address}}</view>
       </view>
     </view>
   </view>
 
-  <view class="order-goods">
-    <view class="goods">
-      <view class="h">
-        <view class="label">商品属性</view>
+  <view class="goods-attr">
+    <view class="t">商品参数</view>
+    <view class="l">
+      <view class="item" wx:for="{{goodsAttributes}}" wx:key="name">
+        <text class="left">{{item.attribute}}</text>
+        <text class="right">{{item.value}}</text>
       </view>
-      <scroll-view class="attribute">
-        <view class="b" wx:for="{{goodsAttributes}}" wx:key="item" wx:for-item="item">
-          {{item.attribute}}：{{item.value}}
-        </view>
-      </scroll-view>
     </view>
   </view>
 

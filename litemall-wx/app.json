@@ -9,6 +9,7 @@
     "pages/ucenter/orderDetail/orderDetail",
     "pages/ucenter/signin/signin",
     "pages/ucenter/info/info",
+    "pages/ad/ad",
     "pages/ucenter/couponList/couponList",
     "pages/ucenter/couponSelect/couponSelect",
     "pages/auth/login/login",

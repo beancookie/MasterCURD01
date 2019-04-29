@@ -11,17 +11,17 @@ const ATTRIBUTE_MAP = new Map([
   ["rightGlassAxialposition", "右轴位"],
   ["rightGlassNakedeyesight", "右裸眼视力"],
   ["rightGlassCorrectivevision", "右矫正视力"],
-  ["glassPitch", "瞳距"],
-  ["glassHigh", "瞳高"],
-  ["glassADD", "ADD"],
-  ["glassbevel", "斜角"],
-  ["glassFramebrand", "镜架品牌"],
-  ["glassFramenumber", "镜架货号"],
-  ["glassLensindex", "镜片折射率"],
-  ["glassLensbrand", "镜片品牌"],
-  ["glassLensfunction", "镜片功能"],
-  ["glassAmountofconsumption", "眼镜单价"],
-  ["glassRemarks", "备注"]
+  // ["glassPitch", "瞳距"],
+  // ["glassHigh", "瞳高"],
+  // ["glassADD", "ADD"],
+  // ["glassbevel", "斜角"],
+  // ["glassFramebrand", "镜架品牌"],
+  // ["glassFramenumber", "镜架货号"],
+  // ["glassLensindex", "镜片折射率"],
+  // ["glassLensbrand", "镜片品牌"],
+  // ["glassLensfunction", "镜片功能"],
+  // ["glassAmountofconsumption", "眼镜单价"],
+  // ["glassRemarks", "备注"]
 ])
 Page({
   data: {
@@ -67,24 +67,21 @@ Page({
     }).then(function(res) {
       if (res.errno === 0) {
         let tmp = []
-        console.log(ATTRIBUTE_MAP);
-        
-        res.data.goodsAttributes.forEach(item => {
-          console.log(ATTRIBUTE_MAP.get(item.attribute));
-          
-          tmp.push({
-            attribute: ATTRIBUTE_MAP.get(item.attribute),
-            value: item.value
+        if (res.data.goodsAttributes && res.data.goodsAttributes.length > 0) {
+          res.data.goodsAttributes.forEach(item => {
+            if (ATTRIBUTE_MAP.get(item.attribute)) {
+              tmp.push({
+                attribute: ATTRIBUTE_MAP.get(item.attribute),
+                value: item.value
+              })
+            }
           })
-        })
+        }
         that.setData({
           orderInfo: res.data.orderInfo,
           orderGoods: res.data.orderGoods,
-          handleOption: res.data.orderInfo.handleOption,
-          expressInfo: res.data.expressInfo,
           goodsAttributes: tmp
         });
-        console.log(that.data);
       }
 
       wx.hideLoading();

@@ -21,8 +21,8 @@ Page({
 
   onShareAppMessage: function() {
     return {
-      title: 'litemall小程序商场',
-      desc: '开源微信小程序商城',
+      title: '吴良材眼镜店微信小程序',
+      desc: '吴良材眼镜店微信小程序',
       path: '/pages/index/index'
     }
   },
@@ -50,11 +50,6 @@ Page({
           coupon: res.data.couponList
         });
       }
-    });
-    util.request(api.GoodsCount).then(function (res) {
-      that.setData({
-        goodsCount: res.data.goodsCount
-      });
     });
   },
   onLoad: function(options) {

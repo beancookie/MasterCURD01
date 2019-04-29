@@ -1,8 +1,13 @@
 <view class="container">
   <view class="profile-info" bindtap="goLogin">
-    <image class="avatar" src="{{userInfo.avatarUrl}}"></image>
-    <view class="info">
-      <text class="name">{{userInfo.nickName}}</text>
+    <image class="avatar" src="{{userInfo.avatar}}"></image>
+    <view class="info-wrap">
+      <view class="info">
+        <text class="name">积分：{{userInfo.integral}}</text>
+      </view>
+      <view class="info">
+        <text class="name">用户编号：{{userInfo.id}}</text>
+      </view>
     </view>
   </view>
   <view class='separate'></view>

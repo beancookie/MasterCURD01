@@ -16,6 +16,7 @@ page {
   color: #f4f4f4;
   display: flex;
   align-items: center;
+  justify-content: space-between;
   padding: 30rpx;
   font-size: 28rpx;
 }
@@ -27,9 +28,14 @@ page {
 }
 
 .profile-info .info {
-  flex: 1;
-  height: 85rpx;
-  padding-left: 31.25rpx;
+  font-size: 28rpx;
+}
+
+.profile-info .info-wrap {
+  display: flex;
+  align-content: flex-end;
+  justify-content: flex-end;
+  flex-direction: column;
 }
 
 .profile-info .name {

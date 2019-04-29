@@ -7,8 +7,9 @@ Page({
   data: {
     userInfo: {
       nickName: '点击登录',
-      avatarUrl: 'http://yanxuan.nosdn.127.net/8945ae63d940cc42406c3f67019c5cb6.png'
+      avatar: 'http://yanxuan.nosdn.127.net/8945ae63d940cc42406c3f67019c5cb6.png'
     },
+    integral: '',
     order: {
       unpaid: 0,
       unship: 0,
@@ -18,7 +19,6 @@ Page({
     hasLogin: false
   },
   onLoad: function(options) {
-    // 页面初始化 options为页面跳转所带来的参数
   },
   onReady: function() {
 
@@ -36,8 +36,11 @@ Page({
       let that = this;
       util.request(api.UserIndex).then(function(res) {
         if (res.errno === 0) {
+          res.data.user.id = res.data.user.id.toString().padStart(8, '0')
+          wx.setStorageSync('userInfo', res.data.user);
           that.setData({
-            order: res.data.order
+            order: res.data.order,
+            userInfo: res.data.user
           });
         }
       });

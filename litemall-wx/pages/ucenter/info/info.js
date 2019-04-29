@@ -48,6 +48,8 @@ Page({
         userinfo: userinfo
       });
     }
+    console.log(this.data);
+    
   },
   onReady: function() {
 

@@ -110,7 +110,6 @@ export const asyncRouterMap = [
       }
     ]
   },
-
   {
     path: '/mall',
     component: Layout,
@@ -172,6 +171,17 @@ export const asyncRouterMap = [
         meta: {
           perms: ['GET /admin/coupon/list', 'GET /admin/coupon/listuser'],
           title: '优惠券详情',
+          noCache: true
+        },
+        hidden: true
+      },
+      {
+        path: 'createAd',
+        component: () => import('@/views/promotion/createAd'),
+        name: 'createAd',
+        meta: {
+          perms: ['GET /admin/ad/list', 'POST /admin/ad/create', 'GET /admin/ad/read', 'POST /admin/ad/update', 'POST /admin/ad/delete'],
+          title: '创建活动',
           noCache: true
         },
         hidden: true

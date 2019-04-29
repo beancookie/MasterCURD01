@@ -1,8 +1,8 @@
 <!-- index.wxml -->
 <view class="container">
   <swiper class="banner" indicator-dots="true" autoplay="true" interval="3000" duration="1000">
-    <swiper-item wx:for="{{banner}}" wx:key="id">
-      <navigator url="{{item.link}}">
+    <swiper-item wx:for="{{banner}}" wx:for-item="item" wx:key="id">
+      <navigator url="/pages/ad/ad?id={{item.id}}">
         <image src="{{item.url}}" background-size="cover"></image>
       </navigator>
     </swiper-item>

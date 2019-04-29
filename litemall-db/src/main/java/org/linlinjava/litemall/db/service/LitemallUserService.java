@@ -104,4 +104,8 @@ public class LitemallUserService {
     public void deleteById(Integer id) {
         userMapper.logicalDeleteByPrimaryKey(id);
     }
+
+    public LitemallUser findShowInfoById(Integer userId) {
+        return userMapper.selectByPrimaryKeySelective(userId, LitemallUser.Column.avatar, LitemallUser.Column.integral, LitemallUser.Column.id, LitemallUser.Column.birthday, LitemallUser.Column.nickname, LitemallUser.Column.username, LitemallUser.Column.mobile);
+    }
 }

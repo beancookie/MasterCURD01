@@ -100,7 +100,7 @@
       <el-table-column label="操作" align="center" width="300">
         <template slot-scope="scope">
           <el-button size="mini" @click="handleEdit(scope.$index, scope.row)">调整积分</el-button>
-          <el-button type="primary" size="mini" @click="handleDetail(scope.$index, scope.row)">详情</el-button>
+          <el-button type="primary" size="mini" @click="handleDetail(scope.$index, scope.row)">订单详情</el-button>
         </template>
       </el-table-column>
     </el-table>

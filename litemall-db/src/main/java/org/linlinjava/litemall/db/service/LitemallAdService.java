@@ -39,7 +39,7 @@ public class LitemallAdService {
         }
 
         PageHelper.startPage(page, limit);
-        return adMapper.selectByExample(example);
+        return adMapper.selectByExampleWithBLOBs(example);
     }
 
     public int updateById(LitemallAd ad) {

@@ -1,12 +1,12 @@
 // 以下是业务服务器API地址
 // 本机开发时使用
-// var WxApiRoot = 'http://192.168.2.151:8080/wx/';
+var WxApiRoot = 'http://localhost:8080/wx/';
 // 局域网测试使用
 // var WxApiRoot = 'http://192.168.0.101:8080/wx/';
 // 云平台部署时使用
 // var WxApiRoot = 'http://118.24.0.153:8080/wx/';
 // 云平台上线时使用
-var WxApiRoot = 'http://111.231.75.5:8080/wx/';
+// var WxApiRoot = 'http://111.231.75.5:8080/wx/';
 
 module.exports = {
   IndexUrl: WxApiRoot + 'home/index', //首页数据接口
@@ -99,4 +99,6 @@ module.exports = {
 
   SigninTotalAndIntegral: WxApiRoot + 'signin', //总积分和总签到天数
   Signin: WxApiRoot + 'signin', //总积分和总签到天数
+
+  AdDetail: WxApiRoot + 'ad/detail', // 活动详情
 };

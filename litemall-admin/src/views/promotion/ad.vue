@@ -44,50 +44,6 @@
     </el-table>
 
     <pagination v-show="total>0" :total="total" :page.sync="listQuery.page" :limit.sync="listQuery.limit" @pagination="getList" />
-
-    <!-- 添加或修改对话框 -->
-    <el-dialog :title="textMap[dialogStatus]" :visible.sync="dialogFormVisible">
-      <el-form ref="dataForm" :rules="rules" :model="dataForm" status-icon label-position="left" label-width="100px" style="width: 400px; margin-left:50px;">
-        <el-form-item label="广告标题" prop="name">
-          <el-input v-model="dataForm.name"/>
-        </el-form-item>
-        <el-form-item label="广告内容" prop="content">
-          <el-input v-model="dataForm.content"/>
-        </el-form-item>
-        <el-form-item label="广告图片" prop="url">
-          <el-upload
-            :headers="headers"
-            :action="uploadPath"
-            :show-file-list="false"
-            :on-success="uploadUrl"
-            class="avatar-uploader"
-            accept=".jpg,.jpeg,.png,.gif">
-            <img v-if="dataForm.url" :src="dataForm.url" class="avatar">
-            <i v-else class="el-icon-plus avatar-uploader-icon"/>
-          </el-upload>
-        </el-form-item>
-        <el-form-item label="广告位置" prop="position">
-          <el-select v-model="dataForm.position" placeholder="请选择">
-            <el-option :value="1" label="首页"/>
-          </el-select>
-        </el-form-item>
-        <el-form-item label="活动链接" prop="link">
-          <el-input v-model="dataForm.link"/>
-        </el-form-item>
-        <el-form-item label="是否启用" prop="enabled">
-          <el-select v-model="dataForm.enabled" placeholder="请选择">
-            <el-option :value="true" label="启用"/>
-            <el-option :value="false" label="不启用"/>
-          </el-select>
-        </el-form-item>
-      </el-form>
-      <div slot="footer" class="dialog-footer">
-        <el-button @click="dialogFormVisible = false">取消</el-button>
-        <el-button v-if="dialogStatus=='create'" type="primary" @click="createData">确定</el-button>
-        <el-button v-else type="primary" @click="updateData">确定</el-button>
-      </div>
-    </el-dialog>
-
   </div>
 </template>
 
@@ -140,29 +96,11 @@ export default {
         sort: 'add_time',
         order: 'desc'
       },
-      dataForm: {
-        id: undefined,
-        name: undefined,
-        content: undefined,
-        url: undefined,
-        link: undefined,
-        position: 1,
-        enabled: true
-      },
       dialogFormVisible: false,
       dialogStatus: '',
       textMap: {
         update: '编辑',
         create: '创建'
-      },
-      rules: {
-        name: [
-          { required: true, message: '广告标题不能为空', trigger: 'blur' }
-        ],
-        content: [
-          { required: true, message: '广告内容不能为空', trigger: 'blur' }
-        ],
-        url: [{ required: true, message: '广告链接不能为空', trigger: 'blur' }]
       },
       downloadLoading: false
     }
@@ -196,17 +134,6 @@ export default {
       this.listQuery.page = 1
       this.getList()
     },
-    resetForm() {
-      this.dataForm = {
-        id: undefined,
-        name: undefined,
-        content: undefined,
-        url: undefined,
-        link: undefined,
-        position: 1,
-        enabled: true
-      }
-    },
     handleCreate() {
       this.resetForm()
       this.dialogStatus = 'create'
@@ -215,36 +142,19 @@ export default {
         this.$refs['dataForm'].clearValidate()
       })
     },
-    uploadUrl: function(response) {
-      this.dataForm.url = response.data.url
-    },
-    createData() {
-      this.$refs['dataForm'].validate(valid => {
-        if (valid) {
-          createAd(this.dataForm)
-            .then(response => {
-              this.list.unshift(response.data.data)
-              this.dialogFormVisible = false
-              this.$notify.success({
-                title: '成功',
-                message: '创建成功'
-              })
-            })
-            .catch(response => {
-              this.$notify.error({
-                title: '失败',
-                message: response.data.errmsg
-              })
-            })
-        }
-      })
+    handleCreate() {
+      this.$store.dispatch('UpdateIsUpdate', false)
+      this.$router.push({ path: '/promotion/createAd' })
     },
     handleUpdate(row) {
-      this.dataForm = Object.assign({}, row)
-      this.dialogStatus = 'update'
-      this.dialogFormVisible = true
-      this.$nextTick(() => {
-        this.$refs['dataForm'].clearValidate()
+      this.$store.dispatch('UpdateIsUpdate', true)
+      this.$store.dispatch('UpdateAd', row).then(() => {
+        this.$router.push({ path: '/promotion/createAd' })
+      }).catch(response => {
+        this.$notify.error({
+          title: '失败',
+          message: response.data.errmsg
+        })
       })
     },
     updateData() {
