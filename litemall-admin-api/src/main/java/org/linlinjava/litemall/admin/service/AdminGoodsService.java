@@ -324,10 +324,4 @@ public class AdminGoodsService {
 
         return ResponseUtil.ok(data);
     }
-    //按照id逻辑删除
-    @Transactional
-    public Object deleteById(Integer id){
-        goodsService.deleteById(id);
-        return  ResponseUtil.ok();
-    }
 }

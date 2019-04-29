@@ -132,14 +132,13 @@ public class AdminOrderController {
     /**
      * 管理员手动删除订单
      *
-     * @param deleted 订单信息，{ orderId：xxx }
+     * @param orderId 订单信息，{ orderId：xxx }
      * @return 订单操作结果
      */
     @RequiresPermissions("admin:order:delete")
     @RequiresPermissionsDesc(menu = {"商场管理", "订单管理"}, button = "删除订单")
     @GetMapping("/delete")
     public Object delete(Integer orderId) {
-        System.out.println("删除订单开始====================");
         return adminOrderService.delete(orderId);
     }
 
