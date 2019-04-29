@@ -24,9 +24,9 @@ litemall:
     # 短消息模版通知配置
     # 短信息用于通知客户，例如发货短信通知，注意配置格式；template-name，template-templateId 请参考 NotifyType 枚举值
     sms:
-      enable: false
-      appid: 111111111
-      appkey: xxxxxxxxxxxxxx
+      enable: true
+      appid: 1400202780
+      appkey: f418a6a29613c1fb58e347687a9d297f
       template:
       - name: paySucceed
         templateId: 156349
@@ -92,7 +92,7 @@ litemall:
     local:
       storagePath: storage
       # 这个地方应该是wx模块的WxStorageController的fetch方法对应的地址
-      address: http://localhost:8080/wx/storage/fetch/
+      address: http://111.231.75.5:8080/wx/storage/fetch/
     # 阿里云对象存储配置信息
     aliyun:
       endpoint: oss-cn-shenzhen.aliyuncs.com
@@ -102,10 +102,10 @@ litemall:
     # 腾讯对象存储配置信息
     # 请参考 https://cloud.tencent.com/document/product/436/6249
     tencent:
-      secretId: 111111
-      secretKey: xxxxxx
-      region: xxxxxx
-      bucketName: litemall
+      secretId: AKIDxwpZAYjXBZnrjRoa8XxpWq11pdRidjvt
+      secretKey: weBaRC8wnmhT5Vjy6262lJOH1Z4Zu1yc
+      region: ap-chengdu
+      bucketName: master-curd01-1255471819
     # 七牛云对象存储配置信息
     qiniu:
       endpoint: http://pd5cb6ulu.bkt.clouddn.com

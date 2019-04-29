@@ -80,7 +80,6 @@ public class AdminOrderService {
         order.setOrderStatus(OrderUtil.STATUS_OFFLINE);
         orderService.add(order);
 
-
         /**
          * 最后添加订单和商品关联信息
          */
@@ -120,7 +119,7 @@ public class AdminOrderService {
                        Integer page, Integer limit, String sort, String order, LocalDateTime ldt, LocalDateTime dateTime) {
 
 
-        List<LitemallOrder> orderList = orderService.querySelective(userId, orderSn, orderStatusArray, page, limit, sort, order, ldt, dateTime);
+        List<LitemallOrder> orderList = orderService.querySelective(userId, orderSn, orderStatusArray, page, limit, sort, order,ldt,dateTime);
         long total = PageInfo.of(orderList).getTotal();
 
         Map<String, Object> data = new HashMap<>();

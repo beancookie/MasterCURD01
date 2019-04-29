@@ -49,8 +49,6 @@ public class LocalStorage implements Storage {
     @Override
     public void store(InputStream inputStream, long contentLength, String contentType, String keyName) {
         try {
-
-
             Files.copy(inputStream, rootLocation.resolve(keyName), StandardCopyOption.REPLACE_EXISTING);
         } catch (IOException e) {
             throw new RuntimeException("Failed to store file " + keyName, e);
@@ -78,8 +76,6 @@ public class LocalStorage implements Storage {
     public Resource loadAsResource(String filename) {
         try {
             Path file = load(filename);
-            System.out.print(file);
-            System.out.print("xxxxxx");
             Resource resource = new UrlResource(file.toUri());
             if (resource.exists() || resource.isReadable()) {
                 return resource;
