@@ -86,6 +86,7 @@ public class AdminOrderService {
         order.setOrderStatus(OrderUtil.STATUS_OFFLINE);
         orderService.add(order);
 
+
         /**
          * 最后添加订单和商品关联信息
          */
@@ -104,7 +105,63 @@ public class AdminOrderService {
 
         return ResponseUtil.ok();
     }
+    @Transactional
+    public Object delete(Integer orderId) {
+       List<LitemallOrderGoods> orderGoods=orderGoodsService.queryByOid(orderId);
+       for(LitemallOrderGoods og:orderGoods){
+           Integer id=og.getId();
+           Integer goodsId=og.getGoodsId();
+           //首先物理删除good_attribute里的属性
+           goodsAttributeService.deleteByGoodId(goodsId);
+           //逻辑删除goods表
+           goodsService.deleteById(goodsId);
+           //逻辑删除订单表
+           orderService.deleteById(orderId);
+           //逻辑删除订单商品关系表
+           orderGoodsService.deleteById(id);
+       }
 
+
+        return ResponseUtil.ok();
+        /**
+         * 首先添加商品，并获取商品id
+         *//*
+        orderAllinone.getGoodsAllinone().getGoods().setGoodsSn(orderService.generateOrderSn(user.getId()));
+        int goodId = goodsService.create(orderAllinone.getGoodsAllinone());
+        for (LitemallGoodsAttribute attribute : orderAllinone.getGoodsAllinone().getAttributes()) {
+            attribute.setGoodsId(goodId);
+        }
+
+        *//**
+         * 然后添加订单
+         *//*
+        LitemallOrder order = new LitemallOrder();
+
+        order.setUserId(user.getId());
+        order.setOrderSn(orderService.generateOrderSn(orderAllinone.getUserId()));
+        order.setAddress(orderAllinone.getAddress());
+        order.setConsignee(orderAllinone.getConsignee());
+        order.setMobile(orderAllinone.getMobile());
+        order.setOrderStatus(OrderUtil.STATUS_OFFLINE);
+        orderService.add(order);
+
+
+        *//**
+         * 最后添加订单和商品关联信息
+         *//*
+        LitemallGoods goods = orderAllinone.getGoodsAllinone().getGoods();
+
+        LitemallOrderGoods orderGoods = new LitemallOrderGoods();
+        orderGoods.setPicUrl(DEFAULT_PIC_URL);
+        orderGoods.setNumber(DEFAULT_NUMBER);
+        orderGoods.setGoodsId(goodId);
+        orderGoods.setOrderId(order.getId());
+        orderGoods.setGoodsId(goodId);
+        orderGoods.setGoodsName(goods.getName());
+        orderGoods.setPrice(orderAllinone.getGoodsAllinone().getGoods().getRetailPrice());
+        orderGoods.setAddTime(LocalDateTime.now());
+        orderGoodsService.add(orderGoods);*/
+    }
     public Object list(Integer userId, String orderSn, List<Short> orderStatusArray,
                        Integer page, Integer limit, String sort, String order, LocalDateTime ldt, LocalDateTime dateTime) {
 
