@@ -1,0 +1,230 @@
+.container {
+    margin-bottom: 100rpx;
+  }
+  
+  .adimgs {
+    width: 750rpx;
+    height: 450rpx;
+  }
+  
+  .adimgs image {
+    width: 750rpx;
+    height: 450rpx;
+  }
+  
+  .ad_name {
+    /* border: 1px solid black; */
+    height: 86rpx;
+    line-height: 86rpx;
+    border-bottom: 1px solid #fafafa;
+  }
+  
+  .ad_name_left {
+    /* border: 1px solid #757575; */
+    float: left;
+    height: 86rpx;
+    font-weight: 550;
+    line-height: 86rpx;
+    margin-left: 35rpx;
+    font-size: 38rpx;
+    letter-spacing: 1rpx;
+  }
+  
+  .ad_name_right {
+    float: right;
+    font-weight: 550;
+    margin-top: 28rpx;
+    width: 140rpx;
+    height: 80rpx;
+    line-height: 82rpx;
+    padding: 0;
+    margin: 0;
+    margin-right: 0rpx;
+    text-align: center;
+    font-size: 25rpx;
+    color: #f4f4f4;
+    border-top-left-radius: 50rpx;
+    border-bottom-left-radius: 50rpx;
+    border-top-right-radius: 0rpx;
+    border-bottom-right-radius: 0rpx;
+    letter-spacing: 3rpx;
+    /* background-image: linear-gradient(to right, #ff7701 100%); */
+    background-image: linear-gradient(to right, #67C23A 0%, #67C23A 100%);
+  }
+  
+  .ad-info .desc {
+    height: 43rpx;
+    margin-bottom: 41rpx;
+    font-size: 24rpx;
+    line-height: 36rpx;
+    color: #999;
+  }
+  
+  .ad-info .price {
+    height: 70rpx;
+    align-content: center;
+  }
+  
+  .ad-info .counterPrice {
+    float: left;
+    padding-left: 0rpx;
+    text-decoration: line-through;
+    font-size: 30rpx;
+    color: #999;
+  }
+  
+  .ad-info .retailPrice {
+    padding-left: 5%;
+    font-size: 30rpx;
+    color: #a78845;
+  }
+  
+  .ad-info .brand {
+    margin-top: 23rpx;
+    min-height: 40rpx;
+    text-align: left;
+  }
+  
+  .ad-info .brand text {
+    display: inline-block;
+    width: auto;
+    padding: 2px 30rpx 2px 10.5rpx;
+    line-height: 35.5rpx;
+    border: 1px solid #f48f18;
+    font-size: 25rpx;
+    color: #f48f18;
+    border-radius: 4px;
+    background: url(http://nos.netease.com/mailpub/hxm/yanxuan-wap/p/20150730/style/img/icon-normal/detailTagArrow-18bee52dab.png) 95% center no-repeat;
+    background-size: 10.75rpx 18.75rpx;
+  }
+
+  .detail {
+    width: 750rpx;
+    height: auto;
+    overflow: hidden;
+  }
+  
+  .detail image {
+    width: 750rpx;
+    display: block;
+  }
+
+  .detail t {
+    height: 43rpx;
+    margin-bottom: 41rpx;
+    font-size: 24rpx;
+    line-height: 36rpx;
+    color: #999;
+  }
+
+  .share-pop-box {
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 8;
+    bottom: 0;
+    /* display: none; */
+  }
+  
+  .share-pop {
+    width: 100%;
+    height: auto;
+    max-height: 780rpx;
+    padding: 31.25rpx;
+    background: #fff;
+    position: fixed;
+    z-index: 9;
+    bottom: 100rpx;
+  }
+  
+  .share-pop .close {
+    position: absolute;
+    width: 48rpx;
+    height: 48rpx;
+    right: 31.25rpx;
+    top: 31.25rpx;
+  }
+  
+  .share-pop .close .icon {
+    width: 48rpx;
+    height: 48rpx;
+  }
+  
+  .share-pop .share-info {
+    width: 100%;
+    height: 225rpx;
+    overflow: hidden;
+    margin-bottom: 41.5rpx;
+  }
+  
+  .sharebtn {
+    top: 75rpx;
+    background: none !important;
+    font-size: 32rpx;
+    color: #fff !important;
+    border-radius: 0%;
+    width: 175rpx;
+    height: 150rpx;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    float: left;
+    background: #fff;
+    border-bottom: 0px solid #fafafa;
+    margin-left: 15%;
+  }
+  
+  .sharebtn::after {
+    border: none;
+    border-radius: 0%;
+  }
+  
+  .savesharebtn {
+    top: 75rpx;
+    background: none !important;
+    font-size: 32rpx;
+    color: #fff !important;
+    border-radius: 0%;
+    width: 175rpx;
+    height: 150rpx;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    float: right;
+    background: #fff;
+    border-bottom: 0px solid #fafafa;
+    margin-right: 15%;
+  }
+  
+  .savesharebtn::after {
+    border: none;
+    border-radius: 0%;
+  }
+  
+  .sharebtn_image {
+    /* border: 1px solid #757575; */
+    width: 128rpx;
+    height: 128rpx;
+    margin-top: 0rpx;
+  }
+  
+  .sharebtn_text {
+    /* border: 1px solid #757575; */
+    width: 150rpx;
+    margin-bottom: 2rpx;
+    height: 20rpx;
+    line-height: 20rpx;
+    font-size: 20rpx;
+    color: #555;
+  }
+  
+  .separate {
+    background: #e0e3da;
+    width: 100%;
+    height: 6rpx;
+  }

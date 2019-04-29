@@ -115,7 +115,7 @@
       distinct
     </if>
     <choose>
-      <when test="selective != null and selective.length &gt; 0">
+      <when test="selective != null and selective.length > 0">
         <foreach collection="selective" item="column" separator=",">
           ${column.escapedColumnName}
         </foreach>
@@ -174,7 +174,7 @@
     -->
     select
     <choose>
-      <when test="selective != null and selective.length &gt; 0">
+      <when test="selective != null and selective.length > 0">
         <foreach collection="selective" item="column" separator=",">
           ${column.escapedColumnName}
         </foreach>
@@ -380,7 +380,7 @@
     -->
     select
     <choose>
-      <when test="selective != null and selective.length &gt; 0">
+      <when test="selective != null and selective.length > 0">
         <foreach collection="selective" item="column" separator=",">
           ${column.escapedColumnName}
         </foreach>
@@ -418,33 +418,4 @@
     update litemall_system set deleted = 1
     where id = #{id,jdbcType=INTEGER}
   </update>
-  
-  <select id="selectByKeyName" parameterType="map" resultMap="BaseResultMap">
-    select
-    <include refid="Base_Column_List" />
-    from litemall_system
-    where key_name = #{keyName,jdbcType=VARCHAR}
-  </select>
-  <!--&amp;amp;lt;update id="updateByKeyName" parameterType="org.linlinjava.litemall.db.domain.LitemallSystem"&amp;amp;gt;-->
-    <!--update litemall_system-->
-     <!--&amp;amp;lt;set&amp;amp;gt;-->
-       <!--&amp;amp;lt;if test="id!=null"&amp;amp;gt;-->
-         <!--id=#{id},-->
-       <!--&amp;amp;lt;/if&amp;amp;gt;-->
-       <!--&amp;amp;lt;if test="keyValue!=null"&amp;amp;gt;-->
-         <!--key_value = #{keyValue},-->
-       <!--&amp;amp;lt;/if&amp;amp;gt;-->
-       <!--&amp;amp;lt;if test="addTime!=null"&amp;amp;gt;-->
-         <!--add_time=#{addTime},-->
-       <!--&amp;amp;lt;/if&amp;amp;gt;-->
-       <!--&amp;amp;lt;if test="updateTime!=null"&amp;amp;gt;-->
-         <!--update_time=#{updateTime},-->
-       <!--&amp;amp;lt;/if&amp;amp;gt;-->
-       <!--&amp;amp;lt;if test="deleted!=null"&amp;amp;gt;-->
-         <!--deleted=#{deleted},-->
-       <!--&amp;amp;lt;/if&amp;amp;gt;-->
-     <!--&amp;amp;lt;/set&amp;amp;gt;-->
-     <!--where key_name =#{keyName}-->
-  <!--&amp;amp;lt;/update&amp;amp;gt;-->
-  
 </mapper>

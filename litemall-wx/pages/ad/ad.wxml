@@ -1,0 +1,33 @@
+<view class="container">
+  <image class="adimgs" mode="aspectFit" src="{{ad.url}}" background-size="cover"></image>
+  <!-- 分享 -->
+  <view class='ad_name'>
+    <view class='ad_name_left'>{{ad.name}}</view>
+    <view class="ad_name_right" bindtap="shareFriendOrCircle">分享</view>
+  </view>
+  <view class="share-pop-box" hidden="{{!openShare}}">
+    <view class="share-pop">
+      <view class="close" bindtap="closeShare">
+        <image class="icon" src="/static/images/icon_close.png"></image>
+      </view>
+      <view class='share-info'>
+        <button class="sharebtn" open-type="share" wx:if="{{!isGroupon}}">
+          <image class='sharebtn_image' src='/static/images/wechat.png'></image>
+          <view class='sharebtn_text'>分享给好友</view>
+        </button>
+        <button  class="savesharebtn" open-type="openSetting" bindopensetting="handleSetting" wx:if="{{(!isGroupon) && (!canWrite)}}" >
+          <image class='sharebtn_image' src='/static/images/friend.png'></image>
+          <view class='sharebtn_text'>发朋友圈</view>
+        </button>
+        <button class="savesharebtn" bindtap="saveShare" wx:if="{{!isGroupon && canWrite}}">
+          <image class='sharebtn_image' src='/static/images/friend.png'></image>
+          <view class='sharebtn_text'>发朋友圈</view>
+        </button>
+      </view>
+    </view>
+  </view>
+  <view class="detail">
+    <import src="/lib/wxParse/wxParse.wxml" />
+    <template is="wxParse" data="{{wxParseData:adDetail.nodes}}" />
+  </view>
+</view>
