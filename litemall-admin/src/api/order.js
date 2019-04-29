@@ -28,6 +28,16 @@ export function shipOrder(data) {
   })
 }
 
+export function deleteOrder(data) {
+  return request({
+    url: '/order/delete',
+    method: 'post',
+    data
+  })
+}
+
+
+
 export function addOrdertoHost(data) {
   return request({
     url: '/order/addOrder',

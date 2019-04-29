@@ -51,7 +51,7 @@ public class AdminOrderController {
                        @Sort @RequestParam(defaultValue = "add_time") String sort,
                        @Order @RequestParam(defaultValue = "desc") String order) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-        System.out.print(addTime);
+
         LocalDateTime ldt=null;
         LocalDateTime ldt2=null;
         if(StringUtils.isNotBlank(addTime)){
