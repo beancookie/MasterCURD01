@@ -324,5 +324,4 @@ public class AdminGoodsService {
 
         return ResponseUtil.ok(data);
     }
-
 }

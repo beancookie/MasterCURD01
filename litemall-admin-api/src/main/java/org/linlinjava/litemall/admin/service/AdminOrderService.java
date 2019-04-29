@@ -52,6 +52,10 @@ public class AdminOrderService {
     private AdminGoodsService goodsService;
     @Autowired
     private LitemallGoodsAttributeService goodsAttributeService;
+    @Autowired
+    private LitemallGoodsAttributeService attributeService;
+    @Autowired
+    private LitemallGoodsService litemallGoodsService;
 
     @Transactional
     public Object add(OrderAllinone orderAllinone) {
@@ -76,6 +80,7 @@ public class AdminOrderService {
         order.setOrderStatus(OrderUtil.STATUS_OFFLINE);
         orderService.add(order);
 
+
         /**
          * 最后添加订单和商品关联信息
          */
@@ -94,11 +99,28 @@ public class AdminOrderService {
         return ResponseUtil.ok();
     }
 
+    @Transactional
+    public Object delete(Integer orderId) {
+        List<LitemallOrderGoods> orderGoods = orderGoodsService.queryByOid(orderId);
+        for (LitemallOrderGoods og : orderGoods) {
+            Integer goodsId = og.getGoodsId();
+            //首先物理删除good_attribute里的属性
+            attributeService.deleteByGid(goodsId);
+            //逻辑删除goods表
+            litemallGoodsService.deleteById(goodsId);
+            //逻辑删除订单表
+            orderService.deleteById(orderId);
+            //逻辑删除订单商品关系表
+            orderGoodsService.logicalDeleteByOid(og.getOrderId());
+        }
+        return ResponseUtil.ok();
+    }
+
     public Object list(Integer userId, String orderSn, List<Short> orderStatusArray,
                        Integer page, Integer limit, String sort, String order, LocalDateTime ldt, LocalDateTime dateTime) {
 
 
-        List<LitemallOrder> orderList = orderService.querySelective(userId, orderSn, orderStatusArray, page, limit, sort, order,ldt,dateTime);
+        List<LitemallOrder> orderList = orderService.querySelective(userId, orderSn, orderStatusArray, page, limit, sort, order, ldt, dateTime);
         long total = PageInfo.of(orderList).getTotal();
 
         Map<String, Object> data = new HashMap<>();
