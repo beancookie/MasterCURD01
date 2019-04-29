@@ -53,4 +53,10 @@ public class LitemallOrderGoodsService {
         example.or().andGoodsIdEqualTo(goodsId).andDeletedEqualTo(false);
         return orderGoodsMapper.countByExample(example) != 0;
     }
+
+    public boolean logicalDeleteByOid(Integer orderId) {
+        LitemallOrderGoodsExample example = new LitemallOrderGoodsExample();
+        example.or().andOrderIdEqualTo(orderId);
+        return orderGoodsMapper.logicalDeleteByExample(example) != 0;
+    }
 }
