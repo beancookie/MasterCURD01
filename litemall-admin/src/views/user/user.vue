@@ -97,9 +97,10 @@
         </template>
       </el-table-column>
       <el-table-column align="center" label="积分" prop="integral"/>
-      <el-table-column label="操作" align="center">
+      <el-table-column label="操作" align="center" width="300">
         <template slot-scope="scope">
           <el-button size="mini" @click="handleEdit(scope.$index, scope.row)">调整积分</el-button>
+          <el-button type="primary" size="mini" @click="handleDetail(scope.$index, scope.row)">详情</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -154,7 +155,7 @@ export default {
       update: {
         signinType: undefined,
         signinIntegral: undefined
-      }
+      },
     }
   },
   created() {
@@ -215,6 +216,15 @@ export default {
       this.dataForm.integral = row.integral
       this.dataForm.id = row.id
       // console.log(index);
+    },
+    handleDetail(index,row){
+      this.userId=row.id;
+      this.$router.push({
+        path:'/mall/order',
+        query:{
+          userId:row.id
+        }
+      })
     },
     sure() {
       this.enitUserIntrgral = false

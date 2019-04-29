@@ -37,9 +37,9 @@
         style="margin-left:15px"
         @click="handleFilter"
       >查找</el-button>
-      <el-button 
-        type="primary"  
-        icon="el-icon-edit" 
+      <el-button
+        type="primary"
+        icon="el-icon-edit"
         @click="addOrder"
       >添加</el-button>
       <el-button
@@ -171,7 +171,7 @@
                   <el-form-item label="左矫正视力">
                     <span>{{ props.row.leftGlassCorrectivevision }}</span>
                   </el-form-item>
-                 
+
                   <el-form-item label="右矫正视力">
                     <span>{{ props.row.rightGlassCorrectivevision }}</span>
                   </el-form-item>
@@ -273,7 +273,7 @@
           :model="ruleForm1"
           :inline="true"
           ref="ruleForm1"
-         
+
           label-width="100px"
           class="demo-ruleForm"
         >
@@ -306,7 +306,7 @@
           :model="ruleForm2"
           :inline="true"
           ref="ruleForm2"
-         
+
           label-width="100px"
           class="demo-ruleForm"
         >
@@ -389,7 +389,7 @@
           </el-form-item>
            <el-form-item label="双眼矫正视力" prop="glassAmountofconsumption" >
             <el-input v-model="ruleForm3.CorrectionWithBoth"></el-input>
-          </el-form-item> 
+          </el-form-item>
           <el-form-item>
             <el-button
               type="primary"
@@ -635,7 +635,17 @@ export default {
     ...mapGetters(["userId"])
   },
   created() {
-    this.getList();
+    console.log("订单")
+    this.listQuery.userId=this.$route.query.userId;
+    if(this.listQuery.userId!="undefined"){
+      console.log("查找")
+      this.handleFilter()
+
+    }else{
+      console.log("列表")
+      this.getList();
+    }
+
   },
   methods: {
     changeDate(dateA) {
@@ -699,7 +709,7 @@ export default {
         });
        }
     ).catch(this.$message.error('删除订单失败'))
-    
+
     },
     handleUpdate(row){
       detailOrder(row.id)
@@ -716,10 +726,10 @@ export default {
           console.log(this.orderDetail);
            this.dialogFormVisible = true;
 
-        
+
         })
         .catch(response => {});
-        
+
     },
 
 
