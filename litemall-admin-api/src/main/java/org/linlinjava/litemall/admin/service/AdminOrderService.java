@@ -35,6 +35,8 @@ import static org.linlinjava.litemall.admin.util.AdminResponseCode.*;
 
 public class AdminOrderService {
     private final Log logger = LogFactory.getLog(AdminOrderService.class);
+    private static final Short DEFAULT_NUMBER = 1;
+    private static final String DEFAULT_PIC_URL = "http://111.231.75.5:8080/wx/storage/fetch/zcoxf34qggcq0eatgjz6.jpg";
 
     @Autowired
     private LitemallOrderGoodsService orderGoodsService;
@@ -53,16 +55,23 @@ public class AdminOrderService {
     @Autowired
     private LitemallGoodsAttributeService goodsAttributeService;
     @Autowired
+    private LitemallUserService userService;
+    @Autowired
     private LitemallGoodsAttributeService attributeService;
     @Autowired
     private LitemallGoodsService litemallGoodsService;
 
     @Transactional
     public Object add(OrderAllinone orderAllinone) {
+        List<LitemallUser> users = userService.queryByMobile(orderAllinone.getMobile());
+        if (users.size() < 1) {
+            return ResponseUtil.fail(USER_NOT_EXIST, "用户未注册");
+        }
+        LitemallUser user = users.get(0);
         /**
          * 首先添加商品，并获取商品id
          */
-        orderAllinone.getGoodsAllinone().getGoods().setGoodsSn(orderService.generateOrderSn(orderAllinone.getUserId()));
+        orderAllinone.getGoodsAllinone().getGoods().setGoodsSn(orderService.generateOrderSn(user.getId()));
         int goodId = goodsService.create(orderAllinone.getGoodsAllinone());
         for (LitemallGoodsAttribute attribute : orderAllinone.getGoodsAllinone().getAttributes()) {
             attribute.setGoodsId(goodId);
@@ -72,8 +81,9 @@ public class AdminOrderService {
          * 然后添加订单
          */
         LitemallOrder order = new LitemallOrder();
+
+        order.setUserId(user.getId());
         order.setOrderSn(orderService.generateOrderSn(orderAllinone.getUserId()));
-        order.setUserId(orderAllinone.getUserId());
         order.setAddress(orderAllinone.getAddress());
         order.setConsignee(orderAllinone.getConsignee());
         order.setMobile(orderAllinone.getMobile());
@@ -86,8 +96,9 @@ public class AdminOrderService {
         LitemallGoods goods = orderAllinone.getGoodsAllinone().getGoods();
 
         LitemallOrderGoods orderGoods = new LitemallOrderGoods();
+        orderGoods.setPicUrl(DEFAULT_PIC_URL);
+        orderGoods.setNumber(DEFAULT_NUMBER);
         orderGoods.setGoodsId(goodId);
-        order.setUserId(orderAllinone.getUserId());
         orderGoods.setOrderId(order.getId());
         orderGoods.setGoodsId(goodId);
         orderGoods.setGoodsName(goods.getName());
