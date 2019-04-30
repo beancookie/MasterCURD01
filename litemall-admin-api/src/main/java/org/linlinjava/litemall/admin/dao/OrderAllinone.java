@@ -21,9 +21,9 @@ public class OrderAllinone {
     String mobile;
 
     /**
-     * 收货人地址
+     * 购买时间
      */
-    String address;
+    String addTime;
 
     GoodsAllinone goodsAllinone;
 
@@ -51,12 +51,12 @@ public class OrderAllinone {
         this.mobile = mobile;
     }
 
-    public String getAddress() {
-        return address;
+    public String getAddTime() {
+        return addTime;
     }
 
-    public void setAddress(String address) {
-        this.address = address;
+    public void setAddTime(String addTime) {
+        this.addTime = addTime;
     }
 
     public GoodsAllinone getGoodsAllinone() {
