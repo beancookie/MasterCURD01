@@ -15,13 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import static org.linlinjava.litemall.admin.util.AdminResponseCode.GOODS_NAME_EXIST;
-import static org.linlinjava.litemall.admin.util.AdminResponseCode.GOODS_UPDATE_NOT_ALLOWED;
+import java.util.*;
 
 @Service
 public class AdminGoodsService {
@@ -65,10 +59,6 @@ public class AdminGoodsService {
         if (StringUtils.isEmpty(name)) {
             return ResponseUtil.badArgument();
         }
-        String goodsSn = goods.getGoodsSn();
-        if (StringUtils.isEmpty(goodsSn)) {
-            return ResponseUtil.badArgument();
-        }
         // 品牌商可以不设置，如果设置则需要验证品牌商存在
         Integer brandId = goods.getBrandId();
         if (brandId != null && brandId != 0) {
@@ -85,17 +75,18 @@ public class AdminGoodsService {
         }
 
         LitemallGoodsAttribute[] attributes = goodsAllinone.getAttributes();
+        List<LitemallGoodsAttribute> attributeList = new LinkedList<>();
         for (LitemallGoodsAttribute attribute : attributes) {
             String attr = attribute.getAttribute();
-            if (StringUtils.isEmpty(attr)) {
-                return ResponseUtil.badArgument();
-            }
             String value = attribute.getValue();
-            if (StringUtils.isEmpty(value)) {
-                return ResponseUtil.badArgument();
+            if (!StringUtils.isEmpty(attr) && !StringUtils.isEmpty(value)) {
+                LitemallGoodsAttribute goodsAttribute = new LitemallGoodsAttribute();
+                goodsAttribute.setAttribute(attr);
+                goodsAttribute.setValue(value);
+                attributeList.add(goodsAttribute);
             }
         }
-
+        goodsAllinone.setAttributes(attributeList.toArray(new LitemallGoodsAttribute[attributeList.size()]));
         LitemallGoodsSpecification[] specifications = goodsAllinone.getSpecifications();
         if (null != specifications) {
             for (LitemallGoodsSpecification specification : specifications) {
@@ -161,12 +152,6 @@ public class AdminGoodsService {
         LitemallGoodsSpecification[] specifications = goodsAllinone.getSpecifications();
         LitemallGoodsProduct[] products = goodsAllinone.getProducts();
 
-        Integer id = goods.getId();
-
-        //将生成的分享图片地址写入数据库
-        String url = qCodeService.createGoodShareImage(goods.getId().toString(), goods.getPicUrl(), goods.getName());
-        goods.setShareUrl(url);
-
         // 商品基本信息表litemall_goods
         if (goodsService.updateById(goods) == 0) {
             throw new RuntimeException("更新数据失败");
@@ -177,22 +162,27 @@ public class AdminGoodsService {
         attributeService.deleteByGid(gid);
         productService.deleteByGid(gid);
 
-        // 商品规格表litemall_goods_specification
-        for (LitemallGoodsSpecification specification : specifications) {
-            specification.setGoodsId(goods.getId());
-            specificationService.add(specification);
+        if (null != specifications) {
+            // 商品规格表litemall_goods_specification
+            for (LitemallGoodsSpecification specification : specifications) {
+                specification.setGoodsId(goods.getId());
+                specificationService.add(specification);
+            }
         }
 
-        // 商品参数表litemall_goods_attribute
-        for (LitemallGoodsAttribute attribute : attributes) {
-            attribute.setGoodsId(goods.getId());
-            attributeService.add(attribute);
+        if (null != attributes) {
+            // 商品参数表litemall_goods_attribute
+            for (LitemallGoodsAttribute attribute : attributes) {
+                attribute.setGoodsId(goods.getId());
+                attributeService.add(attribute);
+            }
         }
-
-        // 商品货品表litemall_product
-        for (LitemallGoodsProduct product : products) {
-            product.setGoodsId(goods.getId());
-            productService.add(product);
+        if (null != products) {
+            // 商品货品表litemall_product
+            for (LitemallGoodsProduct product : products) {
+                product.setGoodsId(goods.getId());
+                productService.add(product);
+            }
         }
 
         return ResponseUtil.ok();

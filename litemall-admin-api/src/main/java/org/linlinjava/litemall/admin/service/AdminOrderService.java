@@ -7,7 +7,6 @@ import com.github.binarywang.wxpay.service.WxPayService;
 import com.github.pagehelper.PageInfo;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.joda.time.DateTime;
 import org.linlinjava.litemall.admin.dao.OrderAllinone;
 import org.linlinjava.litemall.core.notify.NotifyService;
 import org.linlinjava.litemall.core.notify.NotifyType;
@@ -28,7 +27,6 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.Callable;
 
 import static org.linlinjava.litemall.admin.util.AdminResponseCode.*;
 
@@ -36,6 +34,8 @@ import static org.linlinjava.litemall.admin.util.AdminResponseCode.*;
 
 public class AdminOrderService {
     private final Log logger = LogFactory.getLog(AdminOrderService.class);
+    private static final Short DEFAULT_NUMBER = 1;
+    private static final String DEFAULT_PIC_URL = "http://111.231.75.5:8080/wx/storage/fetch/zcoxf34qggcq0eatgjz6.jpg";
 
     @Autowired
     private LitemallOrderGoodsService orderGoodsService;
@@ -54,16 +54,23 @@ public class AdminOrderService {
     @Autowired
     private LitemallGoodsAttributeService goodsAttributeService;
     @Autowired
+    private LitemallUserService userService;
+    @Autowired
     private LitemallGoodsAttributeService attributeService;
     @Autowired
     private LitemallGoodsService litemallGoodsService;
 
     @Transactional
     public Object add(OrderAllinone orderAllinone) {
+        List<LitemallUser> users = userService.queryByMobile(orderAllinone.getMobile());
+        if (users.size() < 1) {
+            return ResponseUtil.fail(USER_NOT_EXIST, "用户未注册");
+        }
+        LitemallUser user = users.get(0);
         /**
          * 首先添加商品，并获取商品id
          */
-        orderAllinone.getGoodsAllinone().getGoods().setGoodsSn(orderService.generateOrderSn(orderAllinone.getUserId()));
+        orderAllinone.getGoodsAllinone().getGoods().setGoodsSn(orderService.generateOrderSn(user.getId()));
         int goodId = goodsService.create(orderAllinone.getGoodsAllinone());
         for (LitemallGoodsAttribute attribute : orderAllinone.getGoodsAllinone().getAttributes()) {
             attribute.setGoodsId(goodId);
@@ -73,16 +80,14 @@ public class AdminOrderService {
          * 然后添加订单
          */
         LitemallOrder order = new LitemallOrder();
-        DateTimeFormatter df = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+
+        order.setUserId(user.getId());
         order.setOrderSn(orderService.generateOrderSn(orderAllinone.getUserId()));
-        LocalDateTime ldt = LocalDateTime.parse(orderAllinone.getAddTime(),df);
-        order.setUserId(orderAllinone.getUserId());
-        order.setAddTime(ldt);
         order.setConsignee(orderAllinone.getConsignee());
         order.setMobile(orderAllinone.getMobile());
+        order.setAddTime(LocalDateTime.parse(orderAllinone.getAddTime(), DateTimeFormatter.ISO_DATE_TIME));
         order.setOrderStatus(OrderUtil.STATUS_OFFLINE);
         orderService.add(order);
-
 
         /**
          * 最后添加订单和商品关联信息
@@ -90,14 +95,53 @@ public class AdminOrderService {
         LitemallGoods goods = orderAllinone.getGoodsAllinone().getGoods();
 
         LitemallOrderGoods orderGoods = new LitemallOrderGoods();
+        orderGoods.setPicUrl(DEFAULT_PIC_URL);
+        orderGoods.setNumber(DEFAULT_NUMBER);
         orderGoods.setGoodsId(goodId);
-        order.setUserId(orderAllinone.getUserId());
         orderGoods.setOrderId(order.getId());
         orderGoods.setGoodsId(goodId);
         orderGoods.setGoodsName(goods.getName());
         orderGoods.setPrice(orderAllinone.getGoodsAllinone().getGoods().getRetailPrice());
-        orderGoods.setAddTime(LocalDateTime.now());
+        orderGoods.setAddTime(LocalDateTime.parse(orderAllinone.getAddTime(), DateTimeFormatter.ISO_DATE_TIME));
         orderGoodsService.add(orderGoods);
+
+        return ResponseUtil.ok();
+    }
+
+    @Transactional
+    public Object update(OrderAllinone orderAllinone) {
+        List<LitemallUser> users = userService.queryByMobile(orderAllinone.getMobile());
+        if (users.size() < 1) {
+            return ResponseUtil.fail(USER_NOT_EXIST, "用户未注册");
+        }
+        LitemallUser user = users.get(0);
+        /**
+         * 首先更新商品
+         */
+        orderAllinone.getGoodsAllinone().getGoods().setId(orderAllinone.getGoodsId());
+        goodsService.update(orderAllinone.getGoodsAllinone());
+
+        /**
+         * 然后修改订单
+         */
+        LitemallOrder order = new LitemallOrder();
+        order.setId(orderAllinone.getOrderId());
+        order.setAddTime(LocalDateTime.parse(orderAllinone.getAddTime(), DateTimeFormatter.ISO_DATE_TIME));
+        order.setConsignee(orderAllinone.getConsignee());
+        order.setMobile(orderAllinone.getMobile());
+        order.setUserId(user.getId());
+        orderService.updateById(order);
+
+        /**
+         * 最后添加订单和商品关联信息
+         */
+        LitemallGoods goods = orderAllinone.getGoodsAllinone().getGoods();
+
+        LitemallOrderGoods orderGoods = new LitemallOrderGoods();
+        orderGoods.setId(orderAllinone.getOrderGoodsId());
+        orderGoods.setGoodsName(goods.getName());
+        orderGoods.setPrice(orderAllinone.getGoodsAllinone().getGoods().getRetailPrice());
+        orderGoodsService.updateById(orderGoods);
 
         return ResponseUtil.ok();
     }
@@ -120,10 +164,10 @@ public class AdminOrderService {
     }
 
     public Object list(Integer userId, String orderSn, List<Short> orderStatusArray,
-                       Integer page, Integer limit, String sort, String order, LocalDateTime ldt, LocalDateTime dateTime) {
+                       Integer page, Integer limit, String sort, String order, LocalDateTime beginTime, LocalDateTime endTime) {
 
 
-        List<LitemallOrder> orderList = orderService.querySelective(userId, orderSn, orderStatusArray, page, limit, sort, order, ldt, dateTime);
+        List<LitemallOrder> orderList = orderService.querySelective(userId, orderSn, orderStatusArray, page, limit, sort, order, beginTime, endTime);
         long total = PageInfo.of(orderList).getTotal();
 
         Map<String, Object> data = new HashMap<>();

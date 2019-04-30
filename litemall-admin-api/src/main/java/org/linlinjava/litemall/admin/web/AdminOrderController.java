@@ -132,14 +132,27 @@ public class AdminOrderController {
     /**
      * 管理员手动删除订单
      *
-     * @param orderId 订单信息，{ orderId：xxx }
+     * @param id 订单信息，{ orderId：xxx }
      * @return 订单操作结果
      */
     @RequiresPermissions("admin:order:delete")
     @RequiresPermissionsDesc(menu = {"商场管理", "订单管理"}, button = "删除订单")
-    @GetMapping("/delete")
-    public Object delete(Integer orderId) {
-        return adminOrderService.delete(orderId);
+    @PostMapping("/delete")
+    public Object delete(Integer id) {
+        return adminOrderService.delete(id);
+    }
+
+    /**
+     * 管理员手动添加订单
+     *
+     * @param order 订单信息，{ orderId：xxx }
+     * @return 订单操作结果
+     */
+    @RequiresPermissions("admin:order:reply")
+    @RequiresPermissionsDesc(menu = {"商场管理", "订单管理"}, button = "订单商品回复")
+    @PostMapping("/update")
+    public Object update(@RequestBody OrderAllinone order) {
+        return adminOrderService.update(order);
     }
 
 }

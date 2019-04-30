@@ -25,6 +25,12 @@ public class OrderAllinone {
      */
     String addTime;
 
+    Integer orderId;
+
+    Integer goodsId;
+
+    Integer orderGoodsId;
+
     GoodsAllinone goodsAllinone;
 
     public Integer getUserId() {
@@ -57,6 +63,30 @@ public class OrderAllinone {
 
     public void setAddTime(String addTime) {
         this.addTime = addTime;
+    }
+
+    public Integer getOrderId() {
+        return orderId;
+    }
+
+    public void setOrderId(Integer orderId) {
+        this.orderId = orderId;
+    }
+
+    public Integer getGoodsId() {
+        return goodsId;
+    }
+
+    public void setGoodsId(Integer goodsId) {
+        this.goodsId = goodsId;
+    }
+
+    public Integer getOrderGoodsId() {
+        return orderGoodsId;
+    }
+
+    public void setOrderGoodsId(Integer orderGoodsId) {
+        this.orderGoodsId = orderGoodsId;
     }
 
     public GoodsAllinone getGoodsAllinone() {

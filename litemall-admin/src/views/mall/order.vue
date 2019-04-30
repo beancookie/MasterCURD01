@@ -1,13 +1,8 @@
 <template>
   <div class="app-container">
     <!-- 查询和其他操作 -->
-    <div class="filter-container" >
-      <el-input
-        v-model="listQuery.userId"
-        clearable
-        style="width: 200px;"
-        placeholder="请输入用户ID"
-      />
+    <div class="filter-container">
+      <el-input v-model="listQuery.userId" clearable style="width: 200px;" placeholder="请输入用户ID"/>
       <el-input
         v-model="listQuery.phone"
         clearable
@@ -37,11 +32,7 @@
         style="margin-left:15px"
         @click="handleFilter"
       >查找</el-button>
-      <el-button 
-        type="primary"  
-        icon="el-icon-edit" 
-        @click="addOrder"
-      >添加</el-button>
+      <el-button type="primary" icon="el-icon-edit" @click="addOrder">添加</el-button>
       <el-button
         :loading="downloadLoading"
         type="primary"
@@ -74,13 +65,13 @@
             size="mini"
             @click="handleDetail(scope.row)"
           >详情</el-button>
-           <el-button
+          <el-button
             v-permission="['GET /admin/order/detail']"
             type="danger"
             size="mini"
             @click="handleDelete(scope.row)"
           >删除</el-button>
-           <el-button
+          <el-button
             v-permission="['GET /admin/order/detail']"
             type="warning"
             size="mini"
@@ -119,13 +110,9 @@
         <el-form-item label="眼镜店名称">
           <span>{{ orderDetail.orderGoods.goodsName }}</span>
         </el-form-item>
-        <el-form-item label="消费金额">
-          <span>{{ orderDetail.orderGoods.price }}</span>
-        </el-form-item>
         <el-form-item label="收货信息">
-          <span>（收货人）{{ orderDetail.order.consignee }}</span>
+          <span>（购买人）{{ orderDetail.order.consignee }}</span>
           <span>（手机号）{{ orderDetail.order.mobile }}</span>
-          <span>（地址）{{ orderDetail.order.address }}</span>
         </el-form-item>
         <el-form-item label="商品信息">
           <el-table :data="tableData" style="width: 100%">
@@ -147,39 +134,36 @@
                   <el-form-item label="左球镜">
                     <span>{{ props.row.leftGlassMirror }}</span>
                   </el-form-item>
-                   <el-form-item label="右球镜">
+                  <el-form-item label="右球镜">
                     <span>{{ props.row.rightGlassMirror }}</span>
                   </el-form-item>
                   <el-form-item label="左柱镜">
                     <span>{{ props.row.leftGlassCylinder }}</span>
                   </el-form-item>
-                   <el-form-item label="右柱镜">
+                  <el-form-item label="右柱镜">
                     <span>{{ props.row.rightGlassCylinder }}</span>
                   </el-form-item>
                   <el-form-item label="左轴位">
                     <span>{{ props.row.leftGlassAxialposition }}</span>
                   </el-form-item>
-                    <el-form-item label="右轴位">
+                  <el-form-item label="右轴位">
                     <span>{{ props.row.rightGlassAxialposition }}</span>
                   </el-form-item>
                   <el-form-item label="左裸眼视力">
                     <span>{{ props.row.leftGlassNakedeyesight }}</span>
                   </el-form-item>
-                    <el-form-item label="右裸眼视力">
+                  <el-form-item label="右裸眼视力">
                     <span>{{ props.row.rightGlassNakedeyesight }}</span>
                   </el-form-item>
                   <el-form-item label="左矫正视力">
                     <span>{{ props.row.leftGlassCorrectivevision }}</span>
                   </el-form-item>
-                 
                   <el-form-item label="右矫正视力">
                     <span>{{ props.row.rightGlassCorrectivevision }}</span>
                   </el-form-item>
                 </el-form>
               </template>
             </el-table-column>
-            <el-table-column label="镜架品牌" prop="glassFramebrand"></el-table-column>
-            <el-table-column label="镜架货号" prop="glassFramenumber"></el-table-column>
             <el-table-column label="镜架品牌" prop="glassFramebrand"></el-table-column>
             <el-table-column label="镜片折射率" prop="glassLensindex"></el-table-column>
             <el-table-column label="镜片品牌" prop="glassLensbrand"></el-table-column>
@@ -232,7 +216,7 @@
         <el-button type="primary" @click="confirmRefund">确定</el-button>
       </div>
     </el-dialog>
-    <el-dialog :visible.sync="dialogFormVisible" >
+    <el-dialog :visible.sync="dialogFormVisible">
       <el-steps :active="active" finish-status="success" align-center>
         <el-step title="填写订单基本参数"></el-step>
         <el-step title="请填写左眼规格参数"></el-step>
@@ -240,29 +224,24 @@
         <el-step title="请输入其他信息"></el-step>
       </el-steps>
       <div v-if="active==1" class="btn-wrap" style="margin-top:50px">
-        <el-form :model="ruleForm" :inline="true" ref="ruleForm"  label-width="100px">
-          <el-form-item label="眼镜店名称" prop="glassName" >
-            <el-input v-model="ruleForm.glassName"></el-input>
+        <el-form :model="ruleForm" :inline="true" ref="ruleForm" label-width="100px">
+          <el-form-item label="眼镜店名称" prop="glassHomeName">
+            <el-input v-model="ruleForm.glassHomeName"></el-input>
           </el-form-item>
-          <!-- <el-form-item label="消费金额" prop="glassPrice" >
-            <el-input v-model="ruleForm.glassPrice"></el-input>
-          </el-form-item> -->
           <el-form-item label="客户名" prop="consignee">
             <el-input v-model="ruleForm.consignee"></el-input>
           </el-form-item>
           <el-form-item label="手机号" prop="mobile">
             <el-input v-model="ruleForm.mobile"></el-input>
           </el-form-item>
-            <el-form-item label="购买时间"  style="margin-right:20px">
+          <el-form-item label="购买时间" style="margin-right:20px">
             <el-date-picker
-              v-model="ruleForm.ConsumptionTime"
+              v-model="ruleForm.addTime"
               type="datetime"
-              placeholder="购买时间" style="width:200px">
-           </el-date-picker>
-            </el-form-item>
-          <!-- <el-form-item label="购买人地址" prop="address">
-            <el-input v-model="ruleForm.address"></el-input>
-          </el-form-item> -->
+              placeholder="购买时间"
+              style="width:200px"
+            ></el-date-picker>
+          </el-form-item>
           <el-form-item>
             <el-button type="primary" @click="submitForm('ruleForm')" class="buttonOne">下一步填写左眼参数</el-button>
           </el-form-item>
@@ -273,23 +252,22 @@
           :model="ruleForm1"
           :inline="true"
           ref="ruleForm1"
-         
           label-width="100px"
           class="demo-ruleForm"
         >
-          <el-form-item label="球镜" prop="leftGlassMirror" >
+          <el-form-item label="球镜" prop="leftGlassMirror">
             <el-input v-model="ruleForm1.leftGlassMirror"></el-input>
           </el-form-item>
-          <el-form-item label="柱镜" prop="leftGlassCylinder" >
+          <el-form-item label="柱镜" prop="leftGlassCylinder">
             <el-input v-model="ruleForm1.leftGlassCylinder"></el-input>
           </el-form-item>
-          <el-form-item label="轴位" prop="leftGlassAxialposition" >
+          <el-form-item label="轴位" prop="leftGlassAxialposition">
             <el-input v-model="ruleForm1.leftGlassAxialposition"></el-input>
           </el-form-item>
-          <el-form-item label="裸眼视力" prop="leftGlassNakedeyesight" >
+          <el-form-item label="裸眼视力" prop="leftGlassNakedeyesight">
             <el-input v-model="ruleForm1.leftGlassNakedeyesight"></el-input>
           </el-form-item>
-          <el-form-item label="矫正视力" prop="leftGlassCorrectivevision" >
+          <el-form-item label="矫正视力" prop="leftGlassCorrectivevision">
             <el-input v-model="ruleForm1.leftGlassCorrectivevision"></el-input>
           </el-form-item>
           <el-form-item>
@@ -306,7 +284,6 @@
           :model="ruleForm2"
           :inline="true"
           ref="ruleForm2"
-         
           label-width="100px"
           class="demo-ruleForm"
         >
@@ -339,7 +316,7 @@
           :model="ruleForm3"
           :inline="true"
           ref="ruleForm3"
-         label-width="110px"
+          label-width="110px"
           class="demo-ruleForm"
         >
           <el-form-item label="瞳距" prop="glassPitch">
@@ -357,39 +334,36 @@
           <el-form-item label="镜架品牌" prop="glassFramebrand">
             <el-input v-model="ruleForm3.glassFramebrand"></el-input>
           </el-form-item>
-          <!-- <el-form-item label="镜架货号" prop="glassFramenumber" >
-            <el-input v-model="ruleForm3.glassFramenumber"></el-input>
-          </el-form-item> -->
           <el-form-item label="镜片折射率" prop="glassLensindex">
             <el-input v-model="ruleForm3.glassLensindex"></el-input>
           </el-form-item>
-          <el-form-item label="镜片品牌" prop="glassLensbrand" >
+          <el-form-item label="镜片品牌" prop="glassLensbrand">
             <el-input v-model="ruleForm3.glassLensbrand"></el-input>
           </el-form-item>
-          <el-form-item label="镜片功能" prop="glassLensfunction" >
+          <el-form-item label="镜片功能" prop="glassLensfunction">
             <el-input v-model="ruleForm3.glassLensfunction"></el-input>
           </el-form-item>
-          <el-form-item label="眼镜总价" prop="glassAmountofconsumption" >
+          <el-form-item label="眼镜总价" prop="glassAmountofconsumption">
             <el-input v-model="ruleForm3.glassAmountofconsumption"></el-input>
           </el-form-item>
-         <el-form-item label="验光员" prop="Optometrist" >
+          <el-form-item label="验光员" prop="Optometrist">
             <el-input v-model="ruleForm3.Optometrist"></el-input>
           </el-form-item>
-            <el-form-item label="身高" prop="buyHeight" >
+          <el-form-item label="身高" prop="buyHeight">
             <el-input v-model="ruleForm3.buyHeight"></el-input>
           </el-form-item>
-            <el-form-item label="体重" prop="buyWeight" >
+          <el-form-item label="体重" prop="buyWeight">
             <el-input v-model="ruleForm3.buyWeight"></el-input>
           </el-form-item>
-            <el-form-item label="年龄" prop="buyAge" >
+          <el-form-item label="年龄" prop="buyAge">
             <el-input v-model="ruleForm3.buyAge"></el-input>
           </el-form-item>
-          <el-form-item label="备注" prop="glassRemarks" >
+          <el-form-item label="备注" prop="glassRemarks">
             <el-input v-model="ruleForm3.glassRemarks"></el-input>
           </el-form-item>
-           <el-form-item label="双眼矫正视力" prop="glassAmountofconsumption" >
+          <el-form-item label="双眼矫正视力" prop="glassAmountofconsumption">
             <el-input v-model="ruleForm3.CorrectionWithBoth"></el-input>
-          </el-form-item> 
+          </el-form-item>
           <el-form-item>
             <el-button
               type="primary"
@@ -405,10 +379,6 @@
 </template>
 
 <style lang="scss" scoped="scoped">
-
-.filter-container{
-
-}
 .btn-wrap {
   display: flex;
   .btn {
@@ -476,7 +446,7 @@ export default {
       listLoading: true,
       listQuery: {
         addTime: undefined,
-        phone:undefined,
+        phone: undefined,
         page: 1,
         limit: 20,
         id: undefined,
@@ -504,13 +474,17 @@ export default {
       refundDialogVisible: false,
       downloadLoading: false,
       active: 1,
+      isUpdate: false,
+      orderId: undefined,
+      orderGoodsId: undefined,
+      goodsId: undefined,
       ruleForm: {
-        glassName: undefined,
+        glassHomeName: undefined,
         // glassPrice: undefined,
-        ConsumptionTime:undefined,
         glassNum: 1,
         consignee: undefined,
         mobile: undefined,
+        addTime: undefined
         // address: undefined
       },
       ruleForm1: {
@@ -539,12 +513,11 @@ export default {
         glassLensfunction: undefined,
         glassAmountofconsumption: undefined,
         glassRemarks: undefined,
-        Optometrist:undefined,
-        buyHeight:undefined,
-        buyWeight:undefined,
-        buyAge:undefined,
-        CorrectionWithBoth:undefined
-
+        Optometrist: undefined,
+        buyHeight: undefined,
+        buyWeight: undefined,
+        buyAge: undefined,
+        CorrectionWithBoth: undefined
       },
       tableData: [],
       dialogFormVisible: false,
@@ -689,19 +662,21 @@ export default {
         })
         .catch(response => {});
     },
-    handleDelete(row){
-      var that=this;
-       deleteOrder(row.id).then(response=>{
+    handleDelete(row) {
+      var that = this;
+      deleteOrder(row.id)
+        .then(response => {
           that.getList();
-           that.$message({
-          message: '删除订单成功',
-          type: 'success'
-        });
-       }
-    ).catch(this.$message.error('删除订单失败'))
-    
+          that.$message({
+            message: "删除订单成功",
+            type: "success"
+          });
+        })
+        .catch(response => {});
     },
-    handleUpdate(row){
+    handleUpdate(row) {
+      this.isUpdate = true;
+      let that = this;
       detailOrder(row.id)
         .then(response => {
           let data = response.data.data;
@@ -709,19 +684,26 @@ export default {
           data.goodsAttributes.forEach(attribute => {
             tableData[attribute.attribute] = attribute.value;
           });
+
           this.tableData = [tableData];
-          console.log(this.tableData);
           this.orderDetail.order = data.order;
           this.orderDetail.orderGoods = data.orderGoods[0];
-          console.log(this.orderDetail);
-           this.dialogFormVisible = true;
+          this.dialogFormVisible = true;
+          this.orderId = data.order.id;
+          this.orderGoodsId = data.orderGoods[0].id;
+          this.goodsId = data.orderGoods[0].goodsId;
+          for (var obj in this.orderDetail.order)
+            that.ruleForm[obj] = this.orderDetail.order[obj];
+          that.ruleForm.glassHomeName = data.orderGoods[0].goodsName;
+          for (var obj in that.tableData[0]) {
+            that.ruleForm1[obj] = this.tableData[0][obj];
 
-        
+            that.ruleForm2[obj] = this.tableData[0][obj];
+            that.ruleForm3[obj] = this.tableData[0][obj];
+          }
         })
         .catch(response => {});
-        
     },
-
 
     handleShip(row) {
       this.shipForm.orderId = row.id;
@@ -754,8 +736,8 @@ export default {
         }
       });
     },
-
     addOrder() {
+      this.isUpdate = false;
       this.dialogFormVisible = true;
     },
     handleRefund(row) {
@@ -848,29 +830,51 @@ export default {
               consignee: this.ruleForm.consignee,
               address: this.ruleForm.address,
               mobile: this.ruleForm.mobile,
+              addTime: this.ruleForm.addTime,
               goodsAllinone: {
                 goods: {
-                  name: this.ruleForm.glassName,
+                  name: this.ruleForm.glassHomeName,
                   retailPrice: this.ruleForm.glassPrice
                 },
                 attributes: attributes
               }
             };
-            addOrder(order)
-              .then(response => {
-                this.refundDialogVisible = false;
-                this.$notify.success({
-                  title: "成功",
-                  message: "添加订单成功"
+            if (that.isUpdate) {
+              order.orderId = this.orderId;
+              order.orderGoodsId = this.orderGoodsId;
+              order.goodsId = this.goodsId;
+              updateOrder(order)
+                .then(response => {
+                  this.refundDialogVisible = false;
+                  this.$notify.success({
+                    title: "成功",
+                    message: "修改订单成功"
+                  });
+                  this.getList();
+                })
+                .catch(response => {
+                  this.$notify.error({
+                    title: "失败",
+                    message: response.data.errmsg
+                  });
                 });
-                this.getList();
-              })
-              .catch(response => {
-                this.$notify.error({
-                  title: "失败",
-                  message: response.data.errmsg
+            } else {
+              addOrder(order)
+                .then(response => {
+                  this.refundDialogVisible = false;
+                  this.$notify.success({
+                    title: "成功",
+                    message: "添加订单成功"
+                  });
+                  this.getList();
+                })
+                .catch(response => {
+                  this.$notify.error({
+                    title: "失败",
+                    message: response.data.errmsg
+                  });
                 });
-              });
+            }
           }
           if (this.active == 5) {
             this.dialogFormVisible = false;

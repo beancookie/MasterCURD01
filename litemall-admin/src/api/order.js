@@ -59,3 +59,19 @@ export function addOrder(data) {
     data
   })
 }
+
+export function deleteOrder(id) {
+  return request({
+    url: '/order/delete',
+    method: 'post',
+    params: { id }
+  })
+}
+
+export function updateOrder(data) {
+  return request({
+    url: '/order/update',
+    method: 'post',
+    data
+  })
+}

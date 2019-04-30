@@ -117,6 +117,11 @@ public class LitemallOrderService {
         return orderMapper.updateWithOptimisticLocker(preUpdateTime, order);
     }
 
+    public int updateById(LitemallOrder order) {
+        order.setUpdateTime(LocalDateTime.now());
+        return litemallOrderMapper.updateByPrimaryKeySelective(order);
+    }
+
     public void deleteById(Integer id) {
         litemallOrderMapper.logicalDeleteByPrimaryKey(id);
     }
