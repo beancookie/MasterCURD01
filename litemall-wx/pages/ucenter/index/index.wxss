@@ -26,10 +26,6 @@ page {
   border-radius: 50%;
 }
 
-.profile-info .info {
-  font-size: 16rpx;
-}
-
 .profile-info .info-wrap {
   display: flex;
   align-content: flex-end;
@@ -42,8 +38,8 @@ page {
   height: 45rpx;
   line-height: 45rpx;
   color: #fff;
-  font-size: 37.5rpx;
   margin-bottom: 10rpx;
+  font-size: 30rpx;
 }
 
 .profile-info .level {
@@ -52,7 +48,6 @@ page {
   line-height: 30rpx;
   margin-bottom: 10rpx;
   color: #7f7f7f;
-  font-size: 30rpx;
 }
 
 .user_area {

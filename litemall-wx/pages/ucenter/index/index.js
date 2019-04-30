@@ -36,7 +36,7 @@ Page({
       let that = this;
       util.request(api.UserIndex).then(function(res) {
         if (res.errno === 0) {
-          res.data.user.id = res.data.user.id.toString().padStart(8, '0')
+          res.data.user.id = res.data.user.id.toString().padStart(6, '0')
           wx.setStorageSync('userInfo', res.data.user);
           that.setData({
             order: res.data.order,

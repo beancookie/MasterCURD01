@@ -348,7 +348,7 @@ page {
   width: 687.5rpx;
   height: 104rpx;
   line-height: 104rpx;
-  font-size: 38.5rpx;
+  font-size: 30rpx;
 }
 
 .goods-attr .item {

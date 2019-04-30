@@ -237,6 +237,7 @@
           <el-form-item label="购买时间" style="margin-right:20px">
             <el-date-picker
               v-model="ruleForm.addTime"
+              format="yyyy-MM-dd HH:mm:ss"
               type="datetime"
               placeholder="购买时间"
               style="width:200px"
@@ -692,14 +693,20 @@ export default {
           this.orderId = data.order.id;
           this.orderGoodsId = data.orderGoods[0].id;
           this.goodsId = data.orderGoods[0].goodsId;
-          for (var obj in this.orderDetail.order)
-            that.ruleForm[obj] = this.orderDetail.order[obj];
+          for (var prop in this.orderDetail.order) {
+            that.ruleForm[prop] = this.orderDetail.order[prop];
+          }
           that.ruleForm.glassHomeName = data.orderGoods[0].goodsName;
-          for (var obj in that.tableData[0]) {
-            that.ruleForm1[obj] = this.tableData[0][obj];
-
-            that.ruleForm2[obj] = this.tableData[0][obj];
-            that.ruleForm3[obj] = this.tableData[0][obj];
+          for (var prop in that.tableData[0]) {
+            if (prop in that.ruleForm1) {
+              that.ruleForm1[prop] = this.tableData[0][prop];
+            }
+            if (prop in that.ruleForm2) {
+              that.ruleForm2[prop] = this.tableData[0][prop];
+            }
+            if (prop in that.ruleForm3) {
+              that.ruleForm3[prop] = this.tableData[0][prop];
+            }
           }
         })
         .catch(response => {});

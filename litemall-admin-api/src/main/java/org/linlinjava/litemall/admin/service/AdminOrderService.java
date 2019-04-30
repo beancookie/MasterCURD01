@@ -36,7 +36,7 @@ public class AdminOrderService {
     private final Log logger = LogFactory.getLog(AdminOrderService.class);
     private static final Short DEFAULT_NUMBER = 1;
     private static final String DEFAULT_PIC_URL = "http://111.231.75.5:8080/wx/storage/fetch/zcoxf34qggcq0eatgjz6.jpg";
-
+    private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
     @Autowired
     private LitemallOrderGoodsService orderGoodsService;
     @Autowired
@@ -59,6 +59,8 @@ public class AdminOrderService {
     private LitemallGoodsAttributeService attributeService;
     @Autowired
     private LitemallGoodsService litemallGoodsService;
+    @Autowired
+    private LitemallCouponUserService couponUserService;
 
     @Transactional
     public Object add(OrderAllinone orderAllinone) {
@@ -85,7 +87,7 @@ public class AdminOrderService {
         order.setOrderSn(orderService.generateOrderSn(orderAllinone.getUserId()));
         order.setConsignee(orderAllinone.getConsignee());
         order.setMobile(orderAllinone.getMobile());
-        order.setAddTime(LocalDateTime.parse(orderAllinone.getAddTime(), DateTimeFormatter.ISO_DATE_TIME));
+        order.setAddTime(LocalDateTime.parse(orderAllinone.getAddTime(), DATE_TIME_FORMATTER));
         order.setOrderStatus(OrderUtil.STATUS_OFFLINE);
         orderService.add(order);
 
@@ -102,7 +104,7 @@ public class AdminOrderService {
         orderGoods.setGoodsId(goodId);
         orderGoods.setGoodsName(goods.getName());
         orderGoods.setPrice(orderAllinone.getGoodsAllinone().getGoods().getRetailPrice());
-        orderGoods.setAddTime(LocalDateTime.parse(orderAllinone.getAddTime(), DateTimeFormatter.ISO_DATE_TIME));
+        orderGoods.setAddTime(LocalDateTime.parse(orderAllinone.getAddTime(), DATE_TIME_FORMATTER));
         orderGoodsService.add(orderGoods);
 
         return ResponseUtil.ok();
@@ -361,4 +363,7 @@ public class AdminOrderService {
         return ResponseUtil.ok();
     }
 
+    public Object listCoupon(String mobile) {
+        return null;
+    }
 }
