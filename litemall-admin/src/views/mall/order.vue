@@ -609,7 +609,16 @@ export default {
     ...mapGetters(["userId"])
   },
   created() {
-    this.getList();
+    console.log("订单")
+    this.listQuery.userId=this.$route.query.userId;
+    if(this.listQuery.userId!="undefined"){
+      console.log("查找")
+      this.handleFilter()
+
+    }else{
+      console.log("列表")
+      this.getList();
+    }
   },
   methods: {
     changeDate(dateA) {
