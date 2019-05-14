@@ -128,7 +128,7 @@ public class AdminOrderService {
          */
         LitemallOrder order = new LitemallOrder();
         order.setId(orderAllinone.getOrderId());
-        order.setAddTime(LocalDateTime.parse(orderAllinone.getAddTime(), DateTimeFormatter.ISO_DATE_TIME));
+        order.setAddTime(LocalDateTime.parse(orderAllinone.getAddTime(), DATE_TIME_FORMATTER));
         order.setConsignee(orderAllinone.getConsignee());
         order.setMobile(orderAllinone.getMobile());
         order.setUserId(user.getId());
