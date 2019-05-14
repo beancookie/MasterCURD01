@@ -79,14 +79,14 @@
     >
       <el-table-column align="center" width="100px" label="用户ID" prop="id" sortable/>
       <el-table-column align="center" label="用户名" prop="nickname"/>
-      <el-table-column align="center" label="手机号码" prop="mobile"/>
+      <el-table-column align="center" width="120px" label="手机号码" prop="mobile"/>
       <el-table-column align="center" label="性别" prop="gender">
         <template slot-scope="scope">
           <el-tag>{{ genderDic[scope.row.gender] }}</el-tag>
         </template>
       </el-table-column>
-      <el-table-column align="center" label="生日" prop="birthday"/>
-      <el-table-column align="center" label="用户等级" prop="userLevel">
+      <el-table-column align="center" width="100px" label="生日" prop="birthday"/>
+      <el-table-column align="center" width="100px" label="用户等级" prop="userLevel">
         <template slot-scope="scope">
           <el-tag>{{ levelDic[scope.row.userLevel] }}</el-tag>
         </template>
@@ -97,13 +97,15 @@
         </template>
       </el-table-column>
       <el-table-column align="center" label="积分" prop="integral"/>
-      <el-table-column label="操作" align="center" width="300">
+      <el-table-column label="操作" align="center" width="310">
         <template slot-scope="scope">
           <el-button size="mini" @click="handleEdit(scope.$index, scope.row)">调整积分</el-button>
           <el-button type="primary" size="mini" @click="handleDetail(scope.$index, scope.row)">订单详情</el-button>
+          <el-button type="primary" size="mini" @click="handleWatch(scope.$index, scope.row)">查看优惠券</el-button>
         </template>
       </el-table-column>
     </el-table>
+    <Model v-if="showModel" :user-id="userId" @closeToModel="closeToModel"/>
     <pagination
       v-show="total>0"
       :total="total"
@@ -124,15 +126,19 @@
 <script>
 import { fetchList, addById, getType, chanSign } from '@/api/user'
 import Pagination from '@/components/Pagination' // Secondary package based on el-pagination
+import Model from './components/model'
 
 export default {
   name: 'User',
-  components: { Pagination },
+
+  components: { Pagination, Model },
   data() {
     return {
       list: null,
       total: 0,
+      userId: '',
       listLoading: true,
+      showModel: false,
       listQuery: {
         page: 1,
         limit: 20,
@@ -155,7 +161,7 @@ export default {
       update: {
         signinType: undefined,
         signinIntegral: undefined
-      },
+      }
     }
   },
   created() {
@@ -163,6 +169,9 @@ export default {
     this.getType()
   },
   methods: {
+    closeToModel() {
+      this.showModel = false
+    },
     getList() {
       this.listLoading = true
       fetchList(this.listQuery)
@@ -217,14 +226,24 @@ export default {
       this.dataForm.id = row.id
       // console.log(index);
     },
-    handleDetail(index,row){
-      this.userId=row.id;
+    handleDetail(index, row) {
+      this.userId = row.id
       this.$router.push({
-        path:'/mall/order',
-        query:{
-          userId:row.id
+        path: '/mall/order',
+        query: {
+          userId: row.id
         }
       })
+    },
+    handleWatch(index, row) {
+      this.userId = row.id
+      this.showModel = true
+      // this.$router.push({
+      //   path:'',
+      //   query:{
+      //     userId:row.id
+      //   }
+      // })
     },
     sure() {
       this.enitUserIntrgral = false

@@ -177,7 +177,7 @@
 </style>
 
 <script>
-import { listCoupon, createCoupon, updateCoupon, deleteCoupon } from '@/api/coupon'
+import { list, createCoupon, updateCoupon, deleteCoupon } from '@/api/coupon'
 import Pagination from '@/components/Pagination' // Secondary package based on el-pagination
 
 const defaultTypeOptions = [
@@ -295,7 +295,7 @@ export default {
   methods: {
     getList() {
       this.listLoading = true
-      listCoupon(this.listQuery)
+      list(this.listQuery)
         .then(response => {
           this.list = response.data.data.items
           this.total = response.data.data.total

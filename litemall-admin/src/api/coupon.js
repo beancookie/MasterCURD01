@@ -1,6 +1,6 @@
 import request from '@/utils/request'
 
-export function listCoupon(query) {
+export function list(query) {
   return request({
     url: '/coupon/list',
     method: 'get',
@@ -44,6 +44,22 @@ export function listCouponUser(query) {
   return request({
     url: '/coupon/listuser',
     method: 'get',
+    params: query
+  })
+}
+
+export function listCoupon(query) {
+  return request({
+    url: '/coupon/listcoupon',
+    method: 'get',
+    params: query
+  })
+}
+
+export function consume(query) {
+  return request({
+    url: '/coupon/consume',
+    method: 'post',
     params: query
   })
 }
