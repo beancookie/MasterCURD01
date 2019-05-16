@@ -64,7 +64,8 @@ public class AdminOrderService {
 
     @Transactional
     public Object add(OrderAllinone orderAllinone) {
-        List<LitemallUser> users = userService.queryByMobile(orderAllinone.getMobile());
+//        List<LitemallUser> users = userService.queryByMobile(orderAllinone.getMobile());
+        List<LitemallUser> users = userService.queryByMobile("18705170885");
         if (users.size() < 1) {
             return ResponseUtil.fail(USER_NOT_EXIST, "用户未注册");
         }
@@ -87,7 +88,7 @@ public class AdminOrderService {
         order.setOrderSn(orderService.generateOrderSn(orderAllinone.getUserId()));
         order.setConsignee(orderAllinone.getConsignee());
         order.setMobile(orderAllinone.getMobile());
-        order.setAddTime(LocalDateTime.parse(orderAllinone.getAddTime(), DATE_TIME_FORMATTER));
+        order.setAddTime(LocalDateTime.parse(orderAllinone.getAddTime(), DateTimeFormatter.ISO_DATE_TIME));
         order.setOrderStatus(OrderUtil.STATUS_OFFLINE);
         orderService.add(order);
 
@@ -104,7 +105,7 @@ public class AdminOrderService {
         orderGoods.setGoodsId(goodId);
         orderGoods.setGoodsName(goods.getName());
         orderGoods.setPrice(orderAllinone.getGoodsAllinone().getGoods().getRetailPrice());
-        orderGoods.setAddTime(LocalDateTime.parse(orderAllinone.getAddTime(), DATE_TIME_FORMATTER));
+        orderGoods.setAddTime(LocalDateTime.parse(orderAllinone.getAddTime(), DateTimeFormatter.ISO_DATE_TIME));
         orderGoodsService.add(orderGoods);
 
         return ResponseUtil.ok();

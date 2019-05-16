@@ -4,9 +4,9 @@
 // 局域网测试使用
 // var WxApiRoot = 'http://192.168.0.101:8080/wx/';
 // 云平台部署时使用
-// var WxApiRoot = 'http://118.24.0.153:8080/wx/';
+// var WxApiRoot = 'http://111.231.75.5:8080/wx/';
 // 云平台上线时使用
-var WxApiRoot = 'http://111.231.75.5:8080/wx/';
+var WxApiRoot = 'https://c.mousenat.cn/wx/';
 
 module.exports = {
   IndexUrl: WxApiRoot + 'home/index', //首页数据接口

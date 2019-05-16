@@ -191,7 +191,7 @@ export default {
       getType()
         .then(response => {
           this.update = response.data.data
-          this.isRandom = this.update.signinType === 0
+          this.isRandom = this.update.signinType == 0
           this.listLoading = false
         })
         .catch(err => {
@@ -257,9 +257,9 @@ export default {
         })
     },
     switchChange() {
-      if (this.update.signinType === 0) {
+      if (this.update.signinType == 0) {
         this.update.signinType = 1
-      } else if (this.update.signinType === 1) {
+      } else if (this.update.signinType == 1) {
         this.update.signinType = 0
       }
       this.editSignIntegral()

@@ -282,6 +282,7 @@ export default {
       }
     }
   },
+  props: ['userId'],
   data() {
     return {
       typeOptions: Object.assign({}, defaultTypeOptions),
