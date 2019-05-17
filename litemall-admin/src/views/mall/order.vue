@@ -686,6 +686,7 @@ export default {
         .catch(response => {});
     },
     handleUpdate(row) {
+      this.active=1;
       this.isUpdate = true;
       let that = this;
       detailOrder(row.id)
@@ -754,6 +755,10 @@ export default {
       });
     },
     addOrder() {
+      this.ruleForm={};
+      this.ruleForm1={};
+      this.ruleForm2={};
+      this.ruleForm3={};
       this.isUpdate = false;
       this.dialogFormVisible = true;
     },
