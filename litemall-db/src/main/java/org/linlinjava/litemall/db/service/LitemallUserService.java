@@ -39,10 +39,10 @@ public class LitemallUserService {
         return userMapper.selectOneByExample(example);
     }
 
-    public void add(LitemallUser user) {
+    public int add(LitemallUser user) {
         user.setAddTime(LocalDateTime.now());
         user.setUpdateTime(LocalDateTime.now());
-        userMapper.insertSelective(user);
+        return userMapper.insertSelective(user);
     }
 
     public int updateById(LitemallUser user) {
@@ -103,6 +103,10 @@ public class LitemallUserService {
 
     public void deleteById(Integer id) {
         userMapper.logicalDeleteByPrimaryKey(id);
+    }
+
+    public void physicallyDeleteById(Integer id) {
+        userMapper.deleteByPrimaryKey(id);
     }
 
     public LitemallUser findShowInfoById(Integer userId) {

@@ -175,8 +175,11 @@ code {
 }
 
 .filter-container {
-  padding-bottom: 10px;
+  display: flex;
+  justify-content: flex-start;
+  margin-bottom: 10px;
   .filter-item {
+    margin-left: 10px;
     display: inline-block;
     vertical-align: middle;
     margin-bottom: 10px;

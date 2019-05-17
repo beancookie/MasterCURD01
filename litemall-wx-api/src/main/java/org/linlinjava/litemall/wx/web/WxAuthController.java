@@ -23,6 +23,7 @@ import org.linlinjava.litemall.wx.service.CaptchaCodeManager;
 import org.linlinjava.litemall.wx.service.UserTokenManager;
 import org.linlinjava.litemall.wx.util.IpUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -366,16 +367,37 @@ public class WxAuthController {
     }
 
     @PostMapping("bindPhone")
+    @Transactional
     public Object bindPhone(@LoginUser Integer userId, @RequestBody String body) {
         String sessionKey = UserTokenManager.getSessionKey(userId);
         String encryptedData = JacksonUtil.parseString(body, "encryptedData");
         String iv = JacksonUtil.parseString(body, "iv");
         WxMaPhoneNumberInfo phoneNumberInfo = this.wxService.getUserService().getPhoneNoInfo(sessionKey, encryptedData, iv);
         String phone = phoneNumberInfo.getPhoneNumber();
-        LitemallUser user = userService.findById(userId);
-        user.setMobile(phone);
-        if (userService.updateById(user) == 0) {
-            return ResponseUtil.updatedDataFailed();
+        List<LitemallUser> users = userService.queryByMobile(phone);
+        if (users.size() > 0) {
+            // 读取管理员手动添加的用户
+            LitemallUser oldUser = users.get(0);
+            // 将微信注册用户的信息转移到旧的用户
+            LitemallUser user = userService.findById(userId);
+            userService.physicallyDeleteById(user.getId());
+            oldUser.setUsername(user.getUsername());
+            oldUser.setPassword(user.getPassword());
+            oldUser.setWeixinOpenid(user.getWeixinOpenid());
+            oldUser.setAvatar(user.getAvatar());
+            oldUser.setNickname(user.getNickname());
+            oldUser.setGender(user.getGender());
+            oldUser.setUserLevel(user.getUserLevel());
+            oldUser.setStatus(user.getStatus());
+            oldUser.setLastLoginTime(user.getLastLoginTime());
+            oldUser.setLastLoginIp(user.getLastLoginIp());
+            userService.updateById(oldUser);
+        } else {
+            LitemallUser user = userService.findById(userId);
+            user.setMobile(phone);
+            if (userService.updateById(user) == 0) {
+                return ResponseUtil.updatedDataFailed();
+            }
         }
         return ResponseUtil.ok();
     }

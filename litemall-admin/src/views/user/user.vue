@@ -116,13 +116,6 @@
   </div>
 </template>
 
-<style lang="scss" scoped>
-.filter-container {
-  display: flex;
-  justify-content: space-between;
-}
-</style>
-
 <script>
 import { fetchList, addById, getType, chanSign } from '@/api/user'
 import Pagination from '@/components/Pagination' // Secondary package based on el-pagination
