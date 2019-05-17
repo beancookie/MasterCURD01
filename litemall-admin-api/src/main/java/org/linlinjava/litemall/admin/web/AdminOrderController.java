@@ -123,8 +123,8 @@ public class AdminOrderController {
      * @param order 订单信息，{ orderId：xxx }
      * @return 订单操作结果
      */
-    @RequiresPermissions("admin:order:reply")
-    @RequiresPermissionsDesc(menu = {"商场管理", "订单管理"}, button = "订单商品回复")
+    @RequiresPermissions("admin:order:add")
+    @RequiresPermissionsDesc(menu = {"商场管理", "订单管理"}, button = "添加订单")
     @PostMapping("/")
     public Object add(@RequestBody OrderAllinone order) {
         return adminOrderService.add(order);
@@ -149,8 +149,8 @@ public class AdminOrderController {
      * @param order 订单信息，{ orderId：xxx }
      * @return 订单操作结果
      */
-    @RequiresPermissions("admin:order:reply")
-    @RequiresPermissionsDesc(menu = {"商场管理", "订单管理"}, button = "订单商品回复")
+    @RequiresPermissions("admin:order:update")
+    @RequiresPermissionsDesc(menu = {"商场管理", "订单管理"}, button = "更新订单")
     @PostMapping("/update")
     public Object update(@RequestBody OrderAllinone order) {
         return adminOrderService.update(order);
@@ -162,8 +162,8 @@ public class AdminOrderController {
      * @param mobile 订单信息，{ orderId：xxx }
      * @return 订单操作结果
      */
-    @RequiresPermissions("admin:order:reply")
-    @RequiresPermissionsDesc(menu = {"商场管理", "订单管理"}, button = "订单商品回复")
+    @RequiresPermissions("admin:order:listCoupon")
+    @RequiresPermissionsDesc(menu = {"商场管理", "订单管理"}, button = "获取优惠券")
     @PostMapping("/listCoupon")
     public Object listCoupon(@NotNull String mobile) {
         return ResponseUtil.ok();
