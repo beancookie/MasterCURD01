@@ -119,8 +119,8 @@
             <el-table-column type="expand">
               <template slot-scope="props">
                 <el-form label-position="left" inline class="table-expand">
-                  <el-form-item label="ADD">
-                    <span>{{ props.row.glassADD }}</span>
+                  <el-form-item label="右眼ADD">
+                    <span>{{ props.row.rightglassADD }}</span>
                   </el-form-item>
                   <el-form-item label="瞳距">
                     <span>{{ props.row.glassPitch }}</span>
@@ -128,8 +128,8 @@
                   <el-form-item label="瞳高">
                     <span>{{ props.row.glassHigh }}</span>
                   </el-form-item>
-                  <el-form-item label="斜角">
-                    <span>{{ props.row.glassbevel }}</span>
+                  <el-form-item label="左眼ADD">
+                    <span>{{ props.row.leftglassADD }}</span>
                   </el-form-item>
                   <el-form-item label="左球镜">
                     <span>{{ props.row.leftGlassMirror }}</span>
@@ -219,8 +219,8 @@
     <el-dialog :visible.sync="dialogFormVisible">
       <el-steps :active="active" finish-status="success" align-center>
         <el-step title="填写订单基本参数"></el-step>
-        <el-step title="请填写左眼规格参数"></el-step>
-        <el-step title="请填写右眼规格参数 "></el-step>
+        <el-step title="请填写右眼规格参数"></el-step>
+        <el-step title="请填写左眼规格参数 "></el-step>
         <el-step title="请输入其他信息"></el-step>
       </el-steps>
       <div v-if="active==1" class="btn-wrap" style="margin-top:50px">
@@ -244,7 +244,7 @@
             ></el-date-picker>
           </el-form-item>
           <el-form-item>
-            <el-button type="primary" @click="submitForm('ruleForm')" class="buttonOne">下一步填写左眼参数</el-button>
+            <el-button type="primary" @click="submitForm('ruleForm')" class="buttonOne">下一步填写右眼参数</el-button>
           </el-form-item>
         </el-form>
       </div>
@@ -256,19 +256,19 @@
           label-width="100px"
           class="demo-ruleForm"
         >
-          <el-form-item label="球镜" prop="leftGlassMirror">
+          <el-form-item label="球镜" prop="rightGlassMirror">
             <el-input v-model="ruleForm1.leftGlassMirror"></el-input>
           </el-form-item>
-          <el-form-item label="柱镜" prop="leftGlassCylinder">
+          <el-form-item label="柱镜" prop="rightGlassCylinder">
             <el-input v-model="ruleForm1.leftGlassCylinder"></el-input>
           </el-form-item>
-          <el-form-item label="轴位" prop="leftGlassAxialposition">
+          <el-form-item label="轴位" prop="rightGlassAxialposition">
             <el-input v-model="ruleForm1.leftGlassAxialposition"></el-input>
           </el-form-item>
-          <el-form-item label="裸眼视力" prop="leftGlassNakedeyesight">
+          <el-form-item label="裸眼视力" prop="rightGlassNakedeyesight">
             <el-input v-model="ruleForm1.leftGlassNakedeyesight"></el-input>
           </el-form-item>
-          <el-form-item label="矫正视力" prop="leftGlassCorrectivevision">
+          <el-form-item label="矫正视力" prop="rightGlassCorrectivevision">
             <el-input v-model="ruleForm1.leftGlassCorrectivevision"></el-input>
           </el-form-item>
           <el-form-item>
@@ -276,7 +276,7 @@
               type="primary"
               @click="submitForm('ruleForm1')"
               style="margin-left:500px"
-            >下一步填写右眼参数</el-button>
+            >下一步填写左眼参数</el-button>
           </el-form-item>
         </el-form>
       </div>
@@ -288,19 +288,19 @@
           label-width="100px"
           class="demo-ruleForm"
         >
-          <el-form-item label="球镜" prop="rightGlassMirror">
+          <el-form-item label="球镜" prop="leftGlassMirror">
             <el-input v-model="ruleForm2.rightGlassMirror"></el-input>
           </el-form-item>
-          <el-form-item label="柱镜" prop="rightGlassCylinder">
+          <el-form-item label="柱镜" prop="leftGlassCylinder">
             <el-input v-model="ruleForm2.rightGlassCylinder"></el-input>
           </el-form-item>
-          <el-form-item label="轴位" prop="rightGlassAxialposition">
+          <el-form-item label="轴位" prop="leftGlassAxialposition">
             <el-input v-model="ruleForm2.rightGlassAxialposition"></el-input>
           </el-form-item>
-          <el-form-item label="裸眼视力" prop="rightGlassNakedeyesight">
+          <el-form-item label="裸眼视力" prop="leftGlassNakedeyesight">
             <el-input v-model="ruleForm2.rightGlassNakedeyesight"></el-input>
           </el-form-item>
-          <el-form-item label="矫正视力" prop="rightGlassCorrectivevision">
+          <el-form-item label="矫正视力" prop="leftGlassCorrectivevision">
             <el-input v-model="ruleForm2.rightGlassCorrectivevision"></el-input>
           </el-form-item>
           <el-form-item>
@@ -326,10 +326,10 @@
           <el-form-item label="瞳高" prop="glassHigh">
             <el-input v-model="ruleForm3.glassHigh"></el-input>
           </el-form-item>
-          <el-form-item label="ADD" prop="glassADD">
+          <el-form-item label="左眼ADD" prop="leftglassADD">
             <el-input v-model="ruleForm3.glassADD"></el-input>
           </el-form-item>
-          <el-form-item label="斜角" prop="glassbevel">
+          <el-form-item label="右眼ADD" prop="rightADD">
             <el-input v-model="ruleForm3.glassbevel"></el-input>
           </el-form-item>
           <el-form-item label="镜架品牌" prop="glassFramebrand">
