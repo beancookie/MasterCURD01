@@ -53,7 +53,7 @@ public class LitemallUserService {
     public List<LitemallUser> querySelective(String username, String mobile, Integer page, Integer size, String sort, String order) {
         LitemallUserExample example = new LitemallUserExample();
         LitemallUserExample.Criteria criteria = example.createCriteria();
-
+        criteria.andUsernameNotEqualTo("");
         if (!StringUtils.isEmpty(username)) {
             criteria.andUsernameLike("%" + username + "%");
         }
@@ -61,19 +61,16 @@ public class LitemallUserService {
             criteria.andMobileEqualTo(mobile);
         }
         criteria.andDeletedEqualTo(false);
-
         if (!StringUtils.isEmpty(sort) && !StringUtils.isEmpty(order)) {
             example.setOrderByClause(sort + " " + order);
         }
-
         PageHelper.startPage(page, size);
         return userMapper.selectByExample(example);
     }
 
     public int count() {
         LitemallUserExample example = new LitemallUserExample();
-        example.or().andDeletedEqualTo(false);
-
+        example.or().andDeletedEqualTo(false).andUsernameNotEqualTo("");
         return (int) userMapper.countByExample(example);
     }
 
