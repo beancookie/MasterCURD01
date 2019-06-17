@@ -35,7 +35,7 @@ import static org.linlinjava.litemall.admin.util.AdminResponseCode.*;
 public class AdminOrderService {
     private final Log logger = LogFactory.getLog(AdminOrderService.class);
     private static final Short DEFAULT_NUMBER = 1;
-    private static final String DEFAULT_PIC_URL = "http://111.231.75.5:8080/wx/storage/fetch/zcoxf34qggcq0eatgjz6.jpg";
+    private static final String DEFAULT_PIC_URL = "http://111.231.75.5:8080/wx/storage/fetch/4vjeetgwoe8a4a61j9oe.png";
     private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
     @Autowired
     private LitemallOrderGoodsService orderGoodsService;

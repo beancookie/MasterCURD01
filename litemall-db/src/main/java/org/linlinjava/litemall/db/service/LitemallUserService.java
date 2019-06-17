@@ -107,6 +107,6 @@ public class LitemallUserService {
     }
 
     public LitemallUser findShowInfoById(Integer userId) {
-        return userMapper.selectByPrimaryKeySelective(userId, LitemallUser.Column.avatar, LitemallUser.Column.integral, LitemallUser.Column.id, LitemallUser.Column.birthday, LitemallUser.Column.nickname, LitemallUser.Column.username, LitemallUser.Column.mobile);
+        return userMapper.selectByPrimaryKeySelective(userId, LitemallUser.Column.avatar, LitemallUser.Column.integral, LitemallUser.Column.id, LitemallUser.Column.birthday, LitemallUser.Column.nickname, LitemallUser.Column.username, LitemallUser.Column.mobile, LitemallUser.Column.birthday);
     }
 }

@@ -378,20 +378,22 @@ public class WxAuthController {
         if (users.size() > 0) {
             // 读取管理员手动添加的用户
             LitemallUser oldUser = users.get(0);
-            // 将微信注册用户的信息转移到旧的用户
-            LitemallUser user = userService.findById(userId);
-            userService.physicallyDeleteById(user.getId());
-            oldUser.setUsername(user.getUsername());
-            oldUser.setPassword(user.getPassword());
-            oldUser.setWeixinOpenid(user.getWeixinOpenid());
-            oldUser.setAvatar(user.getAvatar());
-            oldUser.setNickname(user.getNickname());
-            oldUser.setGender(user.getGender());
-            oldUser.setUserLevel(user.getUserLevel());
-            oldUser.setStatus(user.getStatus());
-            oldUser.setLastLoginTime(user.getLastLoginTime());
-            oldUser.setLastLoginIp(user.getLastLoginIp());
-            userService.updateById(oldUser);
+            if (StringUtils.isEmpty(oldUser.getUsername())) {
+                // 将微信注册用户的信息转移到旧的用户
+                LitemallUser user = userService.findById(userId);
+                userService.physicallyDeleteById(user.getId());
+                oldUser.setUsername(user.getUsername());
+                oldUser.setPassword(user.getPassword());
+                oldUser.setWeixinOpenid(user.getWeixinOpenid());
+                oldUser.setAvatar(user.getAvatar());
+                oldUser.setNickname(user.getNickname());
+                oldUser.setGender(user.getGender());
+                oldUser.setUserLevel(user.getUserLevel());
+                oldUser.setStatus(user.getStatus());
+                oldUser.setLastLoginTime(user.getLastLoginTime());
+                oldUser.setLastLoginIp(user.getLastLoginIp());
+                userService.updateById(oldUser);
+            }
         } else {
             LitemallUser user = userService.findById(userId);
             user.setMobile(phone);
